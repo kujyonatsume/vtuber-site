@@ -1,4 +1,3 @@
-<!-- pages/events/index.vue -->
 <template>
   <section class="mx-auto max-w-7xl py-10 space-y-10">
     <header class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
@@ -22,7 +21,7 @@
       </div>
       <div class="relative">
         <img
-          src="/event/hero.png"
+          src="/hero.png"
           alt="event"
           class="w-full rounded-3xl drop-shadow-2xl animate-float"
         />
@@ -48,6 +47,6 @@
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 const target = "2025-12-01T20:00:00+08:00";
 </script>

@@ -1,4 +1,3 @@
-<!-- pages/about.vue -->
 <template>
   <section class="mx-auto max-w-4xl py-10 space-y-6">
     <h1 class="text-3xl font-bold">關於</h1>

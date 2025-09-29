@@ -1,21 +1,58 @@
-// nuxt.config.ts
+import path from "path"
+
+const uploadDir = path.resolve('static')
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
-  nitro: {
-    preset: 'node-server',
-    storage: {
-      // 將 submissions 指到本機資料夾 ./.data/submissions
-      submissions: { driver: 'fs', base: './.data/submissions' }
-    }
-  },
   devtools: { enabled: true },
   tailwindcss: { viewer: false },
+  nitro: {
+    publicAssets: [
+      { baseURL: '/static', dir: uploadDir },
+    ],
+    storage: {
+      static: {
+        driver: "fs",
+        base: "./static",
+      }
+    },
+    esbuild: {
+      options: {
+        tsconfigRaw: {
+          compilerOptions: {
+            experimentalDecorators: true
+          }
+        },
+      },
+    },
+  },
+  runtimeConfig: {
+    sessionSecret: process.env.SESSION_SECRET,
+    oauth: {
+      google: {
+        clientId: process.env.OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: process.env.OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectUri: process.env.OAUTH_GOOGLE_REDIRECT,
+      },
+      discord: {
+        clientId: process.env.OAUTH_DISCORD_CLIENT_ID,
+        clientSecret: process.env.OAUTH_DISCORD_CLIENT_SECRET,
+        redirectUri: process.env.OAUTH_DISCORD_REDIRECT,
+      }
+    },
+    public: {
+      clientId: process.env.OAUTH_GOOGLE_CLIENT_ID,
+      uploadDir,
+      uploadBase: '/static'
+    }
+  },
   modules: [
     '@nuxt/devtools',
     '@nuxtjs/tailwindcss',
     '@vueuse/nuxt',
     'nuxt-twemoji',
     'vuetify-nuxt-module',
+    'dayjs-nuxt',
   ],
   build: {
     transpile: ['vuetify-sonner']
@@ -28,9 +65,7 @@ export default defineNuxtConfig({
         { name: 'theme-color', content: '#111827' },
         { name: 'description', content: 'VTuber 企劃：檔期、剪輯、關於與贊助合作' }
       ],
-      link: [
-        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }
-      ]
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
     }
   },
 })

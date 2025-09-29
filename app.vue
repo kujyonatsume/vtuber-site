@@ -1,4 +1,3 @@
-<!-- app.vue -->
 <template>
   <VApp>
     <ClientOnly><IntroSplash /></ClientOnly>
@@ -20,7 +19,7 @@
   </VApp>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 import { VSonner } from "vuetify-sonner";
 const year = new Date().getFullYear();
 </script>

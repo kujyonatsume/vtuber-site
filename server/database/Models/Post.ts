@@ -1,0 +1,19 @@
+import { Entity, Column, Index, ManyToOne, JoinColumn, IEntity } from '../Base'
+import { PostCategoryEnum, PostStatusEnum } from '../Enum'
+import { User } from './User'
+
+@Entity()
+export class Post extends IEntity {
+    @Column('text', { default: "匿名" }) displayname!: string
+    @Column('text', { default: PostCategoryEnum.Other }) category!: PostCategoryEnum
+    @Column('text') message!: string
+    @Column('text', { nullable: true }) assetUrl?: string
+    @Column('text', { default: PostStatusEnum.Pending }) status!: PostStatusEnum
+
+    @Index()
+    @Column('integer', { nullable: true }) authorId?: number
+
+    @ManyToOne(() => User, u => u.posts, { nullable: true, onDelete: 'SET NULL' })
+    @JoinColumn({ name: 'authorId' })
+    author?: User
+}

@@ -1,11 +1,15 @@
-//server/api/admin/moderate.post.ts
+import { PostStatusEnum } from '../../../server/database';
+import { requireRole } from '../../utils/acl';
 export default defineEventHandler(async (e) => {
-    const key = getHeader(e, 'x-key')
-    if (key !== process.env.MOD_KEY) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })
-    const body = await readBody<{ id: string; action: 'approve' | 'reject' }>(e)
-    const rec = await useStorage('assets:submissions').getItem<any>(`/${body.id}.json`)
-    if (!rec) throw createError({ statusCode: 404, statusMessage: 'not found' })
-    rec.status = body.action === 'approve' ? 'approved' : 'rejected'
-    await useStorage('assets:submissions').setItem(`/${body.id}.json`, rec)
-    return { ok: true }
-})
+    requireRole(e, 'admin')
+    const { id, action } = await readBody<{ id: number; action: 'approve' | 'reject' }>(e);
+    console.log(id, action);
+
+    const rec = await db.Post.findOneBy({ index: Number(id) });
+    if (!rec) throw createError({ statusCode: 404, statusMessage: 'not found' });
+    rec.status = action as PostStatusEnum;
+    await rec.save();
+    console.log(rec);
+
+    return { ok: true };
+});

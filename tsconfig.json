@@ -15,8 +15,6 @@
     "jsx": "react-native",
     "strict": false,
     "baseUrl": ".",
-    
   },
-  "extends": "./.nuxt/tsconfig.json",
-
+  "extends": "./.nuxt/tsconfig.json"
 }

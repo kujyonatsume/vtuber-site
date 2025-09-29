@@ -6,14 +6,14 @@
       aria-label="opening animation"
     >
       <div class="flex flex-col items-center gap-4">
-        <img src="/event/hero.png" alt="logo" />
+        <img src="/hero.png" alt="logo" />
         <p class="text-xl font-bold tracking-wide">VTuber Project</p>
       </div>
     </div>
   </Transition>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 const show = ref(true);
 const HOLD = 900; // 顯示停留毫秒
 const FADE = 450; // 淡入/淡出毫秒（需與 CSS 一致）

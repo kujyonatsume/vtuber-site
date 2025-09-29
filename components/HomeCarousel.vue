@@ -21,7 +21,7 @@
   </VCarousel>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 type Slide = { src: string; title: string; subtitle?: string };
 const props = withDefaults(
   defineProps<{

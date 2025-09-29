@@ -1,4 +1,3 @@
-<!-- pages/events/thanks.vue -->
 <template>
   <section class="mx-auto max-w-4xl py-10 space-y-6">
     <h1 class="text-3xl font-bold">感謝名單</h1>
@@ -18,7 +17,7 @@
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 const { data: sponsors } = await useFetch<
   { id: string; name: string; tier: string }[]
 >("/api/public/sponsors");

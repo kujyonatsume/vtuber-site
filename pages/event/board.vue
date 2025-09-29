@@ -1,4 +1,3 @@
-<!-- pages/events/broad.vue -->
 <template>
   <section class="mx-auto max-w-7xl py-10">
     <div class="flex items-center justify-between mb-6">
@@ -21,29 +20,14 @@
           class="mt-3 flex items-center justify-between text-xs text-neutral-400"
         >
           <span>{{ new Date(it.createdAt).toLocaleString() }}</span>
-          <VBtn
-            variant="text"
-            size="small"
-            :disabled="lock[it.id]"
-            @click="like(it.id)"
-            >❤️ {{ it.likes || 0 }}</VBtn
-          >
+
         </footer>
       </article>
     </div>
   </section>
 </template>
 
-<script setup lang="ts">
-const { data: list } = await useFetch<any[]>("/api/public/list");
-const lock = reactive<Record<string, boolean>>({});
-async function like(id: string) {
-  if (lock[id]) return;
-  lock[id] = true;
-  try {
-    await $fetch("/api/public/like", { method: "POST", body: { id } });
-  } finally {
-    lock[id] = false;
-  }
-}
+<script setup lang="tsx">
+const { data: list } = await useFetch("/api/public/list");
+
 </script>

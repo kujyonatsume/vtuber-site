@@ -1,4 +1,3 @@
-<!-- components\Countdown.vue -->
 <template>
   <div class="text-center space-y-2 animate-slideUp">
     <h2 class="text-xl font-bold">{{ title }}</h2>
@@ -10,7 +9,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 const props = defineProps<{ target: string | number | Date; title?: string }>();
 const title = computed(() => props.title ?? "活動倒數");
 const now = ref(Date.now());

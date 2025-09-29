@@ -1,4 +1,3 @@
-<!-- pages/index.vue -->
 <template>
   <section>
     <!-- 首頁輪播 -->
@@ -15,7 +14,11 @@
             投稿祝福、上傳作品，活動當天參與投票與抽選。
           </p>
           <div class="flex flex-wrap gap-3">
-            <NuxtLink to="/event/submit" class="btn-primary">我要投稿</NuxtLink>
+            <NuxtLink
+              to="/event/submit"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-100/10 hover:border-neutral-100/20"
+              >我要投稿</NuxtLink
+            >
             <NuxtLink
               to="/event/board"
               class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-100/10 hover:border-neutral-100/20"
@@ -35,11 +38,10 @@
         <ClipCard v-for="c in clips" :key="c.title" v-bind="c" />
       </div>
     </div>
-
   </section>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 const target = "2025-12-01T20:00:00+08:00"; // TODO: 改為實際日期
 
 const clips = [
@@ -63,33 +65,6 @@ const clips = [
     duration: "12:10",
     views: "15K",
     uploadedAt: "1 週前",
-  },
-];
-
-const schedule: SItem[] = [
-  {
-    id: "s1",
-    title: "合作實況",
-    date: "10/05",
-    time: "20:00",
-    platform: "YouTube",
-    desc: "與 XX 聯動合作",
-  },
-  {
-    id: "s2",
-    title: "技術直播",
-    date: "10/07",
-    time: "21:00",
-    platform: "Twitch",
-    desc: "Nuxt + Three.js 小實作",
-  },
-  {
-    id: "s3",
-    title: "歌回",
-    date: "10/10",
-    time: "19:30",
-    platform: "YouTube",
-    desc: "點歌互動",
   },
 ];
 </script>

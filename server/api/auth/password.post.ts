@@ -1,0 +1,15 @@
+import { hashPassword } from '../../utils/hash'
+
+export default defineEventHandler(async (event) => {
+    // @ts-ignore
+    const u = event.context.user as InstanceType<typeof db.User> | null
+    if (!u) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })
+
+    const { password } = await readBody<{ password?: string }>(event)
+    if (!password || password.length < 8) {
+        throw createError({ statusCode: 400, statusMessage: 'password too short' })
+    }
+    // 設定或重設
+    await db.User.update({ index: u.index }, { passwordHash: hashPassword(password) })
+    return { ok: true }
+})

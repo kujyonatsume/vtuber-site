@@ -1,4 +1,3 @@
-<!-- components\ClipCard.vue -->
 <template>
   <article class="card overflow-hidden group">
     <div class="aspect-video relative">
@@ -25,7 +24,7 @@
   </article>
 </template>
 
-<script setup lang="ts">
+<script setup lang="tsx">
 defineProps<{
   title: string;
   thumb: string;
