@@ -10,17 +10,16 @@
           <strong>{{ it.nickname }}</strong>
           <VChip size="x-small" color="primary">{{ it.category }}</VChip>
         </header>
-        <p class="text-sm text-neutral-300 mb-2">{{ it.message }}</p>
+        <p class="text-sm text-neutral-800 mb-2">{{ it.message }}</p>
         <img
           v-if="it.assetUrl"
           :src="it.assetUrl"
           class="rounded-lg object-cover max-h-56 w-full"
         />
         <footer
-          class="mt-3 flex items-center justify-between text-xs text-neutral-400"
+          class="mt-3 flex items-center justify-between text-xs text-neutral-600"
         >
           <span>{{ new Date(it.createdAt).toLocaleString() }}</span>
-
         </footer>
       </article>
     </div>
@@ -29,5 +28,4 @@
 
 <script setup lang="tsx">
 const { data: list } = await useFetch("/api/public/list");
-
 </script>

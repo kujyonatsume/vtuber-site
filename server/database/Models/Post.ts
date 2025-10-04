@@ -1,4 +1,5 @@
-import { Entity, Column, Index, ManyToOne, JoinColumn, IEntity } from '../Base'
+import { Entity, Column, Index, ManyToOne, JoinColumn, } from 'typeorm'
+import { IEntity } from '../Base'
 import { PostCategoryEnum, PostStatusEnum } from '../Enum'
 import { User } from './User'
 

@@ -2,9 +2,14 @@ import path from "path"
 
 const uploadDir = path.resolve('static')
 
+const host = process.env.NODE_ENV == "development" ? "http://localhost:3000" : "http://vtuber.natsumes.cc"
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  devServer: {
+    port:2053
+  },
   tailwindcss: { viewer: false },
   nitro: {
     publicAssets: [
@@ -13,7 +18,7 @@ export default defineNuxtConfig({
     storage: {
       static: {
         driver: "fs",
-        base: "./static",
+        base: uploadDir,
       }
     },
     esbuild: {
@@ -32,12 +37,12 @@ export default defineNuxtConfig({
       google: {
         clientId: process.env.OAUTH_GOOGLE_CLIENT_ID,
         clientSecret: process.env.OAUTH_GOOGLE_CLIENT_SECRET,
-        redirectUri: process.env.OAUTH_GOOGLE_REDIRECT,
+        redirectUri: host + process.env.OAUTH_GOOGLE_REDIRECT,
       },
       discord: {
         clientId: process.env.OAUTH_DISCORD_CLIENT_ID,
         clientSecret: process.env.OAUTH_DISCORD_CLIENT_SECRET,
-        redirectUri: process.env.OAUTH_DISCORD_REDIRECT,
+        redirectUri: host + process.env.OAUTH_DISCORD_REDIRECT,
       }
     },
     public: {

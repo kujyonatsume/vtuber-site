@@ -17,7 +17,7 @@
       >
         {{ title }}
       </h3>
-      <p class="text-sm text-neutral-400 mt-1">
+      <p class="text-sm text-neutral-600 mt-1">
         {{ views }} 觀看・{{ uploadedAt }}
       </p>
     </div>

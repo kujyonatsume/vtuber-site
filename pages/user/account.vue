@@ -10,7 +10,7 @@
         />
         <div>
           <div class="font-semibold">{{ user?.name || user?.email }}</div>
-          <div class="text-sm text-neutral-400">{{ user?.email }}</div>
+          <div class="text-sm text-neutral-600">{{ user?.email }}</div>
         </div>
       </div>
 
@@ -21,7 +21,7 @@
         <div class="card p-4 flex items-center justify-between">
           <div>
             <div class="font-medium">Google</div>
-            <div class="text-xs text-neutral-400">
+            <div class="text-xs text-neutral-600">
               {{ isLinked("google") ? "已綁定" : "未綁定" }}
             </div>
           </div>
@@ -47,7 +47,7 @@
         <div class="card p-4 flex items-center justify-between">
           <div>
             <div class="font-medium">Discord</div>
-            <div class="text-xs text-neutral-400">
+            <div class="text-xs text-neutral-600">
               {{ isLinked("discord") ? "已綁定" : "未綁定" }}
             </div>
           </div>

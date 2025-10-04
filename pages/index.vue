@@ -10,18 +10,18 @@
       <div class="card p-6 grid grid-cols-1 lg:grid-cols-3 gap-6 items-center">
         <div class="lg:col-span-2">
           <h2 class="text-2xl font-bold mb-2">周年／生日粉絲應援企劃</h2>
-          <p class="text-neutral-300 mb-4">
+          <p class="text-neutral-800 mb-4">
             投稿祝福、上傳作品，活動當天參與投票與抽選。
           </p>
           <div class="flex flex-wrap gap-3">
             <NuxtLink
               to="/event/submit"
-              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-100/10 hover:border-neutral-100/20"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-500/10 hover:border-neutral-500/20"
               >我要投稿</NuxtLink
             >
             <NuxtLink
               to="/event/board"
-              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-100/10 hover:border-neutral-100/20"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-500/10 hover:border-neutral-500/20"
               >祝福牆</NuxtLink
             >
           </div>

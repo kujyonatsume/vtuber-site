@@ -5,7 +5,7 @@
     :interval="interval"
     show-arrows
     hide-delimiter-background
-    class="rounded-3xl overflow-hidden border border-neutral-100/10"
+    class="rounded-3xl overflow-hidden border border-neutral-500/10"
   >
     <VCarouselItem v-for="(it, i) in items" :key="i">
       <div class="relative h-full w-full">
@@ -14,7 +14,7 @@
           class="absolute inset-x-0 bottom-0 p-4 sm:p-6 bg-gradient-to-t from-black/60 to-transparent"
         >
           <h3 class="text-lg sm:text-xl font-semibold">{{ it.title }}</h3>
-          <p class="text-sm text-neutral-300">{{ it.subtitle }}</p>
+          <p class="text-sm text-neutral-800">{{ it.subtitle }}</p>
         </div>
       </div>
     </VCarouselItem>

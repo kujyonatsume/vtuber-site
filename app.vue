@@ -10,9 +10,9 @@
         </NuxtLayout>
       </main>
       <footer
-        class="border-t border-neutral-100/10 py-6 text-center text-sm text-neutral-400"
+        class="border-t border-neutral-500/10 py-6 text-center text-sm text-neutral-600"
       >
-        © {{ year }} VTuber Project
+        © {{ year }} 九条夏目
       </footer>
     </div>
     <VSonner />

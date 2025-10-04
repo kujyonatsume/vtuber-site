@@ -2,14 +2,10 @@ import 'reflect-metadata'
 import { BaseEntity, DataSource } from 'typeorm'
 import * as models from '../database/Models'
 
-type GlobalWithORM = typeof globalThis & {
-    $typeorm?: DataSource
-    db?: typeof models
-}
-const g = globalThis as GlobalWithORM
+let typeorm: DataSource
 
 export async function initDB(): Promise<DataSource> {
-    if (g.$typeorm && g.$typeorm.isInitialized) return g.$typeorm
+    if (typeorm && typeorm.isInitialized) return typeorm
 
     const ds = new DataSource({
         type: 'better-sqlite3',
@@ -19,11 +15,11 @@ export async function initDB(): Promise<DataSource> {
         entities: Object.values(models),
     })
 
-    g.$typeorm = await ds.initialize()
-    BaseEntity.useDataSource(g.$typeorm)
+    typeorm = await ds.initialize()
+    BaseEntity.useDataSource(typeorm)
 
     // 讓 db.User / db.Post 使用 BaseEntity 靜態方法
-    g.db = models
+    global.db = models
 
-    return g.$typeorm
+    return typeorm
 }

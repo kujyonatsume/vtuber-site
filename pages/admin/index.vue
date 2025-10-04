@@ -2,7 +2,7 @@
   <section class="mx-auto max-w-7xl py-8 space-y-6">
     <header class="flex items-center justify-between">
       <h1 class="text-2xl font-bold">投稿審核</h1>
-      <div class="text-sm text-neutral-400">共 {{ total }} 筆</div>
+      <div class="text-sm text-neutral-600">共 {{ total }} 筆</div>
     </header>
 
     <div class="flex gap-2">
@@ -44,14 +44,14 @@
             <div class="font-semibold">
               {{ it.author?.name || it.author?.email || "匿名" }}
             </div>
-            <div class="text-xs text-neutral-400">
+            <div class="text-xs text-neutral-600">
               {{ new Date(it.createdAt).toLocaleString() }}
             </div>
           </div>
           <VChip size="x-small" color="primary">{{ it.category }}</VChip>
         </header>
 
-        <p class="text-sm text-neutral-300 whitespace-pre-line">
+        <p class="text-sm text-neutral-800 whitespace-pre-line">
           {{ it.message }}
         </p>
         <img
@@ -61,7 +61,7 @@
         />
 
         <footer class="flex items-center justify-between">
-          <div class="text-xs text-neutral-400">❤️ {{ it.likes }}</div>
+          <div class="text-xs text-neutral-600">❤️ {{ it.likes }}</div>
           <div class="flex gap-2">
             <VBtn
               v-if="tab !== 'approve'"
@@ -88,7 +88,7 @@
 
     <div class="flex items-center justify-center gap-2 pt-4">
       <VBtn :disabled="page <= 1" @click="page--">上一頁</VBtn>
-      <span class="text-sm text-neutral-400">第 {{ page }} 頁</span>
+      <span class="text-sm text-neutral-600">第 {{ page }} 頁</span>
       <VBtn :disabled="page >= maxPage" @click="page++">下一頁</VBtn>
     </div>
   </section>

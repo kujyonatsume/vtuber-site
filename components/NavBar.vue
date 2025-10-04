@@ -11,7 +11,7 @@ onMounted(() => {
 
 <template>
   <header
-    class="sticky top-0 z-40 bg-primary-900/80 backdrop-blur border-b border-neutral-100/10"
+    class="sticky top-0 z-40 bg-primary-900/80 backdrop-blur border-b border-neutral-500/10"
   >
     <div class="mx-auto max-w-7xl flex items-center justify-between py-3 px-4">
       <NuxtLink to="/" class="flex items-center gap-2 group">

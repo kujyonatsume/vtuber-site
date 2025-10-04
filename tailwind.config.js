@@ -8,9 +8,11 @@ export default {
     extend: {
       colors: {
         ...colors,
-        neutral: theme.neutral,
-        secondary: theme.secondary,
         primary: theme.primary,
+        secondary: theme.secondary,
+        neutral: theme.neutral,
+        background: theme.background,
+        surface: theme.surface,
       },
       keyframes: {
         slideUp: {
