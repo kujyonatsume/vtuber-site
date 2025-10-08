@@ -2,7 +2,11 @@
   <section class="mx-auto max-w-7xl py-10">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-bold">祝福牆</h1>
-      <NuxtLink to="/event/submit" class="btn-primary">我要投稿</NuxtLink>
+      <NuxtLink
+        to="/event/submit"
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white hover:bg-primary-700"
+        >我要投稿</NuxtLink
+      >
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       <article v-for="it in list" :key="it.id" class="card p-4 group">
@@ -17,7 +21,7 @@
           class="rounded-lg object-cover max-h-56 w-full"
         />
         <footer
-          class="mt-3 flex items-center justify-between text-xs text-neutral-600"
+          class="mt-3 flex items-center justify-between text-xs text-neutral-800"
         >
           <span>{{ new Date(it.createdAt).toLocaleString() }}</span>
         </footer>

@@ -1,76 +1,80 @@
-import path from "path"
+import path from "path";
 
-const uploadDir = path.resolve('static')
+const uploadDir = path.resolve("static");
+const { env } = process;
 
-const host = process.env.NODE_ENV == "development" ? "http://localhost:3000" : "http://vtuber.natsumes.cc"
+const host =
+  env.NODE_ENV == "development"
+    ? `http://localhost:${env.PORT}`
+    : `https://${env.DOMAIN}`;
 
 export default defineNuxtConfig({
-  compatibilityDate: '2025-07-15',
-  devtools: { enabled: true },
+  compatibilityDate: "2025-07-15",
   devServer: {
-    port:2053
+    port: Number(env.PORT),
   },
+  devtools: { enabled: true },
   tailwindcss: { viewer: false },
   nitro: {
-    publicAssets: [
-      { baseURL: '/static', dir: uploadDir },
-    ],
+    publicAssets: [{ baseURL: "/static", dir: uploadDir }],
     storage: {
       static: {
         driver: "fs",
         base: uploadDir,
-      }
+      },
     },
     esbuild: {
       options: {
         tsconfigRaw: {
           compilerOptions: {
-            experimentalDecorators: true
-          }
+            experimentalDecorators: true,
+          },
         },
       },
     },
   },
   runtimeConfig: {
-    sessionSecret: process.env.SESSION_SECRET,
+    sessionSecret: env.SESSION_SECRET,
     oauth: {
       google: {
-        clientId: process.env.OAUTH_GOOGLE_CLIENT_ID,
-        clientSecret: process.env.OAUTH_GOOGLE_CLIENT_SECRET,
-        redirectUri: host + process.env.OAUTH_GOOGLE_REDIRECT,
+        clientId: env.OAUTH_GOOGLE_CLIENT_ID,
+        clientSecret: env.OAUTH_GOOGLE_CLIENT_SECRET,
+        redirectUri: host + env.OAUTH_GOOGLE_REDIRECT,
       },
       discord: {
-        clientId: process.env.OAUTH_DISCORD_CLIENT_ID,
-        clientSecret: process.env.OAUTH_DISCORD_CLIENT_SECRET,
-        redirectUri: host + process.env.OAUTH_DISCORD_REDIRECT,
-      }
+        clientId: env.OAUTH_DISCORD_CLIENT_ID,
+        clientSecret: env.OAUTH_DISCORD_CLIENT_SECRET,
+        redirectUri: host + env.OAUTH_DISCORD_REDIRECT,
+      },
     },
     public: {
-      clientId: process.env.OAUTH_GOOGLE_CLIENT_ID,
+      clientId: env.OAUTH_GOOGLE_CLIENT_ID,
       uploadDir,
-      uploadBase: '/static'
-    }
+      uploadBase: "/static",
+    },
   },
   modules: [
-    '@nuxt/devtools',
-    '@nuxtjs/tailwindcss',
-    '@vueuse/nuxt',
-    'nuxt-twemoji',
-    'vuetify-nuxt-module',
-    'dayjs-nuxt',
+    "@nuxt/devtools",
+    "@nuxtjs/tailwindcss",
+    "@vueuse/nuxt",
+    "nuxt-twemoji",
+    "vuetify-nuxt-module",
   ],
   build: {
-    transpile: ['vuetify-sonner']
+    transpile: ["vuetify-sonner"],
   },
   app: {
     head: {
-      title: 'VTuber Project',
+      title: "VTuber Project",
       meta: [
-        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'theme-color', content: '#111827' },
-        { name: 'description', content: 'VTuber 企劃：檔期、剪輯、關於與贊助合作' }
+        { name: "viewport", content: "width=device-width, initial-scale=1" },
+        { name: "theme-color", content: "#111827" },
+        {
+          name: "description",
+          content: "VTuber 企劃：檔期、剪輯、關於與贊助合作",
+        },
       ],
-      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }]
-    }
+      link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
+    },
   },
-})
+});

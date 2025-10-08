@@ -9,13 +9,13 @@
         <div class="flex flex-wrap gap-3">
           <NuxtLink
             to="/event/submit"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-500/10 hover:border-neutral-500/20"
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-primary-600 text-white hover:bg-primary-700"
             >我要投稿</NuxtLink
           >
           <NuxtLink
             to="/event/board"
-            class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl border border-neutral-500/10 hover:border-neutral-500/20"
-            >看看祝福牆</NuxtLink
+            class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-secondary-600 text-white hover:bg-secondary-700"
+            >祝福牆</NuxtLink
           >
         </div>
       </div>
@@ -48,5 +48,5 @@
 </template>
 
 <script setup lang="tsx">
-const target = "2025-12-01T20:00:00+08:00";
+const target = "2025-12-27T00:00:00+08:00";
 </script>

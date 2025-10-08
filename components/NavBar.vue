@@ -11,7 +11,7 @@ onMounted(() => {
 
 <template>
   <header
-    class="sticky top-0 z-40 bg-primary-900/80 backdrop-blur border-b border-neutral-500/10"
+    class="sticky top-0 z-40 bg-secondary-50/90 backdrop-blur border-b border-neutral-300/60 text-primary-900"
   >
     <div class="mx-auto max-w-7xl flex items-center justify-between py-3 px-4">
       <NuxtLink to="/" class="flex items-center gap-2 group">
@@ -19,12 +19,11 @@ onMounted(() => {
         <span class="font-bold tracking-wide">VTuber Project</span>
       </NuxtLink>
 
-      <nav class="hidden md:flex items-center gap-6">
-        <NuxtLink to="/" class="hover:text-primary">首頁</NuxtLink>
-        <NuxtLink to="/event" class="hover:text-primary">活動</NuxtLink>
-
-        <NuxtLink to="/clips" class="hover:text-primary">剪輯</NuxtLink>
-        <NuxtLink to="/about" class="hover:text-primary">關於</NuxtLink>
+      <nav class="hidden md:flex items-center gap-6 text-primary-900">
+        <NuxtLink to="/" class="hover:text-primary-700">首頁</NuxtLink>
+        <NuxtLink to="/event" class="hover:text-primary-700">活動</NuxtLink>
+        <NuxtLink to="/clips" class="hover:text-primary-700">剪輯</NuxtLink>
+        <NuxtLink to="/about" class="hover:text-primary-700">關於</NuxtLink>
       </nav>
 
       <div class="flex items-center gap-2">
@@ -78,7 +77,7 @@ onMounted(() => {
     v-model="drawer"
     temporary
     location="right"
-    class="bg-neutral-900"
+    class="bg-secondary-50 text-primary-900"
   >
     <VList density="compact">
       <VListItem to="/" title="首頁" @click="drawer = false" />

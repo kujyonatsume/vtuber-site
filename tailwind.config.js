@@ -11,8 +11,6 @@ export default {
         primary: theme.primary,
         secondary: theme.secondary,
         neutral: theme.neutral,
-        background: theme.background,
-        surface: theme.surface,
       },
       keyframes: {
         slideUp: {

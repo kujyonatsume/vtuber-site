@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start":"node .output/server/index.mjs",
+    "start": "node start.js",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -19,9 +19,11 @@
     "dayjs-nuxt": "^2.1.11",
     "discord-oauth2": "^2.12.1",
     "discord.js": "^14.21.0",
+    "dotenv": "^17.2.3",
     "google-auth-library": "^10.2.0",
     "googleapis": "^155.0.0",
     "jose": "^6.0.12",
+    "node": "^24.9.0",
     "nuxt": "^3.17.7",
     "nuxt-twemoji": "^3.6.2",
     "reflect-metadata": "^0.2.2",
@@ -32,6 +34,7 @@
     "vuetify-sonner": "^0.3.20"
   },
   "devDependencies": {
+    "@types/ms": "^2.1.0",
     "vue3-google-login": "^2.0.33"
   }
 }

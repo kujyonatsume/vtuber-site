@@ -10,7 +10,7 @@
           class="flex items-center justify-between"
         >
           <span>{{ s.name }}</span>
-          <span class="text-sm text-neutral-600">{{ s.tier }}</span>
+          <span class="text-sm text-neutral-800">{{ s.tier }}</span>
         </li>
       </ul>
     </div>

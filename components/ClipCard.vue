@@ -1,35 +1,38 @@
 <template>
-  <article class="card overflow-hidden group">
-    <div class="aspect-video relative">
-      <img
+  <VCard
+    class="group overflow-hidden transition-all duration-300 hover:shadow-lg border border-neutral-300/60"
+    elevation="2"
+    rounded="lg"
+  >
+    <div class="relative">
+      <VImg
         :src="thumb"
         :alt="title"
-        class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-      />
-      <span
-        class="absolute bottom-2 right-2 rounded bg-neutral-900/60 text-neutral-50 text-xs px-2 py-0.5"
-        >{{ duration }}</span
+        aspect-ratio="16/9"
+        cover
+        class="transition duration-300 group-hover:scale-105"
       >
+        <template #placeholder>
+          <VProgressCircular indeterminate color="secondary" />
+        </template>
+      </VImg>
+
+      <!-- ✅ 固定右下角的時間標籤 -->
     </div>
-    <div class="p-4">
+
+    <VCardText class="bg-secondary-50">
       <h3
-        class="font-semibold line-clamp-2 group-hover:text-primary transition"
+        class="font-semibold line-clamp-2 text-primary-900 group-hover:text-primary-700 transition"
       >
         {{ title }}
       </h3>
-      <p class="text-sm text-neutral-600 mt-1">
-        {{ views }} 觀看・{{ uploadedAt }}
-      </p>
-    </div>
-  </article>
+    </VCardText>
+  </VCard>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 defineProps<{
   title: string;
   thumb: string;
-  duration: string;
-  views: string;
-  uploadedAt: string;
 }>();
 </script>

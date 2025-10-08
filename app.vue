@@ -1,7 +1,7 @@
 <template>
   <VApp>
     <ClientOnly><IntroSplash /></ClientOnly>
-    <div class="min-h-dvh flex flex-col">
+    <div class="min-h-dvh flex bg-secondary-100 text-primary-900 flex-col">
       <NavBar />
       <main class="flex-1">
         <NuxtLayout>
@@ -10,7 +10,7 @@
         </NuxtLayout>
       </main>
       <footer
-        class="border-t border-neutral-500/10 py-6 text-center text-sm text-neutral-600"
+        class="border-t border-neutral-300/60 py-6 text-center text-sm text-neutral-800"
       >
         © {{ year }} 九条夏目
       </footer>

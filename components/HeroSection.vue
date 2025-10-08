@@ -13,7 +13,7 @@
         <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
           Hello, 我是 <span class="text-brand">夏目</span> 👋
         </h1>
-        <p class="text-gray-300 leading-relaxed">
+        <p class="text-neutral-900 leading-relaxed">
           專注遊戲實況、技術分享與互動活動。追蹤行程、觀看精華剪輯，或與我合作。
         </p>
         <div class="flex flex-wrap gap-3">
