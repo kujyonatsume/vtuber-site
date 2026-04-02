@@ -54,7 +54,7 @@
             <th class="px-4 py-3">ID</th>
             <th class="px-4 py-3">使用者</th>
             <th class="px-4 py-3">目前角色</th>
-            <th class="px-4 py-3">登入來源</th>
+            <th class="px-4 py-3">綁定來源</th>
             <th class="px-4 py-3">最後登入</th>
             <th class="px-4 py-3 text-right">操作</th>
           </tr>
@@ -77,9 +77,6 @@
             </td>
             <td class="px-4 py-3">
               <div class="flex flex-wrap gap-1">
-                <VChip size="x-small" variant="outlined">
-                  {{ it.provider }}
-                </VChip>
                 <VChip
                   v-for="p in it.linked"
                   :key="`${it.id}-${p}`"
@@ -89,6 +86,7 @@
                 >
                   {{ p }}
                 </VChip>
+                <span v-if="!it.linked.length" class="text-xs text-neutral-800">未綁定</span>
               </div>
             </td>
             <td class="px-4 py-3 text-xs text-neutral-800">
@@ -140,7 +138,6 @@ type Item = {
   email: string;
   name?: string | null;
   role: Role;
-  provider: string;
   linked: string[];
   lastLoginAt?: string | null;
 };

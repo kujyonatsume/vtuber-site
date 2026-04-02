@@ -1,6 +1,6 @@
 import { Entity, Column, Generated, Index, OneToMany, OneToOne } from "typeorm"
 import { IEntity } from "../Base"
-import { ProviderEnum, RoleEnum } from "../Enum"
+import { RoleEnum } from "../Enum"
 import { Post } from "./Post"
 import { Session } from "./Session"
 import { SocialAccount } from "./SocialAccount"
@@ -17,9 +17,6 @@ export class User extends IEntity {
 
     @Column('text', { nullable: true })
     passwordHash?: string
-
-    @Column('text', { default: ProviderEnum.Credentials })
-    provider!: ProviderEnum
 
     @Column('text', { default: RoleEnum.User })
     role!: RoleEnum

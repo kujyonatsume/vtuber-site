@@ -129,6 +129,8 @@
 </template>
 
 <script setup lang="tsx">
+const route = useRoute();
+
 const email = ref("");
 const password = ref("");
 const name = ref("");
@@ -163,8 +165,20 @@ async function submit() {
         },
       });
     }
-    const { next } = useRoute().params;
-    await navigateTo(next as string);
+    const rawNext = Array.isArray(route.query.next)
+      ? route.query.next[0]
+      : route.query.next;
+    const nextValue = typeof rawNext === "string" ? rawNext.trim() : "";
+    let target = "/";
+    if (nextValue) {
+      try {
+        const decoded = decodeURIComponent(nextValue);
+        target = decoded.startsWith("/") ? decoded : "/";
+      } catch {
+        target = nextValue.startsWith("/") ? nextValue : "/";
+      }
+    }
+    await navigateTo(target);
   } catch (e: any) {
     error.value = e?.data?.message || e?.message || "操作失敗";
   } finally {

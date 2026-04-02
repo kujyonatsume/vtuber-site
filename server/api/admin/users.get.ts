@@ -49,7 +49,6 @@ export default defineEventHandler(async (e) => {
       name: u.name,
       avatar: u.avatar,
       role: u.role,
-      provider: u.provider,
       createdAt: u.createdAt,
       lastLoginAt: u.lastLoginAt,
       linked: [...new Set((u.socialAccounts || []).map((sa) => sa.provider))],

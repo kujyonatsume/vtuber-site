@@ -36,7 +36,6 @@ export default defineEventHandler(async (event) => {
   if (!u) {
     u = db.User.create({
       email,
-      provider: ProviderEnum.Discord,
       name: global_name || username || '',
       avatar: avatar ? `https://cdn.discordapp.com/avatars/${did}/${avatar}.png` : '',
       lastLoginAt: new Date(),

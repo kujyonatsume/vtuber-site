@@ -35,7 +35,6 @@ export default defineEventHandler(async (event) => {
   if (!u) {
     u = db.User.create({
       email: data.email!,
-      provider: ProviderEnum.Google,
       name: data.name || data.given_name || '',
       avatar: data.picture || '',
       lastLoginAt: new Date(),

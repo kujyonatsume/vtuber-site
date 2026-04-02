@@ -4,7 +4,6 @@ interface IApiUser {
     name: string;
     avatar: string;
     role: string;
-    provider: string;
     hasPassword: boolean;
     linked: string[];
 }

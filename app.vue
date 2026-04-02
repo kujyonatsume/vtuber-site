@@ -1,7 +1,7 @@
 <template>
   <VApp>
     <ClientOnly><IntroSplash /></ClientOnly>
-    <div class="min-h-dvh flex flex-col text-primary-900">
+    <div class="flex flex-col min-h-dvh text-primary-900">
       <NavBar v-if="showGlobalChrome" />
       <main class="flex-1">
         <NuxtLayout>
@@ -11,9 +11,10 @@
       </main>
       <footer
         v-if="showGlobalChrome"
-        class="border-t border-neutral-300/60 bg-white/70 py-6 text-center text-sm text-neutral-800 backdrop-blur"
+        class="py-6 text-sm text-center border-t border-neutral-300/60 bg-white/70 text-neutral-800 backdrop-blur"
       >
         © {{ year }} 九条夏目
+        
       </footer>
     </div>
     <VSonner />

@@ -7,7 +7,7 @@ export default defineEventHandler(async (event) => {
         relations: ['socialAccounts'],
     })
     if (!full) return
-    const { index, email, name, avatar, role, provider, passwordHash, socialAccounts } = full
+    const { index, email, name, avatar, role, passwordHash, socialAccounts } = full
     const linked = (socialAccounts || []).map(s => s.provider)
-    return { index, email, name, avatar, role, provider, hasPassword: !!passwordHash, linked }
+    return { index, email, name, avatar, role, hasPassword: !!passwordHash, linked }
 })
