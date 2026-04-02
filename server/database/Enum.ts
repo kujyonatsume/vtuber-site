@@ -6,8 +6,8 @@ export enum ProviderEnum {
 
 export enum RoleEnum {
     Owner = 'owner',
-    Developer = 'developer',
     Admin = 'admin',
+    Member = 'member',
     User = 'user',
 }
 

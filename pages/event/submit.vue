@@ -1,8 +1,8 @@
 <template>
-  <section class="mx-auto max-w-3xl py-10">
-    <h1 class="text-3xl font-bold mb-6">我要投稿</h1>
-    <form class="card p-6 space-y-4" @submit.prevent="submit">
-      <VCheckbox v-model="form.isnick" :label="'匿名'" required />
+  <section class="max-w-3xl mx-auto section-shell">
+    <h1 class="mb-6 text-3xl font-bold">我要投稿</h1>
+    <form class="p-6 space-y-4 card" @submit.prevent="submit">
+      <VCheckbox v-model="form.isnick" :label="'匿名'" />
       <VTextField
         v-model="form.displayname"
         label="暱稱"
@@ -31,13 +31,13 @@
         v-model="form.videoUrl"
         label="影片連結（YouTube/X 可擇一）"
       />
-      <div class="mx-auto max-w-3xl py-10 space-y-6">
+      <div class="max-w-3xl py-10 mx-auto space-y-6">
         <h1 class="text-3xl font-bold">投稿規範與授權聲明</h1>
-        <ol class="list-decimal pl-6 space-y-2 text-neutral-800">
+        <ol class="pl-6 space-y-2 list-decimal text-neutral-800">
           <li>僅上傳本人原創或已取得授權之作品；若為 AI 生成須明確標註。</li>
           <li>禁止個資、攻擊、仇恨、未成年不宜內容；違者刪除且取消資格。</li>
           <li>授權主催於本企劃中非商用展示與合輯收錄，並保留作者署名。</li>
-          <li>截稿：活動日前 1 天 23:59（UTC+8）。</li>
+          <li>截稿：活動日前 1 天。</li>
         </ol>
       </div>
       <VCheckbox

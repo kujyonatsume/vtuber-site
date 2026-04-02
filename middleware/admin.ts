@@ -3,5 +3,6 @@ export default defineNuxtRouteMiddleware(async () => {
     const { user, loading, refresh } = useAuth()
     if (!user.value && !loading.value) await refresh()
     if (!user.value) return navigateTo('/login?next=' + encodeURIComponent(location.pathname + location.search))
-    if (user.value.role === 'user') return navigateTo('/') // 只有 admin/developer/owner 允許
+    const allow = ['owner', 'admin', 'member'] as const
+    if (!allow.includes(user.value.role as any)) return navigateTo('/')
 })

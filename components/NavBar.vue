@@ -11,19 +11,43 @@ onMounted(() => {
 
 <template>
   <header
-    class="sticky top-0 z-40 bg-secondary-50/90 backdrop-blur border-b border-neutral-300/60 text-primary-900"
+    class="sticky top-0 z-40 border-b border-neutral-300/70 bg-white/80 text-primary-900 backdrop-blur"
   >
-    <div class="mx-auto max-w-7xl flex items-center justify-between py-3 px-4">
+    <div class="flex items-center justify-between py-3 layout-container">
       <NuxtLink to="/" class="flex items-center gap-2 group">
-        <img src="/favicon.ico" alt="logo" class="h-8 w-8 animate-float" />
+        <img src="/favicon.ico" alt="logo" class="w-8 h-8 animate-float" />
         <span class="font-bold tracking-wide">VTuber Project</span>
       </NuxtLink>
 
-      <nav class="hidden md:flex items-center gap-6 text-primary-900">
-        <NuxtLink to="/" class="hover:text-primary-700">首頁</NuxtLink>
-        <NuxtLink to="/event" class="hover:text-primary-700">活動</NuxtLink>
-        <NuxtLink to="/clips" class="hover:text-primary-700">剪輯</NuxtLink>
-        <NuxtLink to="/about" class="hover:text-primary-700">關於</NuxtLink>
+      <nav class="items-center hidden gap-2 text-sm text-primary-900 md:flex">
+        <NuxtLink
+          to="/"
+          class="rounded-full px-3 py-1.5 hover:bg-secondary-100/80"
+          active-class="font-semibold text-primary-700"
+        >
+          首頁
+        </NuxtLink>
+        <NuxtLink
+          to="/event"
+          class="rounded-full px-3 py-1.5 hover:bg-secondary-100/80"
+          active-class="font-semibold text-primary-700"
+        >
+          活動
+        </NuxtLink>
+        <NuxtLink
+          to="/clips"
+          class="rounded-full px-3 py-1.5 hover:bg-secondary-100/80"
+          active-class="font-semibold text-primary-700"
+        >
+          剪輯
+        </NuxtLink>
+        <NuxtLink
+          to="/about"
+          class="rounded-full px-3 py-1.5 hover:bg-secondary-100/80"
+          active-class="font-semibold text-primary-700"
+        >
+          關於
+        </NuxtLink>
       </nav>
 
       <div class="flex items-center gap-2">
@@ -39,10 +63,10 @@ onMounted(() => {
               <VBtn v-bind="props" variant="text" class="px-2">
                 <img
                   :src="user.avatar || '/favicon.ico'"
-                  class="h-8 w-8 rounded-full object-cover"
+                  class="object-cover w-8 h-8 rounded-full"
                   alt="avatar"
                 />
-                <span class="ml-2 hidden sm:inline">{{
+                <span class="hidden ml-2 sm:inline">{{
                   user.name || user.email
                 }}</span>
                 <VChip
@@ -59,6 +83,11 @@ onMounted(() => {
               <VDivider />
               <VListItem to="/event/submit" title="我要投稿" />
               <VListItem v-if="user.role != 'user'" to="/admin" title="後台" />
+              <VListItem
+                v-if="user.role != 'user'"
+                to="/admin/users"
+                title="使用者管理"
+              />
               <VListItem to="/user/account" title="帳號設定" />
               <VDivider />
               <VListItem title="登出" @click="logout()" />
@@ -73,12 +102,7 @@ onMounted(() => {
     </div>
   </header>
 
-  <VNavigationDrawer
-    v-model="drawer"
-    temporary
-    location="right"
-    class="bg-secondary-50 text-primary-900"
-  >
+  <VNavigationDrawer v-model="drawer" temporary location="right" class="bg-white text-primary-900">
     <VList density="compact">
       <VListItem to="/" title="首頁" @click="drawer = false" />
       <VListItem to="/event" title="活動" @click="drawer = false" />
@@ -98,8 +122,14 @@ onMounted(() => {
         <VListItem :title="user.email" />
         <VListItem
           v-if="user.role != 'user'"
-          to="/admin"
-          title="後台"
+          to="/admin/contribute"
+          title="投稿審核"
+          @click="drawer = false"
+        />
+        <VListItem
+          v-if="user.role != 'user'"
+          to="/admin/users"
+          title="使用者管理"
           @click="drawer = false"
         />
         <VListItem

@@ -16,6 +16,47 @@
 
       <VDivider class="my-2" />
 
+      <h2 class="font-semibold">基本資料</h2>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
+        <img
+          :src="user?.avatar || '/favicon.ico'"
+          class="h-16 w-16 rounded-full object-cover border border-neutral-300/70"
+        />
+        <div class="space-y-3">
+          <VTextField
+            v-model="profileName"
+            label="顯示名稱"
+            density="comfortable"
+            hide-details
+            :disabled="savingProfile"
+            maxlength="40"
+            counter="40"
+          />
+          <VFileInput
+            v-model="avatarFile"
+            label="頭貼（可選）"
+            density="comfortable"
+            hide-details
+            prepend-icon="mdi-image-outline"
+            accept="image/*"
+            :disabled="savingProfile"
+          />
+          <div class="flex items-center gap-2">
+            <VBtn
+              color="primary"
+              rounded="lg"
+              :loading="savingProfile"
+              @click="saveProfile"
+            >
+              儲存基本資料
+            </VBtn>
+            <span class="text-xs text-neutral-800">支援圖片，大小上限 5MB</span>
+          </div>
+        </div>
+      </div>
+
+      <VDivider class="my-2" />
+
       <h2 class="font-semibold">社群綁定</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div class="card p-4 flex items-center justify-between">
@@ -71,6 +112,113 @@
         </div>
       </div>
     </div>
+
+    <div class="card p-6 space-y-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 class="font-semibold">我的貼文紀錄</h2>
+        <div class="flex items-center gap-2 text-sm text-neutral-800">
+          <span>共 {{ postTotal }} 筆</span>
+          <VBtn
+            variant="text"
+            size="small"
+            :loading="postsPending"
+            @click="refreshPosts"
+          >
+            重新整理
+          </VBtn>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <VSelect
+          v-model="postStatus"
+          :items="postStatusItems"
+          label="狀態篩選"
+          density="comfortable"
+          hide-details
+          style="max-width: 220px"
+        />
+      </div>
+
+      <div class="space-y-3">
+        <article
+          v-for="post in myPosts"
+          :key="post.id"
+          class="card p-4"
+        >
+          <header class="mb-2 flex flex-wrap items-center justify-between gap-2">
+            <div class="text-sm text-neutral-800">
+              {{ new Date(post.createdAt).toLocaleString() }}
+            </div>
+            <div class="flex items-center gap-2">
+              <VChip size="x-small" color="primary">{{ post.category }}</VChip>
+              <VChip size="x-small" :color="statusColor(post.status)" variant="tonal">
+                {{ statusText(post.status) }}
+              </VChip>
+            </div>
+          </header>
+
+          <div class="space-y-1">
+            <p class="text-sm leading-relaxed text-neutral-900 whitespace-pre-line">
+              {{
+                isPostExpanded(post.id)
+                  ? fullText(post.message)
+                  : excerpt(post.message)
+              }}
+            </p>
+            <VBtn
+              v-if="hasLongContent(post.message)"
+              variant="text"
+              size="x-small"
+              class="px-0"
+              @click="togglePostExpanded(post.id)"
+            >
+              {{ isPostExpanded(post.id) ? "收合內文" : "查看完整內文" }}
+            </VBtn>
+          </div>
+
+          <img
+            v-if="isLikelyImage(post.assetUrl)"
+            :src="post.assetUrl || ''"
+            class="mt-3 max-h-56 w-full rounded-lg object-cover"
+          />
+          <a
+            v-else-if="post.assetUrl"
+            :href="post.assetUrl"
+            target="_blank"
+            class="mt-3 inline-flex text-sm text-primary-700 hover:underline"
+          >
+            查看附件
+          </a>
+
+          <footer class="mt-3 flex items-center justify-end">
+            <VBtn
+              v-if="canWithdraw(post.status)"
+              size="small"
+              color="red"
+              variant="tonal"
+              :loading="withdrawingId === post.id"
+              @click="withdrawPost(post.id)"
+            >
+              撤回投稿
+            </VBtn>
+          </footer>
+        </article>
+
+        <p
+          v-if="!postsPending && !myPosts.length"
+          class="rounded-lg border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-700"
+        >
+          目前沒有貼文紀錄
+        </p>
+      </div>
+
+      <div class="flex items-center justify-center gap-2 pt-2">
+        <VBtn :disabled="postPage <= 1" @click="postPage--">上一頁</VBtn>
+        <span class="text-sm text-neutral-800">第 {{ postPage }} 頁 / 共 {{ postMaxPage }} 頁</span>
+        <VBtn :disabled="postPage >= postMaxPage" @click="postPage++">下一頁</VBtn>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -79,11 +227,62 @@ import { toast } from "vuetify-sonner";
 definePageMeta({ middleware: "auth" });
 
 const { user, refresh } = useAuth();
+const profileName = ref("");
+const avatarFile = ref<File | File[] | null>(null);
+const savingProfile = ref(false);
+const postStatus = ref<"all" | "pending" | "approve" | "reject">("all");
+const postPage = ref(1);
+const postPageSize = ref(10);
+const withdrawingId = ref<number | null>(null);
+const expandedPostIds = ref<number[]>([]);
 
 const linked = computed(() => user.value?.linked);
+const postStatusItems = [
+  { title: "全部", value: "all" },
+  { title: "待審", value: "pending" },
+  { title: "通過", value: "approve" },
+  { title: "退回", value: "reject" },
+];
+
+type MyPost = {
+  id: number;
+  category: string;
+  message: string;
+  assetUrl?: string | null;
+  status: "pending" | "approve" | "reject";
+  createdAt: string;
+};
+
+const { data: postsData, pending: postsPending, refresh: refreshPosts } = await useFetch(
+  "/api/auth/posts",
+  {
+    server: false,
+    query: computed(() => ({
+      status: postStatus.value,
+      page: postPage.value,
+      pageSize: postPageSize.value,
+    })),
+    watch: [postStatus, postPage, postPageSize],
+  }
+);
+
+const myPosts = computed<MyPost[]>(() => (postsData.value?.items || []) as MyPost[]);
+const postTotal = computed(() => Number(postsData.value?.total || 0));
+const postMaxPage = computed(() => Math.max(1, Math.ceil(postTotal.value / postPageSize.value)));
+
+watch(
+  () => user.value?.name,
+  (name) => {
+    profileName.value = name || "";
+  },
+  { immediate: true }
+);
+watch(postStatus, () => {
+  postPage.value = 1;
+});
 
 function isLinked(p: "google" | "discord") {
-  return linked.value.some((x) => x === p);
+  return (linked.value || []).some((x) => x === p);
 }
 
 async function link(p: "google" | "discord") {
@@ -98,5 +297,120 @@ async function unlink(p: "google" | "discord") {
   await $fetch(`/api/auth/unlink/${p}`, { method: "POST" });
   await refresh();
   toast.success("已解除綁定");
+}
+
+async function saveProfile() {
+  const name = profileName.value.trim();
+  if (!name) {
+    toast.error("請輸入顯示名稱");
+    return;
+  }
+
+  savingProfile.value = true;
+  try {
+    const file = Array.isArray(avatarFile.value)
+      ? avatarFile.value[0]
+      : avatarFile.value;
+
+    const form = new FormData();
+    form.append("name", name);
+    if (file) form.append("avatar", file);
+
+    await $fetch("/api/auth/profile", {
+      method: "POST",
+      body: form,
+    });
+
+    await refresh();
+    avatarFile.value = null;
+    toast.success("基本資料已更新");
+  } catch (e: any) {
+    toast.error(e?.data?.statusMessage || e?.message || "更新失敗");
+  } finally {
+    savingProfile.value = false;
+  }
+}
+
+function statusText(status: MyPost["status"]) {
+  if (status === "approve") return "已通過";
+  if (status === "reject") return "已退回";
+  return "待審核";
+}
+
+function statusColor(status: MyPost["status"]) {
+  if (status === "approve") return "green";
+  if (status === "reject") return "red";
+  return "amber";
+}
+
+function excerpt(message: string) {
+  const text = normalizeText(message);
+  if (!text) return "（無內文）";
+  return text.length > 180 ? `${text.slice(0, 180)}...` : text;
+}
+
+function fullText(message: string) {
+  const text = (message || "").trim();
+  return text || "（無內文）";
+}
+
+function normalizeText(message: string) {
+  return (message || "").replace(/\s+/g, " ").trim();
+}
+
+function hasLongContent(message: string) {
+  return normalizeText(message).length > 180;
+}
+
+function isPostExpanded(id: number) {
+  return expandedPostIds.value.includes(id);
+}
+
+function togglePostExpanded(id: number) {
+  if (isPostExpanded(id)) {
+    expandedPostIds.value = expandedPostIds.value.filter((x) => x !== id);
+    return;
+  }
+  expandedPostIds.value = [...expandedPostIds.value, id];
+}
+
+function canWithdraw(status: MyPost["status"]) {
+  return status === "pending" || status === "reject";
+}
+
+async function withdrawPost(id: number) {
+  if (
+    import.meta.client &&
+    !window.confirm("確定要撤回這筆投稿嗎？撤回後將無法復原。")
+  ) {
+    return;
+  }
+
+  withdrawingId.value = id;
+  try {
+    await $fetch("/api/auth/posts/withdraw", {
+      method: "POST",
+      body: { id },
+    });
+    expandedPostIds.value = expandedPostIds.value.filter((x) => x !== id);
+    toast.success("已撤回投稿");
+
+    await refreshPosts();
+    if (!myPosts.value.length && postPage.value > 1) {
+      postPage.value -= 1;
+      await refreshPosts();
+    }
+  } catch (e: any) {
+    toast.error(e?.data?.statusMessage || e?.message || "撤回失敗");
+  } finally {
+    withdrawingId.value = null;
+  }
+}
+
+function isLikelyImage(url?: string | null) {
+  if (!url) return false;
+  if (url.startsWith("/static/")) return true;
+  const clean = url.split("?")[0].toLowerCase();
+  return /\.(png|jpe?g|gif|webp|avif|svg)$/.test(clean);
 }
 </script>

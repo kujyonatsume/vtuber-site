@@ -9,7 +9,7 @@
     <div
       class="mx-auto max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10 items-center"
     >
-      <div class="space-y-6 animate-slideUp">
+      <div class="space-y-6 reveal-up">
         <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
           Hello, 我是 <span class="text-brand">夏目</span> 👋
         </h1>

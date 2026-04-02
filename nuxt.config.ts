@@ -16,7 +16,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   tailwindcss: {
     viewer: false,
-    cssPath: "~/assets/scss/tailwind.scss",
+    cssPath: "~/assets/css/tailwind.scss",
   },
   nitro: {
     publicAssets: [{ baseURL: "/static", dir: uploadDir }],
@@ -68,6 +68,8 @@ export default defineNuxtConfig({
     transpile: ["vuetify-sonner"],
   },
   app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "layout", mode: "out-in" },
     head: {
       title: "VTuber Project",
       meta: [
