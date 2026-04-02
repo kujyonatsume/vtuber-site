@@ -9,7 +9,6 @@
   </div>
 </template>
 <script setup lang="tsx">
-import ms from 'ms'
 defineProps<{ title?: string }>();
 const end = new Date("2025/12/27").getTime()
 

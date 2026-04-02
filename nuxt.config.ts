@@ -14,7 +14,10 @@ export default defineNuxtConfig({
     port: Number(env.PORT),
   },
   devtools: { enabled: true },
-  tailwindcss: { viewer: false },
+  tailwindcss: {
+    viewer: false,
+    cssPath: "~/assets/scss/tailwind.scss",
+  },
   nitro: {
     publicAssets: [{ baseURL: "/static", dir: uploadDir }],
     storage: {
@@ -59,6 +62,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "nuxt-twemoji",
     "vuetify-nuxt-module",
+    "@hypernym/nuxt-anime",
   ],
   build: {
     transpile: ["vuetify-sonner"],
