@@ -1,8 +1,8 @@
 <template>
-  <section class="mx-auto max-w-4xl py-10 space-y-6">
+  <section class="section-shell mx-auto max-w-4xl space-y-6">
     <h1 class="text-3xl font-bold">感謝名單</h1>
     <p class="text-neutral-800">感謝所有協力者與贊助者（依時間序）。</p>
-    <div class="card p-6">
+    <div class="card card-hover p-6">
       <ul class="space-y-2">
         <li
           v-for="s in sponsors"

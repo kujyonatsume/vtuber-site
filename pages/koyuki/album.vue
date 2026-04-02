@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const mode = useLocalStorage("mode", "cute");
+const { mode, isCute } = useKoyukiMode();
 
 const cards = [
   {
@@ -38,21 +38,21 @@ const cards = [
       <header class="mb-16 text-center">
         <p
           class="mb-3 text-sm tracking-[0.2em]"
-          :class="mode === 'cute' ? 'text-emerald-500' : 'text-red-400'"
+          :class="isCute ? 'text-emerald-500' : 'text-red-400'"
         >
           GALLERY
         </p>
 
         <h1
           class="mb-4 text-4xl font-bold md:text-5xl"
-          :class="mode === 'cute' ? 'text-slate-900' : 'text-red-100'"
+          :class="isCute ? 'text-slate-900' : 'text-red-100'"
         >
           雪KOYUKI Visual Archive
         </h1>
 
         <p
           class="max-w-2xl mx-auto"
-          :class="mode === 'cute' ? 'text-slate-600' : 'text-red-200/70'"
+          :class="isCute ? 'text-slate-600' : 'text-red-200/70'"
         >
           向下滾動頁面，卡片進入視窗時會自動觸發彈跳進場動畫。
         </p>
@@ -63,9 +63,10 @@ const cards = [
         <ScrollBounceCard
           v-for="item in cards"
           :key="item.id"
+          :mode="mode"
           class="p-8 transition border shadow-sm rounded-2xl min-h-[280px]"
           :class="
-            mode === 'cute'
+            isCute
               ? 'bg-white border-slate-200'
               : 'bg-black/60 border-red-900 text-red-100'
           "
@@ -73,7 +74,7 @@ const cards = [
           <!-- Tag -->
           <div
             class="inline-flex px-3 py-1 mb-4 text-xs font-semibold text-white rounded-full"
-            :class="mode === 'cute' ? 'bg-slate-900' : 'bg-red-900'"
+            :class="isCute ? 'bg-slate-900' : 'bg-red-900'"
           >
             {{ item.tag }}
           </div>
@@ -85,7 +86,7 @@ const cards = [
 
           <!-- Description -->
           <p
-            :class="mode === 'cute'
+            :class="isCute
               ? 'text-slate-600'
               : 'text-red-200/70'"
           >
@@ -96,7 +97,7 @@ const cards = [
           <div
             class="mt-8 rounded-xl aspect-[16/9]"
             :class="
-              mode === 'cute'
+              isCute
                 ? 'bg-gradient-to-br from-green-100 to-white'
                 : 'bg-gradient-to-br from-black to-red-900'
             "

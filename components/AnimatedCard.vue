@@ -1,153 +1,118 @@
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount, watch } from "vue";
+import { onBeforeUnmount, onMounted } from "vue";
+import type { KoyukiMode } from "~/composables/useKoyukiMode";
 
-const props = defineProps({
-  mode: {
-    type: String,
-    default: "cute",
-  },
-});
+const props = withDefaults(
+  defineProps<{
+    mode?: KoyukiMode;
+    threshold?: number;
+    once?: boolean;
+  }>(),
+  {
+    mode: "cute",
+    threshold: 0.25,
+    once: false,
+  }
+);
 
-const el = ref<HTMLElement>();
+const el = ref<HTMLElement | null>(null);
 const show = ref(false);
-const animating = ref(false);
+let observer: IntersectionObserver | null = null;
 
-let ticking = false;
-
-function checkVisibility() {
-  if (!el.value) return;
-
-  const rect = el.value.getBoundingClientRect();
-  const vh = window.innerHeight;
-
-  const completelyOutside =
-    rect.bottom <= 0 || rect.top >= vh;
-
-  if (completelyOutside) {
-    show.value = false;
-    animating.value = false;
-    return;
-  }
-
-  if (animating.value) return;
-
-  show.value = true;
+function restartAnimation() {
+  if (!show.value) return;
+  show.value = false;
+  requestAnimationFrame(() => {
+    show.value = true;
+  });
 }
 
-function onScroll() {
-  if (!ticking) {
-    requestAnimationFrame(() => {
-      checkVisibility();
-      ticking = false;
-    });
-    ticking = true;
+watch(
+  () => props.mode,
+  () => {
+    restartAnimation();
   }
-}
+);
 
 onMounted(() => {
   if (!el.value) return;
 
-  window.addEventListener("scroll", onScroll);
-  window.addEventListener("resize", checkVisibility);
+  if (!("IntersectionObserver" in window)) {
+    show.value = true;
+    return;
+  }
 
-  el.value.addEventListener("animationstart", () => {
-    animating.value = true;
-  });
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        show.value = true;
+        if (props.once) observer?.disconnect();
+        return;
+      }
 
-  el.value.addEventListener("animationend", () => {
-    animating.value = false;
-  });
+      if (!props.once) show.value = false;
+    },
+    {
+      threshold: props.threshold,
+      rootMargin: "0px 0px -8% 0px",
+    }
+  );
 
-  checkVisibility(); // 初始化判斷
+  observer.observe(el.value);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", onScroll);
-  window.removeEventListener("resize", checkVisibility);
+  observer?.disconnect();
 });
-
-/* 切模式時重播 */
-watch(
-  () => props.mode,
-  () => {
-    if (show.value && !animating.value) {
-      show.value = false;
-      requestAnimationFrame(() => {
-        show.value = true;
-      });
-    }
-  }
-);
 </script>
 
 <template>
-  <div ref="el" class="card" :class="[show ? 'show' : '', mode]">
+  <div ref="el" class="animated-card" :class="[mode, show ? 'is-visible' : '']">
     <slot />
   </div>
 </template>
 
 <style scoped lang="scss">
-.card {
+.animated-card {
   opacity: 0;
-  transform: translateY(60px);
+  transition: opacity 0.26s ease, transform 0.26s ease;
+  will-change: transform, opacity;
 }
 
-/* =========================
-   可愛模式動畫
-========================= */
-
-.card.cute.show {
-  animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+.animated-card.cute {
+  transform: translateY(54px) scale(0.94);
 }
 
-.card.cute:not(.show) {
-  animation: bounceOut 0.5s ease forwards;
+.animated-card.battle {
+  transform: translateX(-40px);
 }
 
-/* =========================
-   爆言模式動畫
-========================= */
-
-.card.battle.show {
-  animation: battleIn 0.6s ease-out forwards;
+.animated-card.cute.is-visible {
+  animation: cuteIn 0.78s cubic-bezier(0.25, 1, 0.5, 1) forwards;
 }
 
-.card.battle:not(.show) {
-  animation: battleOut 0.4s ease-in forwards;
+.animated-card.battle.is-visible {
+  animation: battleIn 0.58s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* ===== 可愛進場 ===== */
-@keyframes bounceIn {
+@keyframes cuteIn {
   0% {
     opacity: 0;
-    transform: translateY(60px) scale(0.9);
+    transform: translateY(54px) scale(0.94);
   }
-  60% {
+  55% {
     opacity: 1;
-    transform: translateY(-15px) scale(1.05);
+    transform: translateY(-10px) scale(1.03);
   }
   80% {
-    transform: translateY(5px) scale(0.98);
+    transform: translateY(4px) scale(0.99);
   }
   100% {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-}
-
-/* ===== 可愛退場 ===== */
-@keyframes bounceOut {
-  0% {
     opacity: 1;
     transform: translateY(0) scale(1);
   }
-  100% {
-    opacity: 0;
-    transform: translateY(40px) scale(0.95);
-  }
 }
 
-/* ===== 爆言進場（硬派滑入）===== */
 @keyframes battleIn {
   0% {
     opacity: 0;
@@ -155,26 +120,14 @@ watch(
   }
   60% {
     opacity: 1;
-    transform: translateX(10px);
+    transform: translateX(8px);
   }
-  80% {
-    transform: translateX(-5px);
-  }
-  100% {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* ===== 爆言退場 ===== */
-@keyframes battleOut {
-  0% {
-    opacity: 1;
-    transform: translateX(0);
+  82% {
+    transform: translateX(-4px);
   }
   100% {
-    opacity: 0;
-    transform: translateX(40px);
+    opacity: 1;
+    transform: translateX(0);
   }
 }
 </style>

@@ -1,8 +1,8 @@
 <template>
   <VApp>
     <ClientOnly><IntroSplash /></ClientOnly>
-    <div class="min-h-dvh flex bg-secondary-100 text-primary-900 flex-col">
-      <NavBar />
+    <div class="min-h-dvh flex flex-col text-primary-900">
+      <NavBar v-if="showGlobalChrome" />
       <main class="flex-1">
         <NuxtLayout>
           <!-- ✅ 修正 Nuxt 提示 -->
@@ -10,7 +10,8 @@
         </NuxtLayout>
       </main>
       <footer
-        class="border-t border-neutral-300/60 py-6 text-center text-sm text-neutral-800"
+        v-if="showGlobalChrome"
+        class="border-t border-neutral-300/60 bg-white/70 py-6 text-center text-sm text-neutral-800 backdrop-blur"
       >
         © {{ year }} 九条夏目
       </footer>
@@ -21,5 +22,9 @@
 
 <script setup lang="tsx">
 import { VSonner } from "vuetify-sonner";
+
+const route = useRoute();
+const showGlobalChrome = computed(() => !route.path.startsWith("/koyuki"));
+
 const year = new Date().getFullYear();
 </script>

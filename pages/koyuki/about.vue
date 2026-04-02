@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const mode = useLocalStorage("mode", "cute");
+const { mode, isCute } = useKoyukiMode();
 
 const pillars = [
   {
@@ -70,26 +70,26 @@ const pillars = [
       <header class="mb-32 text-center">
         <p
           class="mb-6 text-sm tracking-[0.35em]"
-          :class="mode === 'cute' ? 'text-emerald-500' : 'text-red-400'"
+          :class="isCute ? 'text-emerald-500' : 'text-red-400'"
         >
           ABOUT US
         </p>
 
         <h1
           class="mb-10 text-4xl font-bold md:text-5xl"
-          :class="mode === 'cute' ? 'text-slate-900' : 'text-red-100'"
+          :class="isCute ? 'text-slate-900' : 'text-red-100'"
         >
           把喜歡，做成作品
         </h1>
 
         <div
           class="w-16 h-[2px] mx-auto mb-10"
-          :class="mode === 'cute' ? 'bg-emerald-400' : 'bg-red-500'"
+          :class="isCute ? 'bg-emerald-400' : 'bg-red-500'"
         />
 
         <p
           class="max-w-2xl mx-auto text-lg leading-relaxed"
-          :class="mode === 'cute' ? 'text-slate-600' : 'text-red-200/70'"
+          :class="isCute ? 'text-slate-600' : 'text-red-200/70'"
         >
           這不是官方專案，
           也不是商業企劃。
@@ -109,7 +109,7 @@ const pillars = [
             :mode="mode"
             class="p-12 transition border rounded-2xl"
             :class="
-              mode === 'cute'
+              isCute
                 ? 'bg-white border-slate-200'
                 : 'bg-black/60 border-red-900 text-red-100'
             "
@@ -121,19 +121,19 @@ const pillars = [
 
             <p
               class="mt-4 text-sm tracking-wide opacity-60"
-              :class="mode === 'cute' ? '' : 'text-red-300'"
+              :class="isCute ? '' : 'text-red-300'"
             >
               {{ item.subtitle }}
             </p>
 
             <div
               class="w-10 h-[2px] mt-6"
-              :class="mode === 'cute' ? 'bg-emerald-400' : 'bg-red-500'"
+              :class="isCute ? 'bg-emerald-400' : 'bg-red-500'"
             />
 
             <p
               class="mt-8 leading-relaxed whitespace-pre-line"
-              :class="mode === 'cute'
+              :class="isCute
                 ? 'text-slate-600'
                 : 'text-red-200/70'"
             >
@@ -144,7 +144,7 @@ const pillars = [
           <!-- 視覺佔位區 -->
           <div
             class="h-64 rounded-2xl"
-            :class="mode === 'cute'
+            :class="isCute
               ? 'bg-gradient-to-br from-green-100 to-white'
               : 'bg-gradient-to-br from-black to-red-900'"
             :style="{ order: index % 2 === 0 ? 2 : 1 }"
@@ -158,7 +158,7 @@ const pillars = [
           :mode="mode"
           class="p-16 transition border rounded-2xl"
           :class="
-            mode === 'cute'
+            isCute
               ? 'bg-green-50/60 border-green-200'
               : 'bg-black/60 border-red-900 text-red-100'
           "
@@ -171,7 +171,7 @@ const pillars = [
 
           <div
             class="w-12 h-[2px] mx-auto mt-10"
-            :class="mode === 'cute' ? 'bg-emerald-400' : 'bg-red-500'"
+            :class="isCute ? 'bg-emerald-400' : 'bg-red-500'"
           />
 
           <p class="mt-10 text-lg opacity-80">

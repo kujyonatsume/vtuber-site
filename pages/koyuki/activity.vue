@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const mode = useLocalStorage("mode", "cute");
+const { mode, isCute } = useKoyukiMode();
 </script>
 
 <template>
@@ -19,7 +19,7 @@ const mode = useLocalStorage("mode", "cute");
       <div
         class="p-8 mt-16 transition rounded-xl"
         :class="
-          mode === 'cute'
+          isCute
             ? 'bg-green-50/60'
             : 'bg-black/60 border border-red-900'
         "
