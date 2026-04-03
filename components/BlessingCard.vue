@@ -52,6 +52,7 @@
           :src="item.assetUrl"
           title="YouTube player"
           loading="lazy"
+          frameborder="0"
           referrerpolicy="strict-origin-when-cross-origin"
           allow="
             accelerometer;

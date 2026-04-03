@@ -118,10 +118,14 @@ type PostMediaKind = "none" | "image" | "video" | "embed" | "audio";
 const ytRegex =
   /(?:https?:\/\/)?(?:www\.)?(?:youtu\.be\/|(?:m\.|music\.)?youtube(?:-nocookie)?\.com\/(?:watch\?(?:[^\s#&]+&)*v=|shorts\/|embed\/|live\/|v\/))([A-Za-z0-9_-]{11})(?:[^\s]*)?/i;
 
-async function postMediaTypeWithUrl(url?: string | null) {
-  return ytRegex.test(url)
-    ? "embed"
-    : await $fetch
+async function postMediaTypeWithUrl() {
+  const url = form.assetUrl;
+  if(ytRegex.test(url)) {
+    form.assetUrl = url.replace(ytRegex, "https://www.youtube.com/embed/$1");
+    return "embed";
+  }
+
+    return await $fetch
         .raw(url || "", { method: "HEAD" })
         .then((res) =>
           postMediaTypeWithMIME(res.headers.get("content-type") || ""),
@@ -182,17 +186,14 @@ async function submit() {
     toast.error("請勾選授權與規範");
     return;
   }
+
   submitting.value = true;
   const body = new FormData();
-
-  if (form.file) form.category = postMediaTypeWithMIME(form.file.type);
-  else if (form.assetUrl)
-    form.category = await postMediaTypeWithUrl(form.assetUrl);
-  else form.category = "none";
 
   Object.entries(form).forEach(([k, v]) => {
     if (v !== null) body.append(k, v as any);
   });
+
   try {
     const res = await $fetch<{ index: string }>("/api/submit", {
       method: "POST",

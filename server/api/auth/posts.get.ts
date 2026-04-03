@@ -2,7 +2,7 @@ import { PostStatusEnum } from "../../database/Enum";
 
 export default defineEventHandler(async (event) => {
   // @ts-ignore
-  const u = event.context.user as InstanceType<typeof db.User> | null;
+  const u = event.context.user;
   if (!u) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
 
   const q = getQuery(event) as Record<string, string | undefined>;

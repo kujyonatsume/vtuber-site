@@ -2,7 +2,7 @@ import { hashPassword } from '../../utils/hash'
 
 export default defineEventHandler(async (event) => {
     // @ts-ignore
-    const u = event.context.user as InstanceType<typeof db.User> | null
+    const u = event.context.user
     if (!u) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })
 
     const { password } = await readBody<{ password?: string }>(event)

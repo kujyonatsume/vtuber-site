@@ -1,6 +1,6 @@
 export default defineEventHandler(async (event) => {
   // @ts-ignore
-  const current = event.context.user as InstanceType<typeof db.User> | null;
+  const current = event.context.user
   if (!current) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
 
   const { id } = await readBody<{ id: number | string }>(event);
