@@ -82,7 +82,7 @@ onMounted(() => {
               <VListItem :title="user.email" />
               <VDivider />
               <VListItem to="/event/submit" title="我要投稿" />
-              <VListItem v-if="user.role != 'user'" to="/admin/contribute" title="後台" />
+              <VListItem v-if="user.role != 'user'" to="/admin/contribute" title="投稿審核" />
               <VListItem
                 v-if="user.role != 'user'"
                 to="/admin/users"

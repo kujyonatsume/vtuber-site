@@ -30,11 +30,13 @@
         </div>
       </header>
 
-      <p class="text-sm leading-relaxed break-words whitespace-pre-line text-neutral-800">
+      <p
+        class="text-sm leading-relaxed break-words whitespace-pre-line text-neutral-800"
+      >
         {{ postContent(item.message) }}
       </p>
 
-      <div v-if="item.assetUrl" class="relative aspect-[4/3] bg-neutral-100">
+      <div v-if="item.assetUrl">
         <img
           v-if="item.category === 'image'"
           :src="item.assetUrl"
@@ -66,23 +68,13 @@
           allowfullscreen
           class="w-full h-full border-0"
         />
-        <div
+        <audio
           v-else-if="item.category === 'audio'"
-          class="flex flex-col items-center justify-center w-full h-full gap-3 px-4"
-        >
-          <div
-            class="inline-flex items-center gap-2 px-3 py-1 text-sm font-semibold text-teal-800 bg-teal-100 rounded-full"
-          >
-            <VIcon size="16">mdi-music-note-outline</VIcon>
-            <span>音檔</span>
-          </div>
-          <audio
-            :src="item.assetUrl"
-            controls
-            preload="metadata"
-            class="w-full"
-          />
-        </div>
+          :src="item.assetUrl"
+          controls
+          preload="metadata"
+          class="w-full"
+        />
       </div>
 
       <footer
