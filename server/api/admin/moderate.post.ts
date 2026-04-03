@@ -1,15 +1,27 @@
-import { PostStatusEnum } from '../../../server/database';
-import { requireRole } from '../../utils/acl';
-export default defineEventHandler(async (e) => {
-    requireRole(e, 'admin')
-    const { id, action } = await readBody<{ id: number; action: 'approve' | 'reject' }>(e);
-    console.log(id, action);
+import { PostStatusEnum } from "../../database/Enum";
+import { requireRole } from "../../utils/acl";
 
-    const rec = await db.Post.findOneBy({ index: Number(id) });
-    if (!rec) throw createError({ statusCode: 404, statusMessage: 'not found' });
-    rec.status = action as PostStatusEnum;
-    await rec.save();
-    console.log(rec);
+export default defineEventHandler(async (event) => {
+  requireRole(event, "admin");
 
-    return { ok: true };
+  const { id, action } = await readBody<{
+    id: number | string;
+    action: PostStatusEnum;
+  }>(event);
+
+  const postId = Number(id);
+  if (!Number.isFinite(postId)) {
+    throw createError({ statusCode: 400, statusMessage: "invalid id" });
+  }
+  if (action !== PostStatusEnum.Approve && action !== PostStatusEnum.Reject) {
+    throw createError({ statusCode: 400, statusMessage: "invalid action" });
+  }
+
+  const rec = await db.Post.findOneBy({ index: postId });
+  if (!rec) throw createError({ statusCode: 404, statusMessage: "not found" });
+
+  rec.status = action;
+  await rec.save();
+
+  return { ok: true };
 });

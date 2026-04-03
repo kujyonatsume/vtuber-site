@@ -1,25 +1,27 @@
 export enum ProviderEnum {
-    Credentials = 'credentials',
-    Google = 'google',
-    Discord = 'discord',
+  Credentials = "credentials",
+  Google = "google",
+  Discord = "discord",
 }
 
 export enum RoleEnum {
-    Owner = 'owner',
-    Admin = 'admin',
-    Member = 'member',
-    User = 'user',
+  Owner = "owner",
+  Admin = "admin",
+  Member = "member",
+  User = "user",
 }
 
 export enum PostStatusEnum {
-    Pending = 'pending',
-    Approve = 'approve',
-    Reject = 'reject',
+  Pending = "pending",
+  Approve = "approve",
+  Reject = "reject",
 }
 
 export enum PostCategoryEnum {
-    Illustration = '插畫',
-    Message = '訊息',
-    Video = '影片連結',
-    Other = '其他',
+  None = "none",
+  Image = "image",
+  Video = "video",
+  Embed = "embed",
+  Audio = "audio",
+  Link = "link",
 }

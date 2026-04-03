@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onBeforeUnmount, onMounted } from "vue";
-import type { KoyukiMode } from "~/composables/useKoyukiMode";
 
 const props = withDefaults(
   defineProps<{

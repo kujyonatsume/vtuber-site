@@ -56,96 +56,43 @@
       />
     </div>
 
-    <div class="space-y-6">
-      <article
+    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      <BlessingCard
         v-for="it in filtered"
         :key="it.id"
-        class="overflow-hidden card"
+        :item="it"
+        :full-text="true"
       >
-        <div class="grid gap-0 md:grid-cols-[320px_1fr]">
-          <div
-            class="relative min-h-[220px] bg-neutral-100"
-            :class="isLikelyImage(it.assetUrl) ? '' : 'grid place-items-center'"
+        <template #actions>
+          <VBtn
+            v-if="tab !== 'approve'"
+            size="small"
+            color="green"
+            variant="flat"
+            :loading="actId === it.id && act === 'approve'"
+            @click="moderate(it.id, 'approve')"
+            >通過</VBtn
           >
-            <img
-              v-if="isLikelyImage(it.assetUrl)"
-              :src="it.assetUrl || ''"
-              class="h-full w-full object-cover"
-            />
-            <div v-else class="px-6 text-center text-neutral-700">
-              <div class="mb-2 text-xs tracking-widest">POST</div>
-              <div class="text-base font-semibold">{{ it.category }}</div>
-            </div>
-          </div>
-
-          <div class="flex flex-col gap-4 p-6">
-            <header class="flex flex-wrap items-start justify-between gap-2">
-              <div>
-                <div class="text-sm text-neutral-700">
-                  {{ it.author?.name || it.author?.email || "匿名" }}
-                </div>
-                <div class="text-xs text-neutral-800">
-                  {{ new Date(it.createdAt).toLocaleString() }}
-                </div>
-              </div>
-              <VChip size="x-small" color="primary">{{ it.category }}</VChip>
-            </header>
-
-            <div class="space-y-2">
-              <h2 class="text-xl font-bold leading-snug text-primary-900">
-                {{ postTitle(it.message) }}
-              </h2>
-              <p class="text-sm leading-relaxed text-neutral-800">
-                {{ postExcerpt(it.message) }}
-              </p>
-            </div>
-
-            <footer class="mt-auto flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3 text-xs text-neutral-800">
-                <span>❤️ {{ it.likes ?? 0 }}</span>
-                <a
-                  v-if="it.assetUrl && !isLikelyImage(it.assetUrl)"
-                  :href="it.assetUrl"
-                  target="_blank"
-                  class="hover:underline"
-                >
-                  查看附件
-                </a>
-              </div>
-
-              <div class="flex gap-2">
-                <VBtn
-                  v-if="tab !== 'approve'"
-                  size="small"
-                  color="green"
-                  variant="flat"
-                  :loading="actId === it.id && act === 'approve'"
-                  @click="moderate(it.id, 'approve')"
-                  >通過</VBtn
-                >
-                <VBtn
-                  v-if="tab !== 'reject'"
-                  size="small"
-                  color="red"
-                  variant="tonal"
-                  :loading="actId === it.id && act === 'reject'"
-                  @click="moderate(it.id, 'reject')"
-                  >退回</VBtn
-                >
-                <VBtn
-                  v-if="tab === 'reject'"
-                  size="small"
-                  color="red-darken-2"
-                  variant="outlined"
-                  :loading="actId === it.id && act === 'delete'"
-                  @click="removePost(it.id)"
-                  >刪除</VBtn
-                >
-              </div>
-            </footer>
-          </div>
-        </div>
-      </article>
+          <VBtn
+            v-if="tab !== 'reject'"
+            size="small"
+            color="red"
+            variant="tonal"
+            :loading="actId === it.id && act === 'reject'"
+            @click="moderate(it.id, 'reject')"
+            >退回</VBtn
+          >
+          <VBtn
+            v-if="tab === 'reject'"
+            size="small"
+            color="red-darken-2"
+            variant="outlined"
+            :loading="actId === it.id && act === 'delete'"
+            @click="removePost(it.id)"
+            >刪除</VBtn
+          >
+        </template>
+      </BlessingCard>
     </div>
 
     <div class="flex items-center justify-center gap-2 pt-4">
@@ -162,10 +109,11 @@ definePageMeta({ middleware: ["auth", "admin"] });
 
 type Item = {
   id: number;
+  isAnonymous: boolean;
+  displayName: string;
   category: string;
   message: string;
   assetUrl?: string | null;
-  likes: number;
   createdAt: string;
   author?: { id: number; name?: string | null; email: string };
 };
@@ -211,6 +159,7 @@ const filtered = computed(() => {
   return items.value.filter(
     (i) =>
       i.message.toLowerCase().includes(k) ||
+      i.displayName?.toLowerCase().includes(k) ||
       i.author?.name?.toLowerCase().includes(k) ||
       i.author?.email?.toLowerCase().includes(k)
   );
@@ -262,26 +211,4 @@ function switchTab(t: typeof tab.value) {
   tab.value = t;
 }
 
-function cleanText(input: string) {
-  return (input || "").replace(/\s+/g, " ").trim();
-}
-
-function postTitle(message: string) {
-  const text = cleanText(message);
-  if (!text) return "未命名投稿";
-  return text.length > 32 ? `${text.slice(0, 32)}...` : text;
-}
-
-function postExcerpt(message: string) {
-  const text = cleanText(message);
-  if (!text) return "（無內文）";
-  return text.length > 140 ? `${text.slice(0, 140)}...` : text;
-}
-
-function isLikelyImage(url?: string | null) {
-  if (!url) return false;
-  if (url.startsWith("/static/")) return true;
-  const clean = url.split("?")[0].toLowerCase();
-  return /\.(png|jpe?g|gif|webp|avif|svg)$/.test(clean);
-}
 </script>

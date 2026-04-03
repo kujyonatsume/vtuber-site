@@ -1,3 +1,5 @@
+
+
 export default defineNitroPlugin(async (nitroApp) => {
     const { initDB } = await import('../utils/typeorm')
     const ds = await initDB() // 啟動時初始化一次

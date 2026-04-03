@@ -25,8 +25,8 @@ export async function initDB(): Promise<DataSource> {
 
   const email = "owner@terazs.fans";
 
-  if (!await db.User.findOne({ where: { email } })) {
-    await db.User.create({email, name:"owner", role: RoleEnum.Owner, passwordHash : hashPassword("terazlover"), lastLoginAt: new Date() }).save();
+  if (!await models.User.findOne({ where: { email } })) {
+    await models.User.create({email, name:"owner", role: RoleEnum.Owner, passwordHash : hashPassword("terazlover"), lastLoginAt: new Date() }).save();
   }
   return typeorm;
 }

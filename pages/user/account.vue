@@ -152,6 +152,9 @@
             </div>
             <div class="flex items-center gap-2">
               <VChip size="x-small" color="primary">{{ post.category }}</VChip>
+              <VChip v-if="post.isAnonymous" size="x-small" color="grey" variant="tonal">
+                匿名
+              </VChip>
               <VChip size="x-small" :color="statusColor(post.status)" variant="tonal">
                 {{ statusText(post.status) }}
               </VChip>
@@ -246,6 +249,8 @@ const postStatusItems = [
 
 type MyPost = {
   id: number;
+  isAnonymous: boolean;
+  displayName: string;
   category: string;
   message: string;
   assetUrl?: string | null;

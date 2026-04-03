@@ -5,8 +5,8 @@ import { User } from './User'
 
 @Entity()
 export class Post extends IEntity {
-    @Column('text', { default: "匿名" }) displayname!: string
-    @Column('text', { default: PostCategoryEnum.Other }) category!: PostCategoryEnum
+    @Column('boolean', { default: false }) isAnonymous!: boolean
+    @Column('text', { default: PostCategoryEnum.None }) category!: PostCategoryEnum
     @Column('text') message!: string
     @Column('text', { nullable: true }) assetUrl?: string
     @Column('text', { default: PostStatusEnum.Pending }) status!: PostStatusEnum

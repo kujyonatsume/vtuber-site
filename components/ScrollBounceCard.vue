@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { KoyukiMode } from "~/composables/useKoyukiMode";
-
 defineProps<{
   mode?: KoyukiMode;
   threshold?: number;
