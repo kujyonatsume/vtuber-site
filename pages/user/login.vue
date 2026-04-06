@@ -1,13 +1,14 @@
 <template>
   <section class="py-8 layout-container">
     <ClientOnly>
-      <LoginDialog v-model="open" persistent />
+      <div class="mx-auto w-full max-w-[480px]">
+        <LoginForm />
+      </div>
     </ClientOnly>
   </section>
 </template>
 
 <script setup lang="ts">
-const open = ref(true);
 const { user } = useAuth();
 
 watch(

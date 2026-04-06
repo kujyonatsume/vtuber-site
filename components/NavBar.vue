@@ -162,12 +162,12 @@ const headerClass = computed(() =>
     : "border-neutral-300/70 bg-white/80",
 );
 
-function confirmLogout() {
+async function confirmLogout() {
   if (!import.meta.client) return;
   const ok = window.confirm("確定要登出嗎？");
   if (!ok) return;
   drawer.value = false;
-  logout();
+  await logout();
 }
 
 </script>

@@ -10,7 +10,7 @@ export interface IApiUser {
 }
 // composables/useAuth.ts
 export function useAuth() {
-  const user = useState<IApiUser>("auth:user");
+  const user = useState<IApiUser | null>("auth:user", () => null);
   const loading = useState<boolean>("auth:loading", () => false);
 
   async function refresh() {
@@ -27,7 +27,16 @@ export function useAuth() {
   }
 
   function hasPerm(perm: RoleEnum) {
-    return RoleFlag[user.value?.role!].has(perm);
+    const role = user.value?.role;
+    if (!role) return false;
+    return RoleFlag[role].has(perm);
+  }
+
+  function isProtectedPath(pathname: string) {
+    if (pathname.startsWith("/admin")) return true;
+    if (pathname.startsWith("/user/") && pathname !== "/user/login")
+      return true;
+    return false;
   }
 
   async function logout() {
@@ -35,7 +44,15 @@ export function useAuth() {
       method: "POST",
       credentials: "include",
     });
-    user.value = {};
+    user.value = null;
+
+    if (!import.meta.client) return;
+
+    const pathname = window.location.pathname;
+    if (!isProtectedPath(pathname)) return;
+
+    const next = encodeURIComponent(`${pathname}${window.location.search}`);
+    await navigateTo(`/user/login?next=${next}`);
   }
 
   if (import.meta.client && user.value === null && !loading.value) {
