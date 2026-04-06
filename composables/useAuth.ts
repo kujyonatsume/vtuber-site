@@ -1,13 +1,12 @@
 import { RoleEnum, RoleFlag } from "~/shared/Enum";
-interface IApiUser {
-  index: number;
-  email: string;
-  name: string;
-  avatar: string;
-  role: RoleEnum;
-  hasPassword: boolean;
-  linked: string[];
-  hasPerm(perm: RoleEnum): boolean;
+export interface IApiUser {
+  index?: number;
+  email?: string;
+  name?: string;
+  avatar?: string;
+  role?: RoleEnum;
+  hasPassword?: boolean;
+  linked?: string[];
 }
 // composables/useAuth.ts
 export function useAuth() {
@@ -22,11 +21,13 @@ export function useAuth() {
         credentials: "include" as any,
         query: { t: Date.now() },
       });
-      if(user.value)
-          user.value.hasPerm = (perm: RoleEnum) => RoleFlag[user.value!.role].has(perm)
     } finally {
       loading.value = false;
     }
+  }
+
+  function hasPerm(perm: RoleEnum) {
+    return RoleFlag[user.value?.role!].has(perm);
   }
 
   async function logout() {
@@ -40,5 +41,5 @@ export function useAuth() {
   if (import.meta.client && user.value === null && !loading.value) {
     refresh();
   }
-  return { user, loading, refresh, logout };
+  return { user, loading, hasPerm, refresh, logout };
 }
