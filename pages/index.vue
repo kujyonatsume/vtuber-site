@@ -1,8 +1,7 @@
 <template>
   <section class="space-y-10 layout-container section-shell">
     <header
-      class="relative p-6 overflow-hidden border rounded-3xl border-neutral-300/70 bg-white/90 sm:p-10"
-      style="box-shadow: var(--app-shadow-strong)"
+      class="hero-card relative overflow-hidden rounded-3xl border border-neutral-300/70 bg-white/90 p-6 sm:p-10"
     >
       <div
         aria-hidden
@@ -12,7 +11,6 @@
         aria-hidden
         class="absolute w-64 h-64 rounded-full pointer-events-none -bottom-16 -right-16 bg-secondary-300/35 blur-3xl"
       />
-
       <div class="relative grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
         <div class="space-y-6 reveal-up">
           <p
@@ -31,7 +29,7 @@
             <NuxtLink to="/wishes" class="btn-secondary">祝福牆</NuxtLink>
             <NuxtLink
               to="/event"
-              class="inline-flex items-center gap-2 rounded-2xl border border-secondary-300 bg-white px-5 py-3 text-secondary-700 transition hover:bg-secondary-50"
+              class="inline-flex items-center gap-2 px-5 py-3 transition bg-white border rounded-2xl border-secondary-300 text-secondary-700 hover:bg-secondary-50"
             >
               查看活動詳情
             </NuxtLink>
@@ -60,7 +58,7 @@
   </section>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 const clips = [
   {
     title: "高能剪輯",
@@ -76,3 +74,61 @@ const clips = [
   },
 ];
 </script>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+
+.hero-card {
+  box-shadow: 0 24px 48px -24px rgb(15 23 42 / 0.45);
+}
+
+.btn-accent {
+  @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
+  background-image: linear-gradient(135deg, #3f82f8, #2e66d6);
+  box-shadow: 0 12px 24px -14px rgb(37 79 175 / 0.75);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-accent:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 16px 28px -16px rgb(37 79 175 / 0.8);
+}
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
+  background-image: linear-gradient(135deg, #ff9541, #e05f14);
+  box-shadow: 0 12px 24px -14px rgb(185 73 19 / 0.72);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-secondary:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 16px 28px -16px rgb(185 73 19 / 0.78);
+}
+
+.reveal-up {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.08s;
+}
+
+@keyframes revealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

@@ -28,3 +28,22 @@
     </div>
   </section>
 </template>
+
+<style scoped lang="scss">
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+
+.card {
+  @apply rounded-3xl border border-primary-200/70 bg-white/90 backdrop-blur-sm;
+  box-shadow: 0 10px 30px -16px rgb(15 23 42 / 0.35);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.28s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.28s ease;
+}
+
+.card-hover:hover {
+  @apply border-primary-300/80 bg-white/95;
+  box-shadow: 0 24px 48px -24px rgb(15 23 42 / 0.45);
+  transform: translateY(-2px);
+}
+</style>

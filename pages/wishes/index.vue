@@ -150,3 +150,25 @@ onBeforeUnmount(() => {
   if (relayoutTimer) clearTimeout(relayoutTimer);
 });
 </script>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+
+.btn-accent {
+  @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
+  background-image: linear-gradient(135deg, #3f82f8, #2e66d6);
+  box-shadow: 0 12px 24px -14px rgb(37 79 175 / 0.75);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-accent:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 16px 28px -16px rgb(37 79 175 / 0.8);
+}
+</style>

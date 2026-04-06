@@ -10,3 +10,13 @@
     </div>
   </section>
 </template>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+</style>

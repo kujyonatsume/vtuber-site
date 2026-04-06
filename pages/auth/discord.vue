@@ -2,7 +2,7 @@
   <code>{{ info }}</code>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 definePageMeta({ ssr: false });
 
 const info = ref("");

@@ -370,3 +370,10 @@ async function withdrawPost(id: number) {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.card {
+  @apply rounded-3xl border border-primary-200/70 bg-white/90 backdrop-blur-sm;
+  box-shadow: 0 10px 30px -16px rgb(15 23 42 / 0.35);
+}
+</style>

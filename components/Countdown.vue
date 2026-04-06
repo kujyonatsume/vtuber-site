@@ -57,3 +57,21 @@ const hh = computed(() => Math.floor(diff.value / 3600000) % 24);
 const mm = computed(() => Math.floor(diff.value / 60000) % 60);
 const ss = computed(() => Math.floor(diff.value / 1000) % 60);
 </script>
+
+<style scoped lang="scss">
+.reveal-up {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes revealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

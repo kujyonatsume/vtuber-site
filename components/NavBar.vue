@@ -153,7 +153,7 @@
     <LoginDialog v-model="loginOpen" />
   </ClientOnly>
 </template>
-<script setup lang="tsx">
+<script setup lang="ts">
 const { user, loading, loginOpen, drawer, logout, openDialog } = useLogin();
 const isLoggedIn = computed(() => !!user.value);
 const headerClass = computed(() =>
@@ -171,3 +171,9 @@ async function confirmLogout() {
 }
 
 </script>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+</style>

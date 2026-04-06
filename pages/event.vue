@@ -60,7 +60,7 @@
   </section>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 const { width } = useWindowSize();
 const isRwdMobile = computed(() => width.value < 768);
 const flowListClass = computed(() =>
@@ -89,3 +89,62 @@ const flowStep = computed(() => {
 });
 
 </script>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+
+.btn-accent {
+  @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
+  background-image: linear-gradient(135deg, #3f82f8, #2e66d6);
+  box-shadow: 0 12px 24px -14px rgb(37 79 175 / 0.75);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-accent:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 16px 28px -16px rgb(37 79 175 / 0.8);
+}
+
+.btn-secondary {
+  @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
+  background-image: linear-gradient(135deg, #ff9541, #e05f14);
+  box-shadow: 0 12px 24px -14px rgb(185 73 19 / 0.72);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.btn-secondary:hover {
+  filter: brightness(1.04);
+  box-shadow: 0 16px 28px -16px rgb(185 73 19 / 0.78);
+}
+
+.card {
+  @apply rounded-3xl border border-primary-200/70 bg-white/90 backdrop-blur-sm;
+  box-shadow: 0 10px 30px -16px rgb(15 23 42 / 0.35);
+}
+
+.reveal-up {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-delay-1 {
+  animation-delay: 0.08s;
+}
+
+@keyframes revealUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

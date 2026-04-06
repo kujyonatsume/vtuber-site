@@ -186,3 +186,9 @@ async function submit() {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.section-shell {
+  @apply py-10 sm:py-12;
+}
+</style>

@@ -2,7 +2,7 @@
   <code>{{ info }}</code>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 definePageMeta({ ssr: false }); // 避免 SSR 環境取用 window
 
 const info = ref("");

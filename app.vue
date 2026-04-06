@@ -7,25 +7,23 @@
       ]"
     >
       <NavBar />
+      <v-btn @click="toastTest"> 測試 Toast </v-btn>
       <main class="flex-1">
         <div class="text-primary-900">
           <NuxtPage />
         </div>
-        <!--
-        <NuxtLayout>
-
-        </NuxtLayout>
-        -->
       </main>
       <footer :class="['py-6 text-center text-sm backdrop-blur', footerClass]">
         © {{ year }} 九条夏目
       </footer>
     </div>
-    <VSonner />
+    <ClientOnly>
+      <ToastContainer />
+    </ClientOnly>
   </VApp>
 </template>
 
-<script setup lang="tsx">
+<script setup lang="ts">
 const { user } = useAuth();
 const footerClass = computed(() =>
   user.value
@@ -33,22 +31,76 @@ const footerClass = computed(() =>
     : "border-t border-neutral-300/60 bg-white/70 text-neutral-800",
 );
 
+function toastTest() {
+  toast.success("這是一條成功訊息！", {
+    description: "這是對成功訊息的補充說明。",
+    action: {
+      label: "撤銷",
+      onClick() {
+        alert("已撤銷！");
+      },
+    },
+  });
+    toast.info("這是一條資訊訊息！", {
+    description: "這是對資訊訊息的補充說明。",
+    action: {
+      label: "撤銷",
+      onClick() {
+        alert("已撤銷！");
+      },
+    },
+  });
+    toast.warning("這是一條警告訊息！", {
+    description: "這是對警告訊息的補充說明。",
+    action: {
+      label: "撤銷",
+      onClick() {
+        alert("已撤銷！");
+      },
+    },
+  });
+    toast.error("這是一條錯誤訊息！", {
+    description: "這是對錯誤訊息的補充說明。",
+    action: {
+      label: "撤銷",
+      onClick() {
+        alert("已撤銷！");
+      },
+    },
+  });
+}
+
 const year = new Date().getFullYear();
 </script>
 
-<style>
-[data-sonner-toaster][data-x-position="center"][data-y-position="top"] {
-  top: 50% !important;
-  right: auto !important;
-  bottom: auto !important;
-  left: 50% !important;
-  transform: translate(-50%, -50%) !important;
+<style lang="scss">
+.app-shell--guest {
+  background-image:
+    radial-gradient(
+      circle at 12% 8%,
+      rgb(255 255 255 / 0.72) 0,
+      rgb(255 255 255 / 0) 40%
+    ),
+    radial-gradient(
+      circle at 90% 4%,
+      rgb(255 226 193 / 0.38) 0,
+      rgb(255 226 193 / 0) 44%
+    ),
+    linear-gradient(160deg, #f4f8ff 0%, #e8f0ff 52%, #fff2df 100%);
 }
 
-@media (max-width: 600px) {
-  [data-sonner-toaster][data-x-position="center"][data-y-position="top"] {
-    width: var(--width) !important;
-    max-width: calc(100vw - 32px);
-  }
+.app-shell--authed {
+  background-image:
+    radial-gradient(
+      circle at 12% 8%,
+      rgb(214 233 255 / 0.68) 0,
+      rgb(214 233 255 / 0) 40%
+    ),
+    radial-gradient(
+      circle at 88% 4%,
+      rgb(255 201 146 / 0.3) 0,
+      rgb(255 201 146 / 0) 44%
+    ),
+    linear-gradient(162deg, #e9f2ff 0%, #d7e7ff 54%, #ffe3c3 100%);
 }
 </style>

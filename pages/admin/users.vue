@@ -227,3 +227,9 @@ async function updateRole(it: Item, role: RoleEnum) {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.layout-container {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+</style>
