@@ -1,7 +1,5 @@
 export default defineEventHandler(async (event) => {
-  // @ts-ignore
-  const current = event.context.user
-  if (!current) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
+  const current = requireRole(event)
 
   const { id } = await readBody<{ id: number | string }>(event);
   const postId = Number(id);

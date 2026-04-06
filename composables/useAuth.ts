@@ -10,7 +10,7 @@ export interface IApiUser {
 }
 // composables/useAuth.ts
 export function useAuth() {
-  const user = useState<IApiUser | null>("auth:user", () => null);
+  const user = useState<IApiUser>("auth:user");
   const loading = useState<boolean>("auth:loading", () => false);
 
   async function refresh() {
@@ -35,7 +35,7 @@ export function useAuth() {
       method: "POST",
       credentials: "include",
     });
-    user.value = null;
+    user.value = {};
   }
 
   if (import.meta.client && user.value === null && !loading.value) {

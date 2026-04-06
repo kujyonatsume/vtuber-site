@@ -168,13 +168,7 @@ export default defineEventHandler(async (event) => {
     assetUrl = normalizeExternalUrl(externalUrl);
   }
 
-  const current = event.context.user;
-  if (!current) {
-    throw createError({
-      statusCode: 401,
-      statusMessage: "請先登入後再投稿",
-    });
-  }
+  const current = requireRole(event);
 
   const rec = db.Post.create({
     isAnonymous,

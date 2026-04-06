@@ -1,8 +1,7 @@
-import { RoleEnum } from "~/shared/Enum";
 import { hashPassword } from "../../utils/hash";
 
 export default defineEventHandler(async (event) => {
-  const u = requireRole(event, RoleEnum.User);
+  const u = requireRole(event);
 
   const { password } = await readBody<{ password?: string }>(event);
   if (!password || password.length < 8) {

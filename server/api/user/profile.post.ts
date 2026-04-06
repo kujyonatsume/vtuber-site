@@ -2,8 +2,7 @@ import { randomUUID } from "node:crypto";
 
 export default defineEventHandler(async (event) => {
   // @ts-ignore
-  const current = event.context.user
-  if (!current) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
+const current = requireRole(event)
 
   const form = await readMultipartFormData(event);
 

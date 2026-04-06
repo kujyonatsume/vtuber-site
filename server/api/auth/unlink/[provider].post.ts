@@ -1,7 +1,6 @@
 import { ProviderEnum } from "~/shared/Enum"
-import { User } from "../../../database/Models"
 export default defineEventHandler(async (event) => {
-    const u = (event as any).context.user as User | null
+    const u = requireRole(event)
     if (!u) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })
 
     const provider = (event.context.params?.provider || '').toLowerCase()

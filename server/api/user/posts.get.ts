@@ -2,7 +2,7 @@ import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
 const pageSize = 10;
 
 export default defineEventHandler(async (event) => {
-  const u = requireRole(event, RoleEnum.User);
+  const u = requireRole(event);
 
   const q = getQuery(event) as Record<string, string | undefined>;
   const page = Math.max(1, parseInt(q.page || "1", 10));

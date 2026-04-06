@@ -128,9 +128,10 @@
 </template>
 
 <script setup lang="ts">
-import { RoleEnum } from "~/shared/Enum";
-
+import { RoleEnum, RoleFlag } from "~/shared/Enum";
 definePageMeta({ middleware: ["auth", "admin"] });
+
+const { user } = useAuth();
 
 type Item = {
   id: number;
@@ -148,18 +149,26 @@ const roleText: Record<RoleEnum, string> = {
   [RoleEnum.User]: "User",
 };
 
-const roleItems = [
-  { title: "Owner", value: RoleEnum.Owner },
-  { title: "Admin", value: RoleEnum.Admin },
-  { title: "Member", value: RoleEnum.Member },
-  { title: "User", value: RoleEnum.User },
-];
+const roleItems = computed(() => {
+  const currentRole = user.value?.role
+
+  if (!currentRole) return []
+
+  const currentLevel = RoleFlag[currentRole].value
+
+  return [
+    { title: "Owner", value: RoleEnum.Owner },
+    { title: "Admin", value: RoleEnum.Admin },
+    { title: "Member", value: RoleEnum.Member },
+    { title: "User", value: RoleEnum.User },
+  ].filter((it) => RoleFlag[it.value].value < currentLevel)
+})
 
 const roleFilter = ref<"all" | RoleEnum>("all");
-const roleFilterItems = [
+const roleFilterItems = computed(() => [
   { title: "全部角色", value: "all" },
-  ...roleItems,
-];
+  ...roleItems.value,
+]);
 const sortBy = ref<"createdAt" | "lastLoginAt" | "email" | "role" | "name">("createdAt");
 const sortDir = ref<"desc" | "asc">("desc");
 const sortByItems = [

@@ -1,6 +1,7 @@
 import { Like } from "typeorm";
 
 export default defineEventHandler(async (e) => {
+
   const q = getQuery(e) as Record<string, string | undefined>;
   const page = Math.max(1, parseInt(q.page || "1", 10));
   const pageSize = Math.min(100, Math.max(1, parseInt(q.pageSize || "20", 10)));

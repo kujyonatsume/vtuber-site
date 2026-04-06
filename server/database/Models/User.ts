@@ -31,7 +31,7 @@ export class User extends IEntity {
   @OneToMany(() => SocialAccount, (sa) => sa.user)
   socialAccounts!: SocialAccount[];
   @OneToOne(() => Session, (s) => s.user) session!: Session;
-  hasPrem(perm: RoleEnum): boolean {
-    return RoleFlag[this.role].has(perm);
+  hasPrem(perm?: RoleEnum): boolean {
+    return !perm || RoleFlag[this.role].has(perm);
   }
 }

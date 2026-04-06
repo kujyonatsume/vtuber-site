@@ -1,12 +1,7 @@
 import { RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler(async (e) => {
-  requireRole(e, RoleEnum.Admin);
-
-  const actor = e.context.user as { index: number; role: RoleEnum } | undefined;
-  if (!actor)
-    throw createError({ statusCode: 401, statusMessage: "unauthorized" });
-
+  const actor = requireRole(e, RoleEnum.Admin);
   const body = await readBody<{ userId: number | string; role: RoleEnum }>(e);
   const userId = Number(body.userId);
   const role = body.role;
