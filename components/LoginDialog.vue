@@ -180,12 +180,12 @@ async function submit() {
   busy.value = true;
   try {
     if (mode.value === "login") {
-      await $fetch("/api/auth/login", {
+      await $fetch("/api/user/login", {
         method: "POST",
         body: { email: email.value, password: password.value },
       });
     } else {
-      await $fetch("/api/auth/register", {
+      await $fetch("/api/user/register", {
         method: "POST",
         body: {
           email: email.value,

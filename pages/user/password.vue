@@ -41,7 +41,7 @@ async function submit() {
   busy.value = true;
   err.value = "";
   try {
-    await $fetch("/api/auth/password", {
+    await $fetch("/api/user/password", {
       method: "POST",
       body: { password: pw.value },
     });

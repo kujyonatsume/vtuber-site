@@ -164,22 +164,13 @@
           <div class="space-y-1">
             <p class="text-sm leading-relaxed break-words whitespace-pre-wrap text-neutral-900">
               {{
-                fullText(post.message)
+                displayMessage(post.id, post.message)
               }}
             </p>
-            <VBtn
-              v-if="hasLongContent(post.message)"
-              variant="text"
-              size="x-small"
-              class="px-0"
-              @click="togglePostExpanded(post.id)"
-            >
-              {{ isPostExpanded(post.id) ? "收合內文" : "查看完整內文" }}
-            </VBtn>
           </div>
 
           <img
-            v-if="isLikelyImage(post.assetUrl)"
+            v-if="post.category === PostCategoryEnum.Image"
             :src="post.assetUrl || ''"
             class="object-cover w-full mt-3 rounded-lg max-h-56"
           />
@@ -192,7 +183,7 @@
 
           <footer class="flex items-center justify-end mt-3">
             <VBtn
-              v-if="canWithdraw(post.status)"
+              v-if="post.status !== PostStatusEnum.Approve"
               size="small"
               color="red"
               variant="tonal"
@@ -222,6 +213,7 @@
 </template>
 
 <script setup lang="ts">
+import { PostCategoryEnum, PostStatusEnum } from "~/shared/Enum";
 definePageMeta({ middleware: "auth" });
 
 const { user, refresh } = useAuth();
@@ -230,7 +222,6 @@ const avatarFile = ref<File | File[] | null>(null);
 const savingProfile = ref(false);
 const postStatus = ref<"all" | "pending" | "approve" | "reject">("all");
 const postPage = ref(1);
-const postPageSize = ref(10);
 const withdrawingId = ref<number | null>(null);
 const expandedPostIds = ref<number[]>([]);
 
@@ -242,33 +233,20 @@ const postStatusItems = [
   { title: "退回", value: "reject" },
 ];
 
-type MyPost = {
-  id: number;
-  isAnonymous: boolean;
-  displayName: string;
-  category: string;
-  message: string;
-  assetUrl?: string | null;
-  status: "pending" | "approve" | "reject";
-  createdAt: string;
-};
-
 const { data: postsData, pending: postsPending, refresh: refreshPosts } = await useFetch(
-  "/api/auth/posts",
+  "/api/user/posts",
   {
-    server: false,
     query: computed(() => ({
-      status: postStatus.value,
+      status: postStatus.value === "all" ? undefined : postStatus.value,
       page: postPage.value,
-      pageSize: postPageSize.value,
     })),
-    watch: [postStatus, postPage, postPageSize],
+    watch: [postStatus, postPage],
   }
 );
 
 const myPosts = computed(() => postsData.value?.items);
 const postTotal = computed(() => Number(postsData.value?.total || 0));
-const postMaxPage = computed(() => Math.max(1, Math.ceil(postTotal.value / postPageSize.value)));
+const postMaxPage = computed(() => Math.max(1, Math.ceil(postTotal.value / 10)));
 
 watch(
   () => user.value?.name,
@@ -316,7 +294,7 @@ async function saveProfile() {
     form.append("name", name);
     if (file) form.append("avatar", file);
 
-    await $fetch("/api/auth/profile", {
+    await $fetch("/api/user/profile", {
       method: "POST",
       body: form,
     });
@@ -331,22 +309,16 @@ async function saveProfile() {
   }
 }
 
-function statusText(status: MyPost["status"]) {
-  if (status === "approve") return "已通過";
-  if (status === "reject") return "已退回";
+function statusText(status: PostStatusEnum) {
+  if (status === PostStatusEnum.Approve) return "已通過";
+  if (status === PostStatusEnum.Reject) return "已退回";
   return "待審核";
 }
 
-function statusColor(status: MyPost["status"]) {
-  if (status === "approve") return "green";
-  if (status === "reject") return "red";
+function statusColor(status: PostStatusEnum) {
+  if (status === PostStatusEnum.Approve) return "green";
+  if (status === PostStatusEnum.Reject) return "red";
   return "amber";
-}
-
-function excerpt(message: string) {
-  const text = normalizeText(message);
-  if (!text) return "（無內文）";
-  return text.length > 180 ? `${text.slice(0, 180)}...` : text;
 }
 
 function fullText(message: string) {
@@ -358,24 +330,15 @@ function normalizeText(message: string) {
   return (message || "").replace(/\s+/g, " ").trim();
 }
 
-function hasLongContent(message: string) {
-  return normalizeText(message).length > 180;
+function displayMessage(id: number, message: string) {
+  if (isPostExpanded(id)) return fullText(message);
+  const normalized = normalizeText(message);
+  if (!normalized) return "（無內文）";
+  return normalized.length > 180 ? `${normalized.slice(0, 180)}...` : normalized;
 }
 
 function isPostExpanded(id: number) {
   return expandedPostIds.value.includes(id);
-}
-
-function togglePostExpanded(id: number) {
-  if (isPostExpanded(id)) {
-    expandedPostIds.value = expandedPostIds.value.filter((x) => x !== id);
-    return;
-  }
-  expandedPostIds.value = [...expandedPostIds.value, id];
-}
-
-function canWithdraw(status: MyPost["status"]) {
-  return status === "pending" || status === "reject";
 }
 
 async function withdrawPost(id: number) {
@@ -388,7 +351,7 @@ async function withdrawPost(id: number) {
 
   withdrawingId.value = id;
   try {
-    await $fetch("/api/auth/posts/withdraw", {
+    await $fetch("/api/user/withdraw", {
       method: "POST",
       body: { id },
     });
@@ -405,12 +368,5 @@ async function withdrawPost(id: number) {
   } finally {
     withdrawingId.value = null;
   }
-}
-
-function isLikelyImage(url?: string | null) {
-  if (!url) return false;
-  if (url.startsWith("/static/")) return true;
-  const clean = url.split("?")[0].toLowerCase();
-  return /\.(png|jpe?g|gif|webp|avif|svg)$/.test(clean);
 }
 </script>

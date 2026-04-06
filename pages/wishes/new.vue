@@ -1,19 +1,18 @@
 <template>
   <section class="max-w-3xl mx-auto section-shell">
     <template v-if="user">
-      <div class="mb-6 space-y-2">
-        <h1 class="text-3xl font-black tracking-tight text-primary-900">
-          我要投稿
-        </h1>
-        <p class="text-sm text-neutral-700">
-          留下祝福文字，並可附上作品或外部連結。
-        </p>
-      </div>
-
       <form
         class="space-y-5 rounded-2xl border border-neutral-200/80 bg-white/95 p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
         @submit.prevent="submit"
       >
+        <div class="mb-6 space-y-2">
+          <h1 class="text-3xl font-black tracking-tight text-primary-900">
+            我要投稿
+          </h1>
+          <p class="text-sm text-neutral-700">
+            留下祝福文字，並可附上作品或外部連結。
+          </p>
+        </div>
         <VTextarea
           v-model="form.message"
           label="祝福訊息"
@@ -131,7 +130,7 @@ const form = reactive({
   license: false,
 });
 
-const fileInputEl = ref<HTMLInputElement | null>(null);
+const fileInputEl = ref<HTMLInputElement>();
 const submitting = ref(false);
 
 function pickFile() {

@@ -94,7 +94,7 @@
               />
               <VListItem to="/user/account" title="帳號設定" />
               <VDivider />
-              <VListItem title="登出" @click="logout()" />
+              <VListItem title="登出" @click="confirmLogout()" />
             </VList>
           </VMenu>
         </template>
@@ -144,13 +144,7 @@
           title="使用者管理"
           @click="drawer = false"
         />
-        <VListItem
-          title="登出"
-          @click="
-            drawer = false;
-            logout();
-          "
-        />
+        <VListItem title="登出" @click="confirmLogout()" />
       </template>
     </VList>
   </VNavigationDrawer>
@@ -167,5 +161,13 @@ const headerClass = computed(() =>
     ? "border-primary-200/80 bg-primary-50/85"
     : "border-neutral-300/70 bg-white/80",
 );
+
+function confirmLogout() {
+  if (!import.meta.client) return;
+  const ok = window.confirm("確定要登出嗎？");
+  if (!ok) return;
+  drawer.value = false;
+  logout();
+}
 
 </script>

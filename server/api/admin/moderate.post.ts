@@ -1,5 +1,4 @@
 import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
-import { requireRole } from "../../utils/acl";
 
 export default defineEventHandler(async (event) => {
   requireRole(event, RoleEnum.Member);

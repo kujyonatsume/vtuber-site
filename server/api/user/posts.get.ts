@@ -1,21 +1,19 @@
 import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
+const pageSize = 10;
 
 export default defineEventHandler(async (event) => {
   const u = requireRole(event, RoleEnum.User);
 
   const q = getQuery(event) as Record<string, string | undefined>;
   const page = Math.max(1, parseInt(q.page || "1", 10));
-  const pageSize = Math.min(50, Math.max(1, parseInt(q.pageSize || "10", 10)));
-  const status = (q.status || "all").toLowerCase();
+  const status = Object.values(PostStatusEnum).includes(q.status as PostStatusEnum)
+    ? (q.status as PostStatusEnum)
+    : undefined;
 
-  const where: any = { authorId: u.index };
-  if (
-    status === PostStatusEnum.Pending ||
-    status === PostStatusEnum.Approve ||
-    status === PostStatusEnum.Reject
-  ) {
-    where.status = status;
-  }
+  const where: { authorId: number; status?: PostStatusEnum } = {
+    authorId: u.index,
+  };
+  if (status) where.status = status;
 
   const [rows, total] = await db.Post.findAndCount({
     where,
@@ -31,7 +29,7 @@ export default defineEventHandler(async (event) => {
     items: rows.map((r) => ({
       id: r.index,
       isAnonymous: r.isAnonymous,
-      displayname: r.isAnonymous ? "匿名" : r.author?.name || "未知使用者",
+      displayName: r.isAnonymous ? "匿名" : r.author?.name || "未知使用者",
       category: r.category,
       message: r.message,
       assetUrl: r.assetUrl,

@@ -30,7 +30,7 @@ export function useAuth() {
   }
 
   async function logout() {
-    await $fetch("/api/auth/logout", {
+    await $fetch("/api/user/logout", {
       method: "POST",
       credentials: "include",
     });

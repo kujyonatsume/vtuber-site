@@ -1,4 +1,3 @@
-import { requireRole } from "../../../utils/acl";
 import { RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler(async (event) => {
