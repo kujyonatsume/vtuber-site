@@ -1,9 +1,11 @@
+import type { RoleEnum } from "#build/server/database";
+
 interface IApiUser {
     index: number;
     email: string;
     name: string;
     avatar: string;
-    role: string;
+    role: RoleEnum;
     hasPassword: boolean;
     linked: string[];
 }

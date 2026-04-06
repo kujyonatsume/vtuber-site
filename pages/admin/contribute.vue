@@ -104,7 +104,6 @@
 </template>
 
 <script setup lang="ts">
-import { toast } from "vuetify-sonner";
 definePageMeta({ middleware: ["auth", "admin"] });
 
 type Item = {

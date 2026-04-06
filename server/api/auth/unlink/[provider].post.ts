@@ -1,4 +1,4 @@
-import { ProviderEnum } from "../../../database/Enum"
+import { ProviderEnum } from "~/shared/types/Enum"
 import { User } from "../../../database/Models"
 export default defineEventHandler(async (event) => {
     const u = (event as any).context.user as User | null

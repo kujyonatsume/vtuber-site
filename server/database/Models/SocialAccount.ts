@@ -1,6 +1,6 @@
 import { Entity, Column, Index, ManyToOne, JoinColumn } from 'typeorm'
 import { IEntity } from '../Base'
-import { ProviderEnum } from '../Enum'
+import { ProviderEnum } from '~/shared/types/Enum'
 import { User } from './User'
 
 @Entity()

@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { toast } from "vuetify-sonner";
 definePageMeta({ middleware: "auth" });
 const { refresh } = useAuth();
 

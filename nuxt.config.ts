@@ -64,6 +64,9 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "@hypernym/nuxt-anime",
   ],
+  imports: {
+    imports: [{ from: "vuetify-sonner", name: "toast" }],
+  },
   build: {
     transpile: ["vuetify-sonner"],
   },

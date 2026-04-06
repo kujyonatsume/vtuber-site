@@ -1,4 +1,4 @@
-import { PostStatusEnum } from "../../database/Enum";
+import { PostStatusEnum } from "~/shared/types/Enum";
 
 export default defineEventHandler(async (e) => {
   const q = getQuery(e) as any;

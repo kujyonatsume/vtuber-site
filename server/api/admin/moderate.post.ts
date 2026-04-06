@@ -1,4 +1,4 @@
-import { PostStatusEnum } from "../../database/Enum";
+import { PostStatusEnum } from "~/shared/types/Enum";
 import { requireRole } from "../../utils/acl";
 
 export default defineEventHandler(async (event) => {

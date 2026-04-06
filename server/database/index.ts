@@ -1,2 +1,2 @@
 export * from './Base'
-export * from './Enum'
+export * from '../../shared/types/Enum'

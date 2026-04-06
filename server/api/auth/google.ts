@@ -1,6 +1,22 @@
-import { ProviderEnum } from '../../database/Enum'
+import { ProviderEnum } from '~/shared/types/Enum'
 import { google } from 'googleapis'
 import { createSession } from '../../utils/session'
+
+function resolveSafePath(raw?: unknown) {
+  if (typeof raw !== 'string') return undefined
+
+  const value = raw.trim()
+  if (!value) return undefined
+
+  try {
+    const decoded = decodeURIComponent(value)
+    if (decoded.startsWith('/') && !decoded.startsWith('//')) return decoded
+  } catch {
+    if (value.startsWith('/') && !value.startsWith('//')) return value
+  }
+
+  return undefined
+}
 
 export default defineEventHandler(async (event) => {
   const cfg = useRuntimeConfig().oauth.google
@@ -8,6 +24,7 @@ export default defineEventHandler(async (event) => {
   const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client })
 
   if (isMethod(event, 'GET')) {
+    const next = resolveSafePath(getQuery(event).next)
     return {
       url: oauth2Client.generateAuthUrl({
         access_type: 'offline',
@@ -16,6 +33,7 @@ export default defineEventHandler(async (event) => {
         prompt: 'consent',
         scope: ['openid', 'email', 'profile'],
         response_type: 'code',
+        state: next,
       }),
     }
   }

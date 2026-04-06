@@ -12,9 +12,7 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "moduleResolution": "bundler",
-    "jsx": "react-native",
-    "strict": false,
-    "baseUrl": ".",
+    "jsx": "react-native"
   },
   "extends": "./.nuxt/tsconfig.json"
 }

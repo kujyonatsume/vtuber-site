@@ -1,4 +1,4 @@
-import { RoleEnum } from "../../../database/Enum";
+import { RoleEnum } from "~/shared/types/Enum";
 import { requireRole } from "../../../utils/acl";
 
 const rank: Record<RoleEnum, number> = {

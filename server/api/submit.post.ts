@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { PostCategoryEnum } from "../database/Enum";
+import { PostCategoryEnum } from "../../shared/types/Enum";
 
 const MAX_UPLOAD_SIZE = 15 * 1024 * 1024;
 const TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
@@ -48,6 +48,7 @@ function normalizeExternalUrl(url: string): string {
   }
   return url;
 }
+
 const map: Record<string, string> = {
   // ===== 圖片 =====
   "image/jpeg": "jpg",
@@ -62,7 +63,6 @@ const map: Record<string, string> = {
   "image/heic": "heic",
   "image/heif": "heif",
   "image/tiff": "tiff",
-
   // ===== 影片 =====
   "video/mp4": "mp4",
   "video/webm": "webm",
@@ -73,7 +73,6 @@ const map: Record<string, string> = {
   "video/mpeg": "mpeg",
   "video/3gpp": "3gp",
   "video/3gpp2": "3g2",
-
   // ===== 音訊 =====
   "audio/mpeg": "mp3",
   "audio/mp3": "mp3",
@@ -87,6 +86,7 @@ const map: Record<string, string> = {
   "audio/x-flac": "flac",
   "audio/opus": "opus",
 };
+
 export default defineEventHandler(async (event) => {
   const form = await readMultipartFormData(event);
 
@@ -169,13 +169,19 @@ export default defineEventHandler(async (event) => {
   }
 
   const current = event.context.user;
+  if (!current) {
+    throw createError({
+      statusCode: 401,
+      statusMessage: "請先登入後再投稿",
+    });
+  }
 
   const rec = db.Post.create({
     isAnonymous,
     category,
     message,
     assetUrl: assetUrl || null,
-    authorId: current?.index,
+    authorId: current.index,
   });
 
   await rec.save();

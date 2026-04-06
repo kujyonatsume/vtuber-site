@@ -1,5 +1,5 @@
 import { Like } from "typeorm";
-import { RoleEnum } from "../../database/Enum";
+import { RoleEnum } from "~/shared/types/Enum";
 
 export default defineEventHandler(async (e) => {
   const q = getQuery(e) as Record<string, string | undefined>;

@@ -1,17 +1,9 @@
-<script setup lang="tsx">
-const drawer = ref(false);
-const loginOpen = ref(false);
-const { user, loading, logout, refresh } = useAuth();
-
-// SSR→CSR 首屏同步
-onMounted(() => {
-  if (!user.value) refresh();
-});
-</script>
-
 <template>
   <header
-    class="sticky top-0 z-40 border-b border-neutral-300/70 bg-white/80 text-primary-900 backdrop-blur"
+    :class="[
+      'sticky top-0 z-40 border-b text-primary-900 backdrop-blur',
+      headerClass,
+    ]"
   >
     <div class="flex items-center justify-between py-3 layout-container">
       <NuxtLink to="/" class="flex items-center gap-2 group">
@@ -19,7 +11,7 @@ onMounted(() => {
         <span class="font-bold tracking-wide">VTuber Project</span>
       </NuxtLink>
 
-      <nav class="items-center hidden gap-2 text-sm text-primary-900 md:flex">
+      <nav class="items-center hidden gap-2 text-sm text-primary-900 sm:flex">
         <NuxtLink
           to="/"
           class="rounded-full px-3 py-1.5 hover:bg-secondary-100/80"
@@ -52,12 +44,20 @@ onMounted(() => {
 
       <div class="flex items-center gap-2">
         <template v-if="!user && !loading">
-          <VBtn color="primary" rounded="lg" @click="loginOpen = true"
+          <VBtn color="primary" rounded="lg" @click="openDialog()"
             >登入</VBtn
           >
         </template>
 
         <template v-else-if="user">
+          <VChip
+            size="small"
+            color="secondary"
+            variant="flat"
+            class="hidden mr-1 font-semibold tracking-wide sm:inline-flex"
+          >
+            已登入
+          </VChip>
           <VMenu>
             <template #activator="{ props }">
               <VBtn v-bind="props" variant="text" class="px-2">
@@ -81,8 +81,12 @@ onMounted(() => {
             <VList density="compact">
               <VListItem :title="user.email" />
               <VDivider />
-              <VListItem to="/event/submit" title="我要投稿" />
-              <VListItem v-if="user.role != 'user'" to="/admin/contribute" title="投稿審核" />
+              <VListItem to="/wishes/new" title="我要投稿" />
+              <VListItem
+                v-if="user.role != 'user'"
+                to="/admin/contribute"
+                title="投稿審核"
+              />
               <VListItem
                 v-if="user.role != 'user'"
                 to="/admin/users"
@@ -95,14 +99,19 @@ onMounted(() => {
           </VMenu>
         </template>
 
-        <VBtn class="md:hidden" variant="tonal" @click="drawer = true">
+        <VBtn class="sm:hidden" variant="tonal" @click="drawer = true">
           <VIcon icon="mdi-menu" />
         </VBtn>
       </div>
     </div>
   </header>
 
-  <VNavigationDrawer v-model="drawer" temporary location="right" class="bg-white text-primary-900">
+  <VNavigationDrawer
+    v-model="drawer"
+    temporary
+    location="right"
+    class="bg-white text-primary-900"
+  >
     <VList density="compact">
       <VListItem to="/" title="首頁" @click="drawer = false" />
       <VListItem to="/event" title="活動" @click="drawer = false" />
@@ -110,16 +119,19 @@ onMounted(() => {
       <VListItem to="/clips" title="剪輯" @click="drawer = false" />
       <VListItem to="/about" title="關於" @click="drawer = false" />
       <VDivider class="my-2" />
-      <VListItem
-        v-if="!user"
-        title="登入"
-        @click="
-          drawer = false;
-          loginOpen = true;
-        "
-      />
+      <VListItem v-if="!user" title="登入" @click="openDialog()" />
       <template v-else>
         <VListItem :title="user.email" />
+        <VListItem
+          to="/wishes/new"
+          title="我要投稿"
+          @click="drawer = false"
+        />
+        <VListItem
+          to="/user/account"
+          title="帳號設定"
+          @click="drawer = false"
+        />
         <VListItem
           v-if="user.role != 'user'"
           to="/admin/contribute"
@@ -147,3 +159,13 @@ onMounted(() => {
     <LoginDialog v-model="loginOpen" />
   </ClientOnly>
 </template>
+<script setup lang="tsx">
+const { user, loading, loginOpen, drawer, logout, openDialog } = useLogin();
+const isLoggedIn = computed(() => !!user.value);
+const headerClass = computed(() =>
+  isLoggedIn.value
+    ? "border-primary-200/80 bg-primary-50/85"
+    : "border-neutral-300/70 bg-white/80",
+);
+
+</script>

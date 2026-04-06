@@ -1,20 +1,24 @@
 <template>
   <VApp>
-    <ClientOnly><IntroSplash /></ClientOnly>
-    <div class="flex flex-col min-h-dvh text-primary-900">
-      <NavBar v-if="showGlobalChrome" />
+    <div
+      :class="[
+        'app-shell flex min-h-dvh flex-col text-primary-900',
+        user ? 'app-shell--authed' : 'app-shell--guest',
+      ]"
+    >
+      <NavBar />
       <main class="flex-1">
-        <NuxtLayout>
-          <!-- ✅ 修正 Nuxt 提示 -->
+        <div class="text-primary-900">
           <NuxtPage />
+        </div>
+        <!--
+        <NuxtLayout>
+
         </NuxtLayout>
+        -->
       </main>
-      <footer
-        v-if="showGlobalChrome"
-        class="py-6 text-sm text-center border-t border-neutral-300/60 bg-white/70 text-neutral-800 backdrop-blur"
-      >
+      <footer :class="['py-6 text-center text-sm backdrop-blur', footerClass]">
         © {{ year }} 九条夏目
-        
       </footer>
     </div>
     <VSonner />
@@ -22,10 +26,29 @@
 </template>
 
 <script setup lang="tsx">
-import { VSonner } from "vuetify-sonner";
-
-const route = useRoute();
-const showGlobalChrome = computed(() => !route.path.startsWith("/koyuki"));
+const { user } = useAuth();
+const footerClass = computed(() =>
+  user.value
+    ? "border-t border-primary-200/80 bg-primary-50/78 text-primary-800"
+    : "border-t border-neutral-300/60 bg-white/70 text-neutral-800",
+);
 
 const year = new Date().getFullYear();
 </script>
+
+<style>
+[data-sonner-toaster][data-x-position="center"][data-y-position="top"] {
+  top: 50% !important;
+  right: auto !important;
+  bottom: auto !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+}
+
+@media (max-width: 600px) {
+  [data-sonner-toaster][data-x-position="center"][data-y-position="top"] {
+    width: var(--width) !important;
+    max-width: calc(100vw - 32px);
+  }
+}
+</style>

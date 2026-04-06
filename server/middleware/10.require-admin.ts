@@ -1,6 +1,6 @@
 // server/middleware/10.require-admin.ts
 import type { H3Event } from 'h3'
-import type { RoleEnum } from '../database/Enum'
+import type { RoleEnum } from '../../shared/types/Enum'
 
 const rank: Record<RoleEnum, number> = { owner: 4, admin: 3, member: 2, user: 1 }
 

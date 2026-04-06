@@ -1,12 +1,12 @@
 <template>
-  <section class="mx-auto max-w-3xl py-10 space-y-6">
+  <section class="max-w-3xl py-10 mx-auto space-y-6">
     <h1 class="text-2xl font-bold">帳號設定</h1>
 
-    <div class="card p-6 space-y-4">
+    <div class="p-6 space-y-4 card">
       <div class="flex items-center gap-3">
         <img
           :src="user?.avatar || '/favicon.ico'"
-          class="h-10 w-10 rounded-full object-cover"
+          class="object-cover w-10 h-10 rounded-full"
         />
         <div>
           <div class="font-semibold">{{ user?.name || user?.email }}</div>
@@ -20,7 +20,7 @@
       <div class="grid grid-cols-1 gap-4 sm:grid-cols-[auto_1fr] sm:items-start">
         <img
           :src="user?.avatar || '/favicon.ico'"
-          class="h-16 w-16 rounded-full object-cover border border-neutral-300/70"
+          class="object-cover w-16 h-16 border rounded-full border-neutral-300/70"
         />
         <div class="space-y-3">
           <VTextField
@@ -58,8 +58,8 @@
       <VDivider class="my-2" />
 
       <h2 class="font-semibold">社群綁定</h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        <div class="card p-4 flex items-center justify-between">
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <div class="flex items-center justify-between p-4 card">
           <div>
             <div class="font-medium">Google</div>
             <div class="text-xs text-neutral-900">
@@ -85,7 +85,7 @@
           </div>
         </div>
 
-        <div class="card p-4 flex items-center justify-between">
+        <div class="flex items-center justify-between p-4 card">
           <div>
             <div class="font-medium">Discord</div>
             <div class="text-xs text-neutral-900">
@@ -113,7 +113,7 @@
       </div>
     </div>
 
-    <div class="card p-6 space-y-4">
+    <div class="p-6 space-y-4 card">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <h2 class="font-semibold">我的貼文紀錄</h2>
         <div class="flex items-center gap-2 text-sm text-neutral-800">
@@ -144,9 +144,9 @@
         <article
           v-for="post in myPosts"
           :key="post.id"
-          class="card p-4"
+          class="p-4 card"
         >
-          <header class="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <header class="flex flex-wrap items-center justify-between gap-2 mb-2">
             <div class="text-sm text-neutral-800">
               {{ new Date(post.createdAt).toLocaleString() }}
             </div>
@@ -162,11 +162,9 @@
           </header>
 
           <div class="space-y-1">
-            <p class="text-sm leading-relaxed text-neutral-900 whitespace-pre-line">
+            <p class="text-sm leading-relaxed break-words whitespace-pre-wrap text-neutral-900">
               {{
-                isPostExpanded(post.id)
-                  ? fullText(post.message)
-                  : excerpt(post.message)
+                fullText(post.message)
               }}
             </p>
             <VBtn
@@ -183,18 +181,16 @@
           <img
             v-if="isLikelyImage(post.assetUrl)"
             :src="post.assetUrl || ''"
-            class="mt-3 max-h-56 w-full rounded-lg object-cover"
+            class="object-cover w-full mt-3 rounded-lg max-h-56"
           />
           <a
-            v-else-if="post.assetUrl"
-            :href="post.assetUrl"
-            target="_blank"
-            class="mt-3 inline-flex text-sm text-primary-700 hover:underline"
+            :href="`/wishes#post-${post.id}`"
+            class="inline-flex mt-3 text-sm text-primary-700 hover:underline"
           >
-            查看附件
+            查看投稿
           </a>
 
-          <footer class="mt-3 flex items-center justify-end">
+          <footer class="flex items-center justify-end mt-3">
             <VBtn
               v-if="canWithdraw(post.status)"
               size="small"
@@ -210,7 +206,7 @@
 
         <p
           v-if="!postsPending && !myPosts.length"
-          class="rounded-lg border border-dashed border-neutral-300 p-6 text-center text-sm text-neutral-700"
+          class="p-6 text-sm text-center border border-dashed rounded-lg border-neutral-300 text-neutral-700"
         >
           目前沒有貼文紀錄
         </p>
@@ -226,7 +222,6 @@
 </template>
 
 <script setup lang="ts">
-import { toast } from "vuetify-sonner";
 definePageMeta({ middleware: "auth" });
 
 const { user, refresh } = useAuth();

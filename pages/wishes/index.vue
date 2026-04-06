@@ -2,7 +2,7 @@
   <section class="layout-container section-shell">
     <div class="flex items-center justify-between mb-6">
       <h1 class="text-3xl font-bold">祝福牆</h1>
-      <NuxtLink to="/event/submit" class="btn-accent">我要投稿</NuxtLink>
+      <NuxtLink to="/wishes/new" class="btn-accent">我要投稿</NuxtLink>
     </div>
 
     <div
@@ -24,6 +24,7 @@
 </template>
 
 <script setup lang="ts">
+
 type BoardItem = {
   id: number | string;
   isAnonymous: boolean;
@@ -35,6 +36,8 @@ type BoardItem = {
   createdAt: string | Date;
 };
 
+const route = useRoute();
+const router = useRouter();
 const { data: list } = await useFetch<BoardItem[]>("/api/public/list");
 
 const masonryRef = ref<HTMLElement | null>(null);
@@ -105,6 +108,19 @@ function scheduleLayout() {
 }
 
 onMounted(async () => {
+  const rawSubmitted = route.query.submitted;
+  const submitted =
+    rawSubmitted === "1" ||
+    rawSubmitted === "true" ||
+    (Array.isArray(rawSubmitted) &&
+      (rawSubmitted.includes("1") || rawSubmitted.includes("true")));
+  if (submitted) {
+    toast.success("已經送出成功，請等待審核");
+    const nextQuery = { ...route.query };
+    delete nextQuery.submitted;
+    router.replace({ path: route.path, query: nextQuery });
+  }
+
   await nextTick();
   layoutMasonry();
 

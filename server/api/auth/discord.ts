@@ -1,17 +1,35 @@
 import DiscordOauth2 from 'discord-oauth2'
 import { PermissionsBitField } from 'discord.js'
-import { ProviderEnum } from '../../database/Enum'
+import { ProviderEnum } from '~/shared/types/Enum'
 import { createSession } from '../../utils/session'
+
+function resolveSafePath(raw?: unknown) {
+  if (typeof raw !== 'string') return undefined
+
+  const value = raw.trim()
+  if (!value) return undefined
+
+  try {
+    const decoded = decodeURIComponent(value)
+    if (decoded.startsWith('/') && !decoded.startsWith('//')) return decoded
+  } catch {
+    if (value.startsWith('/') && !value.startsWith('//')) return value
+  }
+
+  return undefined
+}
 
 export default defineEventHandler(async (event) => {
   const cfg = useRuntimeConfig().oauth.discord
   const oauth = new DiscordOauth2(cfg)
 
   if (isMethod(event, 'GET')) {
+    const next = resolveSafePath(getQuery(event).next)
     return {
       url: oauth.generateAuthUrl({
         scope: ['identify', 'email'],
         responseType: 'code',
+        state: next,
         ...cfg,
       }),
     }

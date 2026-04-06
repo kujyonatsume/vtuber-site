@@ -1,12 +1,12 @@
 <template>
-  <section class="layout-container py-8 space-y-6">
+  <section class="py-8 space-y-6 layout-container">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <div>
         <h1 class="text-2xl font-bold">使用者管理</h1>
         <p class="text-sm text-neutral-800">共 {{ total }} 位使用者</p>
       </div>
       <div class="flex gap-2">
-        <VBtn variant="tonal" rounded="lg" to="/admin">返回審核</VBtn>
+        <VBtn variant="tonal" rounded="lg" to="/admin/contribute">返回審核</VBtn>
       </div>
     </header>
 
@@ -47,9 +47,9 @@
       <VBtn variant="text" :loading="pending" @click="refresh">重新整理</VBtn>
     </div>
 
-    <div class="overflow-x-auto rounded-xl border border-neutral-300/70 bg-white/90">
+    <div class="overflow-x-auto border rounded-xl border-neutral-300/70 bg-white/90">
       <table class="w-full min-w-[860px] text-sm">
-        <thead class="bg-secondary-50/70 text-left">
+        <thead class="text-left bg-secondary-50/70">
           <tr>
             <th class="px-4 py-3">ID</th>
             <th class="px-4 py-3">使用者</th>
@@ -128,7 +128,6 @@
 </template>
 
 <script setup lang="ts">
-import { toast } from "vuetify-sonner";
 
 definePageMeta({ middleware: ["auth", "admin"] });
 

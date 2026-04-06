@@ -1,6 +1,6 @@
 import { Entity, Column, Generated, Index, OneToMany, OneToOne } from "typeorm"
 import { IEntity } from "../Base"
-import { RoleEnum } from "../Enum"
+import { RoleEnum } from "~/shared/types/Enum"
 import { Post } from "./Post"
 import { Session } from "./Session"
 import { SocialAccount } from "./SocialAccount"

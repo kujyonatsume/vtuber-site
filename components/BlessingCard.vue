@@ -1,5 +1,5 @@
 <template>
-  <article
+  <article :id="`post-${item.id}`"
     class="group flex h-full flex-col overflow-hidden rounded-2xl border border-neutral-200/90 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
   >
     <div class="flex flex-col flex-1 gap-3 p-4">
@@ -18,14 +18,6 @@
             :prepend-icon="categoryIcon(item.category)"
           >
             {{ categoryLabel(item.category) }}
-          </VChip>
-          <VChip
-            v-if="item.isAnonymous"
-            size="x-small"
-            variant="tonal"
-            color="grey"
-          >
-            匿名
           </VChip>
         </div>
       </header>
