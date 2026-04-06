@@ -19,14 +19,15 @@ export class RoleFlag {
   static readonly user = new RoleFlag(0b000);
   constructor(public readonly value: number) {}
   has(role: RoleEnum): boolean {
-    return (RoleFlag[role].value & this.value) === this.value;
+    const required = RoleFlag[role];
+    return (this.value & required.value) === required.value;
   }
 }
 
 export enum PostStatusEnum {
   Pending = "pending",
   Approve = "approve",
-  Reject = "reject",
+  Reject = "reject"
 }
 
 export enum PostCategoryEnum {
