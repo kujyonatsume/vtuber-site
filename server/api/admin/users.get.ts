@@ -1,16 +1,14 @@
 import { Like } from "typeorm";
-import { RoleEnum } from "~/shared/types/Enum";
 
 export default defineEventHandler(async (e) => {
   const q = getQuery(e) as Record<string, string | undefined>;
   const page = Math.max(1, parseInt(q.page || "1", 10));
   const pageSize = Math.min(100, Math.max(1, parseInt(q.pageSize || "20", 10)));
   const kw = (q.kw || "").trim();
-  const role = (q.role || "").trim() as RoleEnum | "";
+  const role = (q.role || "").trim();
   const sortBy = String(q.sortBy || "createdAt");
   const sortDir = String(q.sortDir || "desc").toLowerCase() === "asc" ? "ASC" : "DESC";
 
-  const hasRole = Object.values(RoleEnum).includes(role as RoleEnum);
   const orderFieldMap: Record<string, "createdAt" | "lastLoginAt" | "email" | "role" | "name"> = {
     createdAt: "createdAt",
     lastLoginAt: "lastLoginAt",
@@ -26,8 +24,8 @@ export default defineEventHandler(async (e) => {
       { email: Like(`%${kw}%`) },
       { name: Like(`%${kw}%`) },
     ];
-    where = hasRole ? likes.map((it) => ({ ...it, role })) : likes;
-  } else if (hasRole) {
+    where = role ? likes.map((it) => ({ ...it, role })) : likes;
+  } else if (role) {
     where = { role };
   }
 

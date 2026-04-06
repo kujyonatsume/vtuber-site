@@ -139,7 +139,7 @@
           @click="drawer = false"
         />
         <VListItem
-          v-if="user.role != 'user'"
+          v-if="user.role != 'owner'"
           to="/admin/users"
           title="使用者管理"
           @click="drawer = false"

@@ -101,7 +101,7 @@
                   hide-details
                   style="max-width: 150px"
                   :disabled="savingId === it.id"
-                  @update:model-value="(val) => updateRole(it, String(val) as Role)"
+                  @update:model-value="(val) => updateRole(it, String(val) as RoleEnum)"
                 />
                 <VProgressCircular
                   v-if="savingId === it.id"
@@ -128,34 +128,34 @@
 </template>
 
 <script setup lang="ts">
+import { RoleEnum } from "~/shared/Enum";
 
 definePageMeta({ middleware: ["auth", "admin"] });
 
-type Role = "owner" | "admin" | "member" | "user";
 type Item = {
   id: number;
   email: string;
   name?: string | null;
-  role: Role;
+  role: RoleEnum;
   linked: string[];
   lastLoginAt?: string | null;
 };
 
-const roleText: Record<Role, string> = {
-  owner: "Owner",
-  admin: "Admin",
-  member: "Member",
-  user: "User",
+const roleText: Record<RoleEnum, string> = {
+  [RoleEnum.Owner]: "Owner",
+  [RoleEnum.Admin]: "Admin",
+  [RoleEnum.Member]: "Member",
+  [RoleEnum.User]: "User",
 };
 
 const roleItems = [
-  { title: "Owner", value: "owner" },
-  { title: "Admin", value: "admin" },
-  { title: "Member", value: "member" },
-  { title: "User", value: "user" },
+  { title: "Owner", value: RoleEnum.Owner },
+  { title: "Admin", value: RoleEnum.Admin },
+  { title: "Member", value: RoleEnum.Member },
+  { title: "User", value: RoleEnum.User },
 ];
 
-const roleFilter = ref<"all" | Role>("all");
+const roleFilter = ref<"all" | RoleEnum>("all");
 const roleFilterItems = [
   { title: "全部角色", value: "all" },
   ...roleItems,
@@ -200,7 +200,7 @@ const maxPage = computed(() => Math.max(1, Math.ceil(total.value / pageSize.valu
 
 const savingId = ref<number | null>(null);
 
-async function updateRole(it: Item, role: Role) {
+async function updateRole(it: Item, role: RoleEnum) {
   if (it.role === role) return;
 
   savingId.value = it.id;

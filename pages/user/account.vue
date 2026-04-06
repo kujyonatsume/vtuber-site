@@ -205,7 +205,7 @@
         </article>
 
         <p
-          v-if="!postsPending && !myPosts.length"
+          v-if="!postsPending && !myPosts?.length"
           class="p-6 text-sm text-center border border-dashed rounded-lg border-neutral-300 text-neutral-700"
         >
           目前沒有貼文紀錄
@@ -266,7 +266,7 @@ const { data: postsData, pending: postsPending, refresh: refreshPosts } = await 
   }
 );
 
-const myPosts = computed<MyPost[]>(() => (postsData.value?.items || []) as MyPost[]);
+const myPosts = computed(() => postsData.value?.items);
 const postTotal = computed(() => Number(postsData.value?.total || 0));
 const postMaxPage = computed(() => Math.max(1, Math.ceil(postTotal.value / postPageSize.value)));
 
@@ -396,7 +396,7 @@ async function withdrawPost(id: number) {
     toast.success("已撤回投稿");
 
     await refreshPosts();
-    if (!myPosts.value.length && postPage.value > 1) {
+    if (!myPosts.value?.length && postPage.value > 1) {
       postPage.value -= 1;
       await refreshPosts();
     }

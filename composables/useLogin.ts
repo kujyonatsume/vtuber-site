@@ -1,6 +1,6 @@
 export function useLogin() {
   const { user, loading, logout, refresh } = useAuth();
-  const loginTimer = useState<ReturnType<typeof setTimeout>>(
+  const loginTimer = useState<ReturnType<typeof setTimeout> | null>(
     "login:timer",
     () => null,
   );

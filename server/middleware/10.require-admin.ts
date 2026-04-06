@@ -1,16 +1,17 @@
 // server/middleware/10.require-admin.ts
-import type { H3Event } from 'h3'
-import type { RoleEnum } from '../../shared/types/Enum'
-
-const rank: Record<RoleEnum, number> = { owner: 4, admin: 3, member: 2, user: 1 }
+import type { H3Event } from "h3";
+import { RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler((event: H3Event) => {
-    if (!event.path.startsWith('/api/admin/')) return
-    // @ts-ignore
-    const u = event.context.user
-    if (!u) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })
-    const currentRank = rank[u.role as RoleEnum]
-    if (!Number.isFinite(currentRank) || currentRank < rank.admin) {
-        throw createError({ statusCode: 403, statusMessage: 'forbidden' })
-    }
-})
+  if (!event.path.startsWith("/api/admin/")) return;
+
+  const u = requireRole(event, RoleEnum.User);
+
+  const required = event.path.startsWith("/api/admin/users")
+    ? RoleEnum.Admin
+    : RoleEnum.Member;
+
+  if (!u.hasPrem(required)) {
+    throw createError({ statusCode: 403, statusMessage: "forbidden" });
+  }
+});

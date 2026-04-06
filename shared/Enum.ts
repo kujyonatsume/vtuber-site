@@ -11,6 +11,18 @@ export enum RoleEnum {
   User = "user",
 }
 
+export class RoleFlag {
+  static readonly enum = RoleEnum;
+  static readonly owner = new RoleFlag(0b111);
+  static readonly admin = new RoleFlag(0b011);
+  static readonly member = new RoleFlag(0b001);
+  static readonly user = new RoleFlag(0b000);
+  constructor(public readonly value: number) {}
+  has(role: RoleEnum): boolean {
+    return (RoleFlag[role].value & this.value) === this.value;
+  }
+}
+
 export enum PostStatusEnum {
   Pending = "pending",
   Approve = "approve",

@@ -2,7 +2,7 @@
   <section class="py-8 space-y-6 layout-container">
     <header class="flex flex-wrap items-center justify-between gap-3">
       <h1 class="text-2xl font-bold">投稿審核</h1>
-      <div class="flex items-center gap-3">
+      <div v-if="user?.hasPerm(RoleEnum.Admin)" class="flex items-center gap-3">
         <VBtn to="/admin/users" variant="tonal" rounded="lg">使用者管理</VBtn>
         <div class="text-sm text-neutral-800">共 {{ total }} 筆</div>
       </div>
@@ -104,7 +104,10 @@
 </template>
 
 <script setup lang="ts">
+import { RoleEnum } from '~/shared/Enum';
+
 definePageMeta({ middleware: ["auth", "admin"] });
+const { user } = useAuth();
 
 type Item = {
   id: number;
@@ -133,7 +136,7 @@ const sortDirItems = [
   { title: "遞增", value: "asc" },
 ];
 
-const { data, pending, refresh } = await useFetch(() => `/api/admin/posts`, {
+const { data, refresh } = await useFetch(() => `/api/admin/posts`, {
   query: computed(() => ({
     status: tab.value,
     page: page.value,

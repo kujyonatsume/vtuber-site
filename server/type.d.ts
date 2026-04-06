@@ -9,7 +9,7 @@ declare global {
 
 declare module "h3" {
   interface H3EventContext {
-    user?: InstanceType<typeof db.User>;
+    user?: InstanceType<typeof db.User> | null;
   }
 }
 

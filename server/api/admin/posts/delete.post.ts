@@ -1,7 +1,8 @@
 import { requireRole } from "../../../utils/acl";
+import { RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler(async (event) => {
-  requireRole(event, "admin");
+  requireRole(event, RoleEnum.Member);
 
   const { id } = await readBody<{ id: number | string }>(event);
   const postId = Number(id);

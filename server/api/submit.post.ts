@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { PostCategoryEnum } from "../../shared/types/Enum";
+import { PostCategoryEnum } from "../../shared/Enum";
 
 const MAX_UPLOAD_SIZE = 15 * 1024 * 1024;
 const TRUE_VALUES = new Set(["1", "true", "yes", "on"]);
@@ -149,7 +149,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const id = `${Date.now()}_${randomUUID()}`;
-    const ext = map[file.type?.toLowerCase().split(";")[0].trim()] || "bin";
+    const ext = map[`${file.type?.toLowerCase().split(";")[0].trim()}`] || "bin";
     const key = `/${id}.${ext}`;
     await useStorage("static").setItemRaw(key, file.data);
 
@@ -180,7 +180,7 @@ export default defineEventHandler(async (event) => {
     isAnonymous,
     category,
     message,
-    assetUrl: assetUrl || null,
+    assetUrl: assetUrl,
     authorId: current.index,
   });
 

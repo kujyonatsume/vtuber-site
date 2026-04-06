@@ -1,8 +1,8 @@
-import { PostStatusEnum } from "~/shared/types/Enum";
+import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
 import { requireRole } from "../../utils/acl";
 
 export default defineEventHandler(async (event) => {
-  requireRole(event, "admin");
+  requireRole(event, RoleEnum.Member);
 
   const { id, action } = await readBody<{
     id: number | string;

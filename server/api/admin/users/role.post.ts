@@ -1,20 +1,7 @@
-import { RoleEnum } from "~/shared/types/Enum";
-import { requireRole } from "../../../utils/acl";
-
-const rank: Record<RoleEnum, number> = {
-  owner: 4,
-  admin: 3,
-  member: 2,
-  user: 1,
-};
-
-function getRank(role: string): number | null {
-  const v = (rank as Record<string, number | undefined>)[role];
-  return Number.isFinite(v) ? (v as number) : null;
-}
+import { RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler(async (e) => {
-  requireRole(e, "admin");
+  requireRole(e, RoleEnum.Admin);
 
   const actor = e.context.user as { index: number; role: RoleEnum } | undefined;
   if (!actor) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
@@ -36,9 +23,9 @@ export default defineEventHandler(async (e) => {
   if (actor.index === userId && actor.role !== role) {
     throw createError({ statusCode: 400, statusMessage: "cannot change your own role" });
   }
-  const actorRank = getRank(actor.role);
-  const targetRank = getRank(u.role);
-  const nextRank = getRank(role);
+  const actorRank = actor.role;
+  const targetRank = u.role;
+  const nextRank = role;
   if (!actorRank || !targetRank || !nextRank) {
     throw createError({ statusCode: 403, statusMessage: "forbidden role value" });
   }

@@ -1,9 +1,7 @@
-import { PostStatusEnum } from "~/shared/types/Enum";
+import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
 
 export default defineEventHandler(async (event) => {
-  // @ts-ignore
-  const u = event.context.user;
-  if (!u) throw createError({ statusCode: 401, statusMessage: "unauthorized" });
+  const u = requireRole(event, RoleEnum.User);
 
   const q = getQuery(event) as Record<string, string | undefined>;
   const page = Math.max(1, parseInt(q.page || "1", 10));
