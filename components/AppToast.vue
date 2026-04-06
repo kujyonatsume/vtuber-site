@@ -34,14 +34,14 @@ const props = defineProps<{
   color?: string;
   action?: {
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
   };
 }>();
 
 const emit = defineEmits(["close"]);
 
 function onAction() {
-  props.action?.onClick();
+  props.action?.onClick?.();
   emit("close");
 }
 </script>
@@ -87,11 +87,11 @@ function onAction() {
 
 /* 文字 */
 .toast__title {
-  font-weight: 500;
+  font-size: 14px;
 }
 
 .toast__desc {
-  font-size: 12px;
+  font-size: 10px;
   opacity: 0.7;
 }
 </style>

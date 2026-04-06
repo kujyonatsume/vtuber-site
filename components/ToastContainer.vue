@@ -3,7 +3,7 @@
   <div class="toaster">
     <TransitionGroup name="toast">
       <AppToast
-        v-for="t in toasts"
+        v-for="t in computedToasts"
         :key="t.id"
         v-bind="t"
         @close="remove(t.id)"
@@ -13,8 +13,26 @@
 </template>
 
 <script setup lang="ts">
-const toasts = useState<any[]>("toasts", () => []);
+interface Toast {
+  id: number;
+  text: string;
+  description?: string;
+  icon?: string;
+  color?: string;
+  action?: {
+    label: string;
+    onClick: () => void;
+  };
+}
+
+const computedToasts = computed(() => {
+  const toasts = useState<Toast[]>("toasts", () => []);
+  toasts.value = toasts.value.filter((_, i) => i >= toasts.value.length - 5);
+  return toasts.value;
+});
+
 function remove(id: number) {
+  const toasts = useState<Toast[]>("toasts");
   toasts.value = toasts.value.filter((t) => t.id !== id);
 }
 </script>

@@ -32,42 +32,7 @@ const footerClass = computed(() =>
 );
 
 function toastTest() {
-  toast.success("這是一條成功訊息！", {
-    description: "這是對成功訊息的補充說明。",
-    action: {
-      label: "撤銷",
-      onClick() {
-        alert("已撤銷！");
-      },
-    },
-  });
-    toast.info("這是一條資訊訊息！", {
-    description: "這是對資訊訊息的補充說明。",
-    action: {
-      label: "撤銷",
-      onClick() {
-        alert("已撤銷！");
-      },
-    },
-  });
-    toast.warning("這是一條警告訊息！", {
-    description: "這是對警告訊息的補充說明。",
-    action: {
-      label: "撤銷",
-      onClick() {
-        alert("已撤銷！");
-      },
-    },
-  });
-    toast.error("這是一條錯誤訊息！", {
-    description: "這是對錯誤訊息的補充說明。",
-    action: {
-      label: "撤銷",
-      onClick() {
-        alert("已撤銷！");
-      },
-    },
-  });
+  toast.success("這是一條成功訊息！");
 }
 
 const year = new Date().getFullYear();

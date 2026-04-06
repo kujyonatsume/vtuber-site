@@ -188,7 +188,8 @@ async function moderate(id: number, action: "approve" | "reject") {
 }
 
 async function removePost(id: number) {
-  if (import.meta.client && !window.confirm("確定要刪除這筆投稿嗎？此操作無法復原。")) {
+  const ok = await toast.confirm("確定要刪除這筆投稿嗎？此操作無法復原。");
+  if (!ok) {
     return;
   }
 

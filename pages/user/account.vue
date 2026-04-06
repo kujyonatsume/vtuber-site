@@ -217,6 +217,7 @@ import { PostCategoryEnum, PostStatusEnum } from "~/shared/Enum";
 definePageMeta({ middleware: "auth" });
 
 const { user, refresh } = useAuth();
+
 const profileName = ref("");
 const avatarFile = ref<File | File[] | null>(null);
 const savingProfile = ref(false);
@@ -342,10 +343,8 @@ function isPostExpanded(id: number) {
 }
 
 async function withdrawPost(id: number) {
-  if (
-    import.meta.client &&
-    !window.confirm("確定要撤回這筆投稿嗎？撤回後將無法復原。")
-  ) {
+  const ok = await toast.confirm("確定要撤回這筆投稿嗎？撤回後將無法復原。");
+  if (!ok) {
     return;
   }
 

@@ -1,10 +1,11 @@
 export interface ToastOptions {
-  text?: string;
+  text: string;
   description?: string;
   type?: ToastType;
   action?: {
     label: string;
-    onClick: () => void;
+    onClick?: () => void;
+    onClose?: () => void;
   };
   duration?: number;
 }
@@ -35,7 +36,7 @@ export function useToast() {
   function show(options: ToastOptions) {
     const id = Date.now();
     const type = options.type ?? "info";
-
+    const duration = options.duration ?? 3000;
     const config = TYPE_CONFIG[type];
 
     toasts.value.push({
@@ -47,7 +48,10 @@ export function useToast() {
       action: options.action,
     });
 
-    setTimeout(() => remove(id), options.duration ?? 3000);
+    setTimeout(() => {
+      remove(id);
+      options.action?.onClose?.();
+    }, duration);
   }
 
   function remove(id: number) {

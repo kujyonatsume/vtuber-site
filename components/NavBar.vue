@@ -164,7 +164,7 @@ const headerClass = computed(() =>
 
 async function confirmLogout() {
   if (!import.meta.client) return;
-  const ok = window.confirm("確定要登出嗎？");
+  const ok = await toast.confirm("確定要登出嗎？");
   if (!ok) return;
   drawer.value = false;
   await logout();
