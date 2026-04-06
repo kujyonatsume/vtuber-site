@@ -1,6 +1,7 @@
 <template>
   <VDialog
     v-model="open"
+    :persistent="persistent"
     max-width="480"
     :z-index="12000"
     @click:outside="closeDialog"
@@ -120,7 +121,10 @@
         </VAlert>
       </VCardText>
 
-      <VCardActions class="justify-end">
+      <VCardActions
+        v-if="!persistent"
+        class="justify-end"
+      >
         <VBtn variant="text" @click="closeDialog">關閉</VBtn>
       </VCardActions>
     </VCard>
@@ -128,11 +132,20 @@
 </template>
 
 <script setup lang="ts">
+
 const { refresh } = useAuth();
 const route = useRoute();
 const loginRedirect = useState<string | null>("login:redirect", () => null);
-
-const props = defineProps<{ modelValue: boolean }>();
+const props = withDefaults(
+  defineProps<{
+    modelValue: boolean;
+    persistent?: boolean;
+  }>(),
+  {
+    persistent: false,
+  }
+);
+const { persistent } = toRefs(props);
 const emit = defineEmits<{ "update:modelValue": [boolean] }>();
 const open = useVModel(props, "modelValue", emit);
 
@@ -198,9 +211,13 @@ async function submit() {
     toast.success(mode.value === "login" ? "登入成功" : "註冊成功");
     const target = resolveLoginTarget();
     loginRedirect.value = null;
-    closeDialog();
+    closeDialog(true);
     if (target && target !== route.fullPath) {
       await navigateTo(target);
+      return;
+    }
+    if (route.path === "/user/login") {
+      await navigateTo("/");
     }
   } catch (e: any) {
     error.value = e?.data?.message || e?.message || "操作失敗";
@@ -211,11 +228,10 @@ async function submit() {
 
 function modeToggle() {
   mode.value = mode.value === "login" ? "register" : "login";
-  closeDialog();
-  setTimeout(() => open.value = true, 230);
 }
 
-function closeDialog() {
+function closeDialog(force = false) {
+  if (persistent.value && !force) return;
   open.value = false;
 }
 
