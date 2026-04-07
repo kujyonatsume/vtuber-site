@@ -1,4 +1,3 @@
-<!-- components/ToastContainer.vue -->
 <template>
   <div class="toaster">
     <TransitionGroup name="toast">
@@ -11,20 +10,6 @@
     </TransitionGroup>
   </div>
 </template>
-
-<script setup lang="ts">
-interface Toast {
-  id: number;
-  text: string;
-  description?: string;
-  icon?: string;
-  color?: string;
-  action?: {
-    label: string;
-    onClick: () => void;
-  };
-}
-</script>
 
 <style scoped>
 .toaster {
