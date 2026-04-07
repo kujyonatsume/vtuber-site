@@ -1,15 +1,19 @@
+<!-- components/ToastContainer.vue -->
 <template>
   <div class="toaster">
     <TransitionGroup name="toast">
-      <AppToast
-        v-for="t in toast.list"
-        :key="t.id"
-        v-bind="t"
-        @close="t.remove()"
-      />
+      <AppToast v-for="t in toast" :key="t.id" v-bind="t" @close="t.remove()" />
     </TransitionGroup>
   </div>
 </template>
+
+<script setup lang="ts">
+const toast = computed(() => {
+  const toasts = useState<IToast[]>("toasts", () => []);
+  toasts.value = toasts.value.filter((_, i) => i >= toasts.value.length - 5);
+  return toasts.value;
+});
+</script>
 
 <style scoped>
 .toaster {
