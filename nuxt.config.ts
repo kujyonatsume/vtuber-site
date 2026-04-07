@@ -64,6 +64,9 @@ export default defineNuxtConfig({
     "vuetify-nuxt-module",
     "@hypernym/nuxt-anime",
   ],
+  imports: {
+    imports: [{ from: "~/utils/toast", name: "toast" }],
+  },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "layout", mode: "out-in" },
