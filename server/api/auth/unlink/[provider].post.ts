@@ -1,4 +1,4 @@
-import { ProviderEnum } from "~/shared/Enum"
+import { ProviderEnum } from "#shared/Enum"
 export default defineEventHandler(async (event) => {
     const u = requireRole(event)
     if (!u) throw createError({ statusCode: 401, statusMessage: 'unauthorized' })

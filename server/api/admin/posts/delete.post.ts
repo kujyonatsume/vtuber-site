@@ -1,4 +1,4 @@
-import { RoleEnum } from "~/shared/Enum";
+import { RoleEnum } from "#shared/Enum";
 
 export default defineEventHandler(async (event) => {
   requireRole(event, RoleEnum.Member);

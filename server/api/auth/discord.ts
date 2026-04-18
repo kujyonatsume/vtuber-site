@@ -1,6 +1,6 @@
 import DiscordOauth2 from 'discord-oauth2'
 import { PermissionsBitField } from 'discord.js'
-import { ProviderEnum } from '~/shared/Enum'
+import { ProviderEnum } from '#shared/Enum'
 import { createSession } from '../../utils/session'
 
 function resolveSafePath(raw?: unknown) {

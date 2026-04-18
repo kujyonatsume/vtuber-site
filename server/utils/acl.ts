@@ -1,5 +1,5 @@
 import type { H3Event } from "h3";
-import { RoleEnum } from "~/shared/Enum";
+import { RoleEnum } from "#shared/Enum";
 
 export function requireRole(event: H3Event, role?: RoleEnum) {
   const u = event.context.user;

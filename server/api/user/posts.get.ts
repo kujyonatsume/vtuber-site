@@ -1,4 +1,4 @@
-import { PostStatusEnum, RoleEnum } from "~/shared/Enum";
+import { PostStatusEnum, RoleEnum } from "#shared/Enum";
 const pageSize = 10;
 
 export default defineEventHandler(async (event) => {

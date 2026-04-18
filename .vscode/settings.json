@@ -1,4 +1,3 @@
 {
-    "git.ignoreLimitWarning": true,
-    "nuxt.isNuxtApp": false
+  "scss.lint.unknownAtRules": "ignore"
 }

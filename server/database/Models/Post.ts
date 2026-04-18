@@ -1,6 +1,6 @@
 import { Entity, Column, Index, ManyToOne, JoinColumn } from "typeorm";
 import { IEntity } from "../Base";
-import { PostCategoryEnum, PostStatusEnum } from "~/shared/Enum";
+import { PostCategoryEnum, PostStatusEnum } from "#shared/Enum";
 import { User } from "./User";
 
 @Entity()

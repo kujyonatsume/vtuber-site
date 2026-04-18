@@ -1,4 +1,4 @@
-import { PostStatusEnum } from "~/shared/Enum";
+import { PostStatusEnum } from "#shared/Enum";
 
 export default defineEventHandler(async () => {
   const rows = await db.Post.find({

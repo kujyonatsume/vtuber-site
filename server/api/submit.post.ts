@@ -149,7 +149,7 @@ export default defineEventHandler(async (event) => {
     }
 
     const id = `${Date.now()}_${randomUUID()}`;
-    const ext = map[`${file.type?.toLowerCase().split(";")[0].trim()}`] || "bin";
+    const ext = map[`${file.type?.toLowerCase().split(";")[0]?.trim()}`] || "bin";
     const key = `/${id}.${ext}`;
     await useStorage("static").setItemRaw(key, file.data);
 
@@ -180,9 +180,5 @@ export default defineEventHandler(async (event) => {
 
   await rec.save();
 
-  return {
-    index: rec.index,
-    assetUrl: rec.assetUrl,
-    category: rec.category,
-  };
+  return { id: rec.index };
 });

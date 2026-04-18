@@ -1,4 +1,4 @@
-import { ProviderEnum } from '~/shared/Enum'
+import { ProviderEnum } from '#shared/Enum'
 import { google } from 'googleapis'
 import { createSession } from '../../utils/session'
 

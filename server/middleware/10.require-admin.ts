@@ -1,6 +1,6 @@
 // server/middleware/10.require-admin.ts
 import type { H3Event } from "h3";
-import { RoleEnum } from "~/shared/Enum";
+import { RoleEnum } from "#shared/Enum";
 
 export default defineEventHandler((event: H3Event) => {
   if (!event.path.startsWith("/api/admin/")) return;

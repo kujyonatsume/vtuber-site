@@ -1,0 +1,16 @@
+@layer tailwind-theme;
+@layer tailwind-reset;
+
+@layer vuetify-core;
+@layer vuetify-components;
+@layer vuetify-overrides;
+@layer vuetify-utilities;
+
+@layer tailwind-utilities;
+
+@layer vuetify-final;
+
+html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}

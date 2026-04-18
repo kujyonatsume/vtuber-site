@@ -1,5 +1,5 @@
 {
-  "name": "vtuber-site",
+  "name": "vuetify-project",
   "private": true,
   "type": "module",
   "scripts": {
@@ -12,29 +12,29 @@
   },
   "dependencies": {
     "@hypernym/nuxt-anime": "^2.1.1",
-    "@nuxt/devtools": "^2.6.2",
-    "@nuxtjs/tailwindcss": "^6.14.0",
-    "@vueuse/nuxt": "^11.1.0",
-    "bcryptjs": "^3.0.2",
-    "better-sqlite3": "^11.10.0",
-    "dayjs-nuxt": "^2.1.11",
+    "@mdi/font": "7.4.47",
+    "@nuxtjs/i18n": "^10.2.3",
+    "@vueuse/nuxt": "^14.2.1",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^12.9.0",
     "discord-oauth2": "^2.12.1",
-    "discord.js": "^14.21.0",
-    "dotenv": "^17.2.3",
-    "google-auth-library": "^10.2.0",
-    "googleapis": "^155.0.0",
-    "jose": "^6.0.12",
-    "nuxt": "^3.17.7",
-    "nuxt-twemoji": "^3.6.2",
+    "discord.js": "^14.26.3",
+    "dotenv": "^17.4.2",
+    "google-auth-library": "^10.6.2",
+    "googleapis": "^171.4.0",
+    "nuxt": "^4.4.2",
+    "nuxt-twemoji": "^4.0.2",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.25",
-    "vue": "^3.5.18",
-    "vue-router": "^4.5.1",
-    "vuetify-nuxt-module": "^0.16.1"
+    "typeorm": "^0.3.28",
+    "vue": "^3.5.30",
+    "vuetify": "^4.0.2",
+    "vuetify-nuxt-module": "^0.19.4"
   },
   "devDependencies": {
-    "@types/ms": "^2.1.0",
-    "sass-embedded": "^1.98.0",
-    "vue3-google-login": "^2.0.33"
+    "@nuxt/fonts": "^0.14.0",
+    "@tailwindcss/postcss": "^4.2.1",
+    "@types/node": "^25.6.0",
+    "sass": "^1.98.0",
+    "tailwindcss": "^4.2.1"
   }
 }

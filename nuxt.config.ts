@@ -9,15 +9,20 @@ const host =
     : `https://${env.DOMAIN}`;
 
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
+  compatibilityDate: "2025-12-21",
+  modules: [
+    "@nuxt/devtools",
+    "vuetify-nuxt-module",
+    "@nuxtjs/i18n",
+    "@vueuse/nuxt",
+    "@nuxt/fonts",
+    "nuxt-twemoji",
+    "@hypernym/nuxt-anime",
+  ],
   devServer: {
     port: Number(env.PORT),
   },
   devtools: { enabled: true },
-  tailwindcss: {
-    viewer: false,
-    cssPath: "~/assets/css/tailwind.scss",
-  },
   nitro: {
     publicAssets: [{ baseURL: "/static", dir: uploadDir }],
     storage: {
@@ -56,16 +61,85 @@ export default defineNuxtConfig({
       uploadBase: "/static",
     },
   },
-  modules: [
-    "@nuxt/devtools",
-    "@nuxtjs/tailwindcss",
-    "@vueuse/nuxt",
-    "nuxt-twemoji",
-    "vuetify-nuxt-module",
-    "@hypernym/nuxt-anime",
-  ],
   imports: {
-    imports: [{ from: "~/utils/toast", name: "toast" }],
+    autoImport: true,
+  },
+  postcss: {
+    plugins: {
+      "@tailwindcss/postcss": {},
+    },
+  },
+  css: [
+    "assets/styles/layers.css",
+    "vuetify/styles",
+    "assets/styles/tailwind.css",
+  ],
+  vuetify: {
+    moduleOptions: {
+      styles: { configFile: "assets/styles/settings.scss" },
+
+      ssrClientHints: {
+        reloadOnFirstRequest: false,
+        viewportSize: true,
+        // Keep theme stable from Vuetify `defaultTheme` instead of forcing browser dark mode.
+        prefersColorScheme: false,
+        prefersReducedMotion: true,
+      },
+    },
+    vuetifyOptions: {
+      theme: {
+        // default 'system' requires `ssr: false` to avoid hydration warnings
+        defaultTheme: "light",
+        utilities: false,
+        themes: {
+          light: {
+            dark: false,
+            colors: {
+              background: "#f8fafc",
+              surface: "#ffffff",
+              primary: "#3f82f8",
+              secondary: "#ff7a1f",
+              info: "#3f82f8",
+              success: "#22c55e",
+              warning: "#f59e0b",
+              error: "#ef4444",
+              "on-surface": "#0f172a",
+              neutral: "#94a3b8",
+            },
+          },
+          dark: {
+            dark: true,
+            colors: {
+              background: "#0f172a",
+              surface: "#1f2937",
+              primary: "#93beff",
+              secondary: "#ffb573",
+              info: "#93beff",
+              success: "#4ade80",
+              warning: "#fbbf24",
+              error: "#f87171",
+              "on-surface": "#f8fafc",
+              neutral: "#cbd5e1",
+            },
+          },
+        },
+      },
+      display: {
+        mobileBreakpoint: "md",
+        thresholds: {
+          xs: 0,
+          sm: 600,
+          md: 960,
+          lg: 1280,
+          xl: 1920,
+          xxl: 2560,
+        },
+      },
+    },
+  },
+  i18n: {
+    defaultLocale: "en",
+    vueI18n: "./i18n.config.ts",
   },
   app: {
     pageTransition: { name: "page", mode: "out-in" },
