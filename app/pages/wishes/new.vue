@@ -140,6 +140,7 @@
 
 <script setup lang="ts">
 const { user, openDialog } = useLogin();
+useI18nPageSeo({ pageKey: "wishesNewPage", noindex: true });
 const form = reactive({
   isAnonymous: false,
   category: "none",

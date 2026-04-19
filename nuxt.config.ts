@@ -156,6 +156,7 @@ export default defineNuxtConfig({
       redirectOn: "root",
     },
     vueI18n: "./i18n.config.ts",
+
     locales: [
       { code: "zh", language: "zh-TW", name: "繁體中文", file: "zh-TW.json" },
       { code: "en", language: "en-US", name: "English", file: "en-US.json" },
@@ -165,14 +166,9 @@ export default defineNuxtConfig({
     pageTransition: { name: "page", mode: "out-in" },
     layoutTransition: { name: "layout", mode: "out-in" },
     head: {
-      title: "VTuber Project",
       meta: [
         { name: "viewport", content: "width=device-width, initial-scale=1" },
-        { name: "theme-color", content: "#111827" },
-        {
-          name: "description",
-          content: "VTuber 企劃：檔期、剪輯、關於與贊助合作",
-        },
+        { name: "theme-color", content: "#111827" }
       ],
       link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
     },

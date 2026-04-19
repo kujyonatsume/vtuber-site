@@ -126,6 +126,7 @@ definePageMeta({ middleware: ["auth", "admin"] });
 
 const { t } = useI18n();
 const { hasPerm } = useAuth();
+useAuthRequiredSeo("adminContribute");
 
 type Item = {
   id: number;

@@ -21,6 +21,14 @@
   "auth": {
     "confirmLogout": "確定要登出嗎？"
   },
+  "authGooglePage": {
+    "title": "Google 登入處理中",
+    "description": "正在處理 Google 登入授權並建立登入狀態。"
+  },
+  "authDiscordPage": {
+    "title": "Discord 登入處理中",
+    "description": "正在處理 Discord 登入授權並建立登入狀態。"
+  },
   "app": {
     "footer": "© {year} VTuber Project"
   },
@@ -62,11 +70,17 @@
   },
   "clips": {
     "title": "精華",
+    "description": "瀏覽活動精選精華與粉絲創作回顧。",
     "cardTitle": "本週精華剪輯"
   },
   "wishes": {
     "title": "祝福牆",
+    "description": "查看粉絲祝福留言與多媒體投稿內容。",
     "create": "我要投稿"
+  },
+  "wishesNewPage": {
+    "title": "投稿祝福",
+    "description": "登入後可提交祝福訊息與投稿素材。"
   },
   "roles": {
     "owner": "Owner",
@@ -82,6 +96,7 @@
   },
   "adminContribute": {
     "title": "投稿審核",
+    "description": "審核粉絲投稿、調整狀態並維護祝福牆內容品質。",
     "usersButton": "使用者管理",
     "total": "共 {total} 筆",
     "tabs": {
@@ -119,6 +134,7 @@
   },
   "adminUsers": {
     "title": "使用者管理",
+    "description": "管理使用者角色、檢視登入狀態與帳號資料。",
     "total": "共 {total} 位使用者",
     "backToReview": "返回審核",
     "keywordPlaceholder": "搜尋 Email / 顯示名稱",
@@ -159,6 +175,7 @@
   },
   "userAccount": {
     "title": "帳號設定",
+    "description": "管理你的個人資料、社群綁定與投稿紀錄。",
     "profile": {
       "title": "基本資料",
       "displayName": "顯示名稱",
@@ -214,6 +231,7 @@
   },
   "userPasswordPage": {
     "title": "設定密碼",
+    "description": "更新帳號密碼以保護你的登入與投稿資料。",
     "newPassword": "新密碼（至少 8 碼）",
     "confirmPassword": "再次輸入",
     "save": "儲存",

@@ -21,6 +21,14 @@
   "auth": {
     "confirmLogout": "Do you want to log out?"
   },
+  "authGooglePage": {
+    "title": "Processing Google Sign-in",
+    "description": "Completing Google authorization and establishing your sign-in session."
+  },
+  "authDiscordPage": {
+    "title": "Processing Discord Sign-in",
+    "description": "Completing Discord authorization and establishing your sign-in session."
+  },
   "app": {
     "footer": "© {year} VTuber Project"
   },
@@ -62,11 +70,17 @@
   },
   "clips": {
     "title": "Clips",
+    "description": "Browse featured event highlights and fan-made clip recaps.",
     "cardTitle": "Weekly Highlight Clip"
   },
   "wishes": {
     "title": "Blessing Wall",
+    "description": "Read fan blessing messages and media submissions in one place.",
     "create": "Submit a Blessing"
+  },
+  "wishesNewPage": {
+    "title": "Submit a Blessing",
+    "description": "Sign in to submit your blessing message and creative assets."
   },
   "roles": {
     "owner": "Owner",
@@ -82,6 +96,7 @@
   },
   "adminContribute": {
     "title": "Post Review",
+    "description": "Review fan submissions, adjust moderation status, and keep wall content quality consistent.",
     "usersButton": "User Management",
     "total": "{total} items",
     "tabs": {
@@ -119,6 +134,7 @@
   },
   "adminUsers": {
     "title": "User Management",
+    "description": "Manage user roles, review login activity, and maintain account access controls.",
     "total": "{total} users",
     "backToReview": "Back to Review",
     "keywordPlaceholder": "Search Email / Display Name",
@@ -159,6 +175,7 @@
   },
   "userAccount": {
     "title": "Account Settings",
+    "description": "Manage your profile details, linked providers, and post history.",
     "profile": {
       "title": "Basic Profile",
       "displayName": "Display Name",
@@ -214,6 +231,7 @@
   },
   "userPasswordPage": {
     "title": "Set Password",
+    "description": "Update your account password to protect sign-in and submission data.",
     "newPassword": "New Password (at least 8 characters)",
     "confirmPassword": "Confirm Password",
     "save": "Save",

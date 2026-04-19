@@ -66,6 +66,7 @@
 const { t } = useI18n();
 const localePath = useLocalePath();
 const { width } = useWindowSize();
+useI18nPageSeo({ pageKey: "event" });
 
 const isRwdMobile = computed(() => width.value < 768);
 const flowListClass = computed(() =>
@@ -90,7 +91,10 @@ const flowStep = computed(() => {
     if (now < stepDate) return step;
   }
 
-  return flowSteps.value[flowSteps.value.length - 1];
+  return flowSteps.value[flowSteps.value.length - 1] || {
+    target: "2026-12-27T00:00:00+08:00",
+    title: t("event.step6"),
+  };
 });
 </script>
 

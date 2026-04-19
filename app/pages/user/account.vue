@@ -203,6 +203,7 @@ definePageMeta({ middleware: "auth" });
 const { t } = useI18n();
 const localePath = useLocalePath();
 const { user, refresh } = useAuth();
+useAuthRequiredSeo("userAccount");
 
 const profileName = ref("");
 const avatarFile = ref<File | File[] | null>(null);

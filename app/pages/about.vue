@@ -32,6 +32,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
+useI18nPageSeo({ pageKey: "about" });
 </script>
 
 <style scoped lang="scss">

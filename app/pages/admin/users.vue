@@ -150,6 +150,7 @@ definePageMeta({ middleware: ["auth", "admin"] });
 
 const { t } = useI18n();
 const { user } = useAuth();
+useAuthRequiredSeo("adminUsers");
 
 type Item = {
   id: number;

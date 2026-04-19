@@ -39,6 +39,7 @@ type BoardItem = {
 
 const { t } = useI18n();
 const localePath = useLocalePath();
+useI18nPageSeo({ pageKey: "wishes" });
 const { data: list } = await useFetch<BoardItem[]>("/api/public/list");
 
 const masonryRef = ref<HTMLElement | null>(null);

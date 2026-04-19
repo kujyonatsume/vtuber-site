@@ -70,6 +70,7 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const localePath = useLocalePath();
+useI18nPageSeo({ pageKey: "home" });
 
 const clips = computed(() => [
   {

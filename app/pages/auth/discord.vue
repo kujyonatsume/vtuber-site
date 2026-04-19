@@ -5,6 +5,8 @@
 <script setup lang="ts">
 definePageMeta({ ssr: false });
 
+useI18nPageSeo({ pageKey: "authDiscordPage", noindex: true });
+
 const info = ref("");
 const route = useRoute();
 const router = useRouter();

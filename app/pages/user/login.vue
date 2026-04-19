@@ -41,6 +41,7 @@
 <script setup lang="ts">
 const { t } = useI18n();
 const { user } = useAuth();
+useI18nPageSeo({ pageKey: "userLoginPage", noindex: true });
 
 watch(
   () => user.value?.index,

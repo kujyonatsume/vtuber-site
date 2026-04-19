@@ -14,6 +14,7 @@
 
 <script setup lang="ts">
 const { t } = useI18n();
+useI18nPageSeo({ pageKey: "clips" });
 </script>
 
 <style scoped lang="scss">

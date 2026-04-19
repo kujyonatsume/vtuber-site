@@ -5,6 +5,8 @@
 <script setup lang="ts">
 definePageMeta({ ssr: false }); // 避免 SSR 環境取用 window
 
+useI18nPageSeo({ pageKey: "authGooglePage", noindex: true });
+
 const info = ref("");
 const route = useRoute();
 const router = useRouter();

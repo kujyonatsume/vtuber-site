@@ -33,6 +33,7 @@ definePageMeta({ middleware: "auth" });
 
 const { t } = useI18n();
 const { refresh } = useAuth();
+useAuthRequiredSeo("userPasswordPage");
 
 const pw = ref("");
 const pw2 = ref("");
