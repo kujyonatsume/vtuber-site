@@ -14,22 +14,34 @@
 
           <ul class="login-benefits">
             <li class="login-benefit-item">
-              <VIcon icon="mdi-heart-multiple-outline" size="20" class="benefit-icon" />
+              <VIcon
+                icon="mdi-heart-multiple-outline"
+                size="20"
+                class="benefit-icon"
+              />
               <span>{{ t("userLoginPage.benefit1") }}</span>
             </li>
             <li class="login-benefit-item">
-              <VIcon icon="mdi-account-star-outline" size="20" class="benefit-icon" />
+              <VIcon
+                icon="mdi-account-star-outline"
+                size="20"
+                class="benefit-icon"
+              />
               <span>{{ t("userLoginPage.benefit2") }}</span>
             </li>
             <li class="login-benefit-item">
-              <VIcon icon="mdi-shield-check-outline" size="20" class="benefit-icon" />
+              <VIcon
+                icon="mdi-shield-check-outline"
+                size="20"
+                class="benefit-icon"
+              />
               <span>{{ t("userLoginPage.benefit3") }}</span>
             </li>
           </ul>
         </aside>
 
         <div class="login-form-panel">
-          <div class="w-full max-w-[460px]">
+          <div class="w-full max-w-115">
             <LoginForm />
           </div>
         </div>

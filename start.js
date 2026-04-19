@@ -1,6 +1,7 @@
 import fs from "fs";
-import { exec, execSync } from "child_process";
 import { config } from "dotenv";
+import { exec, execSync } from "child_process";
+
 config();
 
 const { NAME, DOMAIN, PORT } = process.env;

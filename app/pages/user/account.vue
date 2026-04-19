@@ -144,7 +144,7 @@
           </header>
 
           <div class="space-y-1">
-            <p class="break-words whitespace-pre-wrap text-sm leading-relaxed text-neutral-900">
+            <p class="wrap-break-word whitespace-pre-wrap text-sm leading-relaxed text-neutral-900">
               {{ displayMessage(post.id, post.message) }}
             </p>
           </div>

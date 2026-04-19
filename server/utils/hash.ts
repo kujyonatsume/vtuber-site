@@ -6,7 +6,7 @@ export function hashPassword(password: string) {
     return `${salt}:${hash}`
 }
 export function verifyPassword(password: string, stored: string) {
-    const [salt, hash] = stored.split(':')
+    const [salt, hash] = stored.split(':') as [string, string]
     const buf1 = Buffer.from(hash, 'hex')
     const buf2 = scryptSync(password, salt, 64)
     return timingSafeEqual(buf1, buf2)

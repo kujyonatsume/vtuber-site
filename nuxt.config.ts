@@ -49,6 +49,10 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    dbPath: env.DB_PATH,
+    ownerEmail: env.OWNER_EMAIL,
+    ownerName: env.OWNER_NAME,
+    ownerPassword: env.OWNER_PASSWORD,
     sessionSecret: env.SESSION_SECRET,
     oauth: {
       google: {
@@ -64,8 +68,7 @@ export default defineNuxtConfig({
     },
     public: {
       clientId: env.OAUTH_GOOGLE_CLIENT_ID,
-      uploadDir,
-      uploadBase: "/static",
+      uploadDir, uploadBase: "/static",
     },
   },
   imports: {

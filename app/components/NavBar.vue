@@ -1,23 +1,22 @@
-﻿<template>
+<template>
   <header
-    :class="['sticky top-0 z-40 border-b border-primary-200/80 bg-primary-50/85 backdrop-blur']"
+    :class="[
+      'sticky top-0 z-40 border-b border-primary-200/80 bg-primary-50/85 backdrop-blur',
+    ]"
   >
-    <div class="relative flex items-center justify-between py-3 layout-container">
-      <VBtn
-        v-if="width < 640"
-        class="sm:hidden"
-        variant="tonal"
-        @click="drawer = true"
-      >
-        <VIcon icon="mdi-menu" />
-      </VBtn>
-
+    <div
+      class="relative flex items-center justify-between py-3 layout-container"
+    >
       <NuxtLink :to="localePath('/')" class="group flex items-center gap-2">
         <img src="/favicon.ico" alt="logo" class="h-8 w-8 animate-float" />
-        <span class="font-bold tracking-wide">{{ t("common.projectName") }}</span>
+        <span class="font-bold tracking-wide md:block hidden">{{
+          t("common.projectName")
+        }}</span>
       </NuxtLink>
 
-      <nav class="hidden items-center gap-2 text-sm text-primary-900 sm:flex">
+      <nav
+        class="flex items-center gap-2 text-sm text-primary-900"
+      >
         <NuxtLink
           v-for="link in pageLinks"
           :key="link.to"
@@ -32,8 +31,14 @@
       <div class="flex items-center gap-2">
         <VMenu>
           <template #activator="{ props }">
-            <VBtn v-bind="props" variant="text" class="px-2" prepend-icon="mdi-translate">
-              {{ currentLocaleLabel }}
+            <VBtn
+              v-bind="props"
+              color="primary"
+              rounded="lg"
+              variant="tonal"
+              class="hidden md:block"
+            >
+              <VIcon icon="mdi-translate" />
             </VBtn>
           </template>
           <VList density="compact">
@@ -46,32 +51,32 @@
             />
           </VList>
         </VMenu>
-
-        <VIcon
-          v-if="isDark"
-          icon="mdi-white-balance-sunny"
-          class="cursor-pointer"
-          :title="t('common.themeLight')"
-          @click="changeTheme('light')"
-        />
-        <VIcon
-          v-else
-          icon="mdi-weather-night"
-          class="cursor-pointer"
-          :title="t('common.themeDark')"
-          @click="changeTheme('dark')"
-        />
-
+        <VBtn v-if="!isCompact" color="primary" rounded="lg" variant="tonal">
+          <VIcon
+            v-if="isDark"
+            icon="mdi-white-balance-sunny"
+            class="cursor-pointer"
+            :title="t('common.themeLight')"
+            @click="changeTheme('light')"
+          />
+          <VIcon
+            v-else
+            icon="mdi-weather-night"
+            class="cursor-pointer"
+            :title="t('common.themeDark')"
+            @click="changeTheme('dark')"
+          />
+        </VBtn>
         <VBtn
-          v-if="!user && !loading"
+          v-if="!user && !isCompact"
           color="primary"
           rounded="lg"
+          variant="tonal"
           @click="openDialog()"
         >
-          {{ t("common.login") }}
+          <VIcon icon="mdi-account" />
         </VBtn>
-
-        <VMenu v-else-if="user">
+        <VMenu v-if="user && !isCompact">
           <template #activator="{ props }">
             <VBtn v-bind="props" variant="text" class="px-2">
               <img
@@ -87,7 +92,10 @@
           <VList density="compact">
             <VListItem :title="user.name" />
             <VDivider />
-            <VListItem :to="localePath('/wishes/new')" :title="t('common.submitWish')" />
+            <VListItem
+              :to="localePath('/wishes/new')"
+              :title="t('common.submitWish')"
+            />
             <VListItem
               v-if="user.role !== 'user'"
               :to="localePath('/admin/contribute')"
@@ -98,73 +106,103 @@
               :to="localePath('/admin/users')"
               :title="t('common.manageUsers')"
             />
-            <VListItem :to="localePath('/user/account')" :title="t('common.account')" />
+            <VListItem
+              :to="localePath('/user/account')"
+              :title="t('common.account')"
+            />
             <VDivider />
             <VListItem :title="t('common.logout')" @click="confirmLogout()" />
+          </VList>
+        </VMenu>
+        <VMenu
+          v-if="isCompact"
+          v-model="drawer"
+          location="bottom end"
+          :close-on-content-click="false"
+        >
+          <template #activator="{ props }">
+            <VBtn v-bind="props" variant="tonal">
+              <VIcon icon="mdi-menu" />
+            </VBtn>
+          </template>
+          <VList density="compact" min-width="260">
+            <VListItem
+              v-if="!user"
+              :title="t('common.login')"
+              @click="openDialog()"
+            />
+            <template v-else>
+              <VListItem variant="text" class="px-2">
+                <!-- 頭貼 -->
+                <template #prepend>
+                  <VListItemMedia>
+                    <img
+                      :src="user.avatar || '/favicon.ico'"
+                      class="h-6 w-6 rounded-full object-cover"
+                      alt="avatar"
+                    />
+                  </VListItemMedia>
+                </template>
+
+                <!-- 文字 -->
+                <VListItemTitle>
+                  {{ user.name }}
+                </VListItemTitle>
+              </VListItem>
+
+              <VListItem
+                :to="localePath('/wishes/new')"
+                :title="t('common.submitWish')"
+                @click="drawer = false"
+              />
+              <VListItem
+                :to="localePath('/user/account')"
+                :title="t('common.account')"
+                @click="drawer = false"
+              />
+              <VListItem
+                v-if="user.role !== 'user'"
+                :to="localePath('/admin/contribute')"
+                :title="t('common.manageWish')"
+                @click="drawer = false"
+              />
+              <VListItem
+                v-if="user.role !== 'user'"
+                :to="localePath('/admin/users')"
+                :title="t('common.manageUsers')"
+                @click="drawer = false"
+              />
+              <VListItem :title="t('common.logout')" @click="confirmLogout()" />
+            </template>
+            <VDivider class="my-2" />
+            <VListSubheader>{{ t("common.language") }}</VListSubheader>
+            <VListItem
+              v-for="item in localeItems"
+              :key="`menu-${item.code}`"
+              :title="item.label"
+              :active="item.code === locale"
+              @click="changeLocale(item.code)"
+            />
           </VList>
         </VMenu>
       </div>
     </div>
   </header>
-
-  <VNavigationDrawer
-    v-model="drawer"
-    temporary
-    location="start"
-    class="bg-white text-primary-900"
+  <VBtn
+    v-if="isCompact"
+    class="theme-fab"
+    color="primary"
+    icon
+    size="large"
+    elevation="8"
+    :title="isDark ? t('common.themeLight') : t('common.themeDark')"
+    @click="changeTheme(isDark ? 'light' : 'dark')"
   >
-    <div class="flex h-full flex-col">
-      <VList density="compact">
-        <VListItem
-          v-for="link in pageLinks"
-          :key="link.to"
-          :to="link.to"
-          :title="link.title"
-          @click="drawer = false"
-        />
-
-        <VDivider class="my-2" />
-
-        <VListItem v-if="!user" :title="t('common.login')" @click="openDialog()" />
-        <template v-else>
-          <VListItem
-            :to="localePath('/wishes/new')"
-            :title="t('common.submitWish')"
-            @click="drawer = false"
-          />
-          <VListItem
-            :to="localePath('/user/account')"
-            :title="t('common.account')"
-            @click="drawer = false"
-          />
-          <VListItem
-            v-if="user.role !== 'user'"
-            :to="localePath('/admin/contribute')"
-            :title="t('common.manageWish')"
-            @click="drawer = false"
-          />
-          <VListItem
-            v-if="user.role !== 'user'"
-            :to="localePath('/admin/users')"
-            :title="t('common.manageUsers')"
-            @click="drawer = false"
-          />
-          <VListItem :title="t('common.logout')" @click="confirmLogout()" />
-        </template>
-
-        <VDivider class="my-2" />
-
-        <VListSubheader>{{ t("common.language") }}</VListSubheader>
-        <VListItem
-          v-for="item in localeItems"
-          :key="`drawer-${item.code}`"
-          :title="item.label"
-          :active="item.code === locale"
-          @click="changeLocale(item.code)"
-        />
-      </VList>
-    </div>
-  </VNavigationDrawer>
+    <VIcon
+      :icon="isDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night'"
+      size="22"
+    />
+  </VBtn>
 
   <ClientOnly>
     <LoginDialog v-model="loginOpen" />
@@ -172,49 +210,57 @@
 </template>
 
 <script setup lang="ts">
-const { width } = useDisplay();
 const theme = useTheme();
+const { width } = useDisplay();
 const localePath = useLocalePath();
 const { t, locale, locales, setLocale } = useI18n();
-
-const { user, loading, loginOpen, drawer, logout, openDialog } = useLogin();
+type LocaleCode = Parameters<typeof setLocale>[0];
+const { user, loginOpen, drawer, logout, openDialog } = useLogin();
 
 const pageLinks = computed(() => [
-  { to: localePath("/"), title: t("nav.home"), icon: "mdi-home-outline" },
-  { to: localePath("/event"), title: t("nav.event"), icon: "mdi-calendar-star" },
-  { to: localePath("/clips"), title: t("nav.clips"), icon: "mdi-movie-open-outline" },
-  { to: localePath("/about"), title: t("nav.about"), icon: "mdi-information-outline" },
+  {
+    to: localePath("/"),
+    title: t("nav.home"),
+    icon: "mdi-home-outline"
+  },
+  {
+    to: localePath("/event"),
+    title: t("nav.event"),
+    icon: "mdi-calendar-star",
+  },
+  {
+    to: localePath("/clips"),
+    title: t("nav.clips"),
+    icon: "mdi-movie-open-outline",
+  },
+  {
+    to: localePath("/about"),
+    title: t("nav.about"),
+    icon: "mdi-information-outline",
+  }
 ]);
 
 const isDark = computed(() => theme.global.name.value === "dark");
+const isCompact = computed(() => width.value < 600);
 
 const localeItems = computed(() =>
   locales.value.map((entry) => {
-    if (typeof entry === "string") {
-      return {
-        code: entry,
-        label: entry.toUpperCase(),
-      };
-    }
-
+    const normalized = entry as { code: LocaleCode; name?: string };
     return {
-      code: entry.code,
-      label: entry.name || entry.code.toUpperCase(),
+      code: normalized.code,
+      label: normalized.name || normalized.code.toUpperCase(),
     };
   }),
-);
-
-const currentLocaleLabel = computed(
-  () => localeItems.value.find((item) => item.code === locale.value)?.label || locale.value.toUpperCase(),
 );
 
 function changeTheme(name: "light" | "dark") {
   theme.global.name.value = name;
 }
 
-async function changeLocale(code: string) {
+async function changeLocale(code: LocaleCode) {
   if (code === locale.value) return;
   await setLocale(code);
+  drawer.value = false;
 }
 
 async function confirmLogout() {
@@ -231,5 +277,9 @@ async function confirmLogout() {
 
 .layout-container {
   @apply mx-auto w-full max-w-7xl px-4 lg:px-8 sm:px-6;
+}
+
+.theme-fab {
+  @apply fixed bottom-4 right-4 z-[70];
 }
 </style>
