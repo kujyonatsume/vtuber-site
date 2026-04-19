@@ -2,7 +2,9 @@
   <section class="layout-container section-shell space-y-10">
     <header class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
       <div class="reveal-up space-y-6">
-        <h1 class="text-3xl font-extrabold sm:text-5xl">{{ t("event.title") }}</h1>
+        <h1 class="text-3xl font-extrabold sm:text-5xl">
+          {{ t("event.title") }}
+        </h1>
         <p class="text-neutral-800">
           {{ t("event.description") }}
         </p>
@@ -37,7 +39,10 @@
       </div>
 
       <ol :class="flowListClass">
-        <template v-for="(step, idx) in flowSteps" :key="`${step.target}-${idx}`">
+        <template
+          v-for="(step, idx) in flowSteps"
+          :key="`${step.target}-${idx}`"
+        >
           <li
             class="flex-1 rounded-2xl border border-primary-200/80 bg-white/90 p-4 shadow-[0_8px_18px_-12px_rgba(15,23,42,0.35)]"
           >
@@ -91,10 +96,12 @@ const flowStep = computed(() => {
     if (now < stepDate) return step;
   }
 
-  return flowSteps.value[flowSteps.value.length - 1] || {
-    target: "2026-12-27T00:00:00+08:00",
-    title: t("event.step6"),
-  };
+  return (
+    flowSteps.value[flowSteps.value.length - 1] || {
+      target: "2026-12-27T00:00:00+08:00",
+      title: t("event.step6"),
+    }
+  );
 });
 </script>
 
