@@ -1,12 +1,7 @@
 export default defineI18nConfig(() => ({
   legacy: false,
-  locale: 'en',
-  messages: {
-    en: {
-      welcome: 'Welcome',
-    },
-    fr: {
-      welcome: 'Bienvenue',
-    },
-  },
-}))
+  locale: "zh",
+  fallbackLocale: "en",
+  missingWarn: false,
+  fallbackWarn: false,
+}));

@@ -14,7 +14,8 @@
     </div>
 
     <template v-else-if="submitId == 0">
-      <form
+      <VForm
+        ref="formRef"
         class="space-y-5 rounded-2xl border border-neutral-200/80 bg-white/95 p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
         @submit.prevent="submit"
       >
@@ -29,56 +30,60 @@
         <VTextarea
           v-model="form.message"
           label="祝福訊息"
-          rows="8"
+          rows="6"
           counter="300"
           :maxlength="300"
           color="primary"
           variant="outlined"
         />
-        <div
-          class="flex items-center rounded-xl border border-neutral-300 bg-neutral-50 px-2 py-1 transition-colors duration-200 hover:border-neutral-400 focus-within:border-primary focus-within:bg-white focus-within:shadow-[0_0_0_3px_rgba(59,130,246,0.12)]"
-        >
-          <VBtn
-            icon="mdi-paperclip"
-            variant="text"
-            color="primary"
-            :title="form.file ? `已選擇：${form.file.name}` : '選擇附件'"
-            class="rounded-lg"
-            @click="pickFile"
-          />
-          <div class="w-px h-6 mx-1 bg-neutral-200" />
-          <input
-            v-model="form.assetUrl"
-            type="url"
-            class="w-full px-1 py-2 text-sm bg-transparent outline-none text-neutral-900 placeholder:text-neutral-500"
-            :placeholder="
-              form.file ? form.file.name : '貼上外部連結（可選，支援 YouTube）'
-            "
-            :readonly="!!form.file"
-            aria-label="外部連結"
-          />
-          <div class="w-px h-6 mx-1 bg-neutral-200" />
-          <VBtn
-            icon="mdi-close"
-            variant="text"
-            color="red"
-            class="rounded-lg"
-            @click="clearFile"
-          />
-        </div>
-        <input
-          ref="fileInputEl"
-          type="file"
-          class="hidden"
-          accept="image/*,video/*,audio/*"
-          @change="onFileChange"
-        />
+        <VInput hide-details class="rounded-xl bg-neutral-50 px-2">
+          <template #prepend>
+            <VBtn
+              icon="mdi-paperclip"
+              variant="text"
+              color="primary"
+              :title="form.file ? `已選擇：${form.file.name}` : '選擇附件'"
+              @click="pickFile"
+            />
+            <input
+              ref="fileInputEl"
+              type="file"
+              class="hidden"
+              accept="image/*,video/*,audio/*"
+              @change="onFileChange"
+            />
+            <div class="w-px h-6 mx-1 bg-neutral-200" />
+          </template>
+
+          <template #default>
+            <VTextField
+              v-model="form.assetUrl"
+              type="url"
+              variant="plain"
+              density="comfortable"
+              hideDetails
+              singleLine
+              :readonly="!!form.file"
+              :placeholder="form.file ? form.file.name : '多媒體檔案/網址，支援YouTube'"
+            />
+          </template>
+          <template #append>
+            <div class="w-px h-6 mx-1 bg-neutral-200" />
+            <VBtn
+              icon="mdi-close"
+              variant="text"
+              color="red"
+              class="rounded-lg"
+              @click="clearFile"
+            />
+          </template>
+        </VInput>
+
         <VCheckbox
           v-model="form.isAnonymous"
           :label="'匿名顯示'"
           color="primary"
           hide-details
-          class="px-3 py-2 rounded-xl bg-neutral-50"
         />
 
         <div class="max-w-3xl mx-auto space-y-6">
@@ -90,18 +95,16 @@
             <li>附件不接受 AI 生成內容。</li>
             <li>禁止個資、攻擊、仇恨、未成年不宜內容；違者刪除且取消資格。</li>
             <li>授權主催於本企劃中非商用展示與合輯收錄，並保留作者署名。</li>
-            <li>截稿日期：2026/10/01 00:00:00 GMT+0800 (台北標準時間)</li>
+            <li>截稿日期： {{ new Date("2026/10/01GMT+0800").toLocaleString() }}</li>
           </ol>
+          <VCheckbox
+            label="我同意投稿規範與非商用展示授權"
+            color="primary"
+            hideDetails="auto"
+            :rules="[v => !!v || '請先勾選同意投稿規範與授權聲明']"
+          />
         </div>
-        <VCheckbox
-          v-model="form.license"
-          :label="'我同意投稿規範與非商用展示授權'"
-          color="primary"
-          hide-details
-          class="px-3 py-2 rounded-xl bg-neutral-50"
-          required
-        />
-        <div class="flex items-center gap-3">
+
           <VBtn
             type="submit"
             color="primary"
@@ -112,8 +115,7 @@
           >
             送出投稿
           </VBtn>
-        </div>
-      </form>
+      </VForm>
     </template>
     <div v-else
       class="space-y-4 rounded-2xl border border-neutral-200/80 bg-white/95 p-8 text-center shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
@@ -138,31 +140,23 @@
 
 <script setup lang="ts">
 const { user, openDialog } = useLogin();
-
 const form = reactive({
   isAnonymous: false,
   category: "none",
   message: "",
   file: null as File | null,
   assetUrl: "",
-  license: false,
 });
-
+const formRef = ref<any>();
 const fileInputEl = ref<HTMLInputElement>();
 const submitting = ref(false);
 const submitId = ref(0);
 function pickFile() {
-  fileInputEl.value?.click();
+  fileInputEl.value?.click()
 }
 
 function onFileChange(event: Event) {
-  const target = event.target as HTMLInputElement | null;
-  form.file = target?.files?.[0] || null;
-
-  // 允許重複選擇相同檔案時仍觸發 change 事件。
-  if (target) {
-    target.value = "";
-  }
+  form.file = (event.target as HTMLInputElement | null)?.files?.[0] || null;
 }
 
 function clearFile() {
@@ -174,15 +168,8 @@ function clearFile() {
 }
 
 async function submit() {
-  if (!user.value) {
-    toast.error("請先登入後再投稿");
-    return;
-  }
-
-  if (!form.license) {
-    toast.error("請勾選授權與規範");
-    return;
-  }
+  const { valid } = await formRef.value.validate();
+  if (!valid) return;
 
   submitting.value = true;
   const body = new FormData();
@@ -196,11 +183,8 @@ async function submit() {
       method: "POST",
       body,
     })).id;
-
-    toast.success("已經送出成功，請等待審核");
-    // await navigateTo("/wishes?submitted=1");
   } catch (err: any) {
-    toast.error(err?.data?.message || "提交失敗");
+    toast.error(err.message);
   } finally {
     submitting.value = false;
   }

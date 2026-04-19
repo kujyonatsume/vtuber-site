@@ -1,0 +1,272 @@
+﻿{
+  "common": {
+    "projectName": "VTuber Project",
+    "language": "Language",
+    "confirm": "Confirm",
+    "login": "Log in",
+    "logout": "Log out",
+    "account": "Account Settings",
+    "submitWish": "Submit Wish",
+    "manageWish": "Manage Posts",
+    "manageUsers": "User Management",
+    "themeLight": "Light mode",
+    "themeDark": "Dark mode"
+  },
+  "nav": {
+    "home": "Home",
+    "event": "Event",
+    "clips": "Clips",
+    "about": "About"
+  },
+  "auth": {
+    "confirmLogout": "Do you want to log out?"
+  },
+  "app": {
+    "footer": "© {year} VTuber Project"
+  },
+  "home": {
+    "badge": "OFFICIAL FAN SUPPORT",
+    "title": "Support the Next VTuber Event Together",
+    "description": "Collect fan wishes, curate clips, and track event updates in one place.",
+    "ctaSubmit": "Submit Wish",
+    "ctaBrowse": "Blessing Wall",
+    "ctaEvent": "Event Schedule",
+    "countdownTitle": "Countdown to the Next Event",
+    "heroAlt": "VTuber event key visual",
+    "clipsHeading": "Featured Clips",
+    "clip1": "Stage Highlight",
+    "clip2": "Behind-the-scenes Recap",
+    "clip3": "Fan Creation Showcase"
+  },
+  "event": {
+    "title": "Prepare for the Next Event",
+    "description": "Coordinate submissions, clip production, and schedule milestones for a smooth launch.",
+    "ctaSubmit": "Submit Wish",
+    "ctaBrowse": "Blessing Wall",
+    "timelineTitle": "Event Timeline",
+    "timelineDescription": "Track each milestone based on the current plan and keep delivery on time.",
+    "heroAlt": "Event key visual",
+    "step1": "Project announcement",
+    "step2": "Submissions open",
+    "step3": "Clip production",
+    "step4": "Event warm-up",
+    "step5": "Clips published",
+    "step6": "Event day / Live stream"
+  },
+  "about": {
+    "title": "About",
+    "description": "This VTuber event support site combines event updates, clip content, and fan submissions with a responsive experience.",
+    "contactTitle": "Contact",
+    "email": "Email",
+    "twitter": "Twitter"
+  },
+  "clips": {
+    "title": "Clips",
+    "cardTitle": "Weekly Highlight Clip"
+  },
+  "wishes": {
+    "title": "Blessing Wall",
+    "create": "Submit a Blessing"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "member": "Member",
+    "user": "User"
+  },
+  "pagination": {
+    "prev": "Previous",
+    "next": "Next",
+    "page": "Page {page}",
+    "pageWithTotal": "Page {page} / {total}"
+  },
+  "adminContribute": {
+    "title": "Post Review",
+    "usersButton": "User Management",
+    "total": "{total} items",
+    "tabs": {
+      "pending": "Pending",
+      "approve": "Approved",
+      "reject": "Rejected"
+    },
+    "filters": {
+      "keywordPlaceholder": "Keyword filter (client-side)",
+      "sortBy": "Sort By",
+      "sortDir": "Direction"
+    },
+    "sort": {
+      "createdAt": "Created Time",
+      "category": "Category",
+      "id": "ID"
+    },
+    "sortDir": {
+      "desc": "Descending",
+      "asc": "Ascending"
+    },
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "delete": "Delete"
+    },
+    "confirmDelete": "Delete this post? This action cannot be undone.",
+    "toast": {
+      "approved": "Approved",
+      "rejected": "Rejected",
+      "actionFailed": "Action failed",
+      "removed": "Deleted",
+      "removeFailed": "Delete failed"
+    }
+  },
+  "adminUsers": {
+    "title": "User Management",
+    "total": "{total} users",
+    "backToReview": "Back to Review",
+    "keywordPlaceholder": "Search Email / Display Name",
+    "refresh": "Refresh",
+    "noData": "No data",
+    "filters": {
+      "role": "Role Filter",
+      "sortBy": "Sort By",
+      "sortDir": "Direction",
+      "allRoles": "All Roles"
+    },
+    "sort": {
+      "createdAt": "Created Time",
+      "lastLoginAt": "Last Login",
+      "email": "Email",
+      "role": "Role",
+      "name": "Name"
+    },
+    "sortDir": {
+      "desc": "Descending",
+      "asc": "Ascending"
+    },
+    "table": {
+      "id": "ID",
+      "user": "User",
+      "currentRole": "Current Role",
+      "linked": "Linked Providers",
+      "lastLogin": "Last Login",
+      "action": "Action",
+      "noName": "Unnamed",
+      "notLinked": "Not linked",
+      "neverLogin": "Never logged in"
+    },
+    "toast": {
+      "roleUpdated": "Role updated",
+      "updateFailed": "Update failed"
+    }
+  },
+  "userAccount": {
+    "title": "Account Settings",
+    "profile": {
+      "title": "Basic Profile",
+      "displayName": "Display Name",
+      "avatar": "Avatar (Optional)",
+      "save": "Save Profile",
+      "avatarHint": "Images only, max size 5MB"
+    },
+    "social": {
+      "title": "Social Links",
+      "linked": "Linked",
+      "unlinked": "Not linked",
+      "link": "Link",
+      "unlink": "Unlink"
+    },
+    "posts": {
+      "title": "My Posts",
+      "total": "{total} items",
+      "refresh": "Refresh",
+      "statusFilter": "Status Filter",
+      "anonymous": "Anonymous",
+      "view": "View Post",
+      "withdraw": "Withdraw",
+      "empty": "No post records yet"
+    },
+    "status": {
+      "all": "All",
+      "pending": "Pending",
+      "approve": "Approved",
+      "reject": "Rejected"
+    },
+    "postStatus": {
+      "pending": "Pending Review",
+      "approve": "Approved",
+      "reject": "Rejected"
+    },
+    "toast": {
+      "unlinkSuccess": "Unlinked",
+      "nameRequired": "Display name is required",
+      "profileUpdated": "Profile updated",
+      "updateFailed": "Update failed",
+      "confirmWithdraw": "Withdraw this post? This action cannot be undone.",
+      "withdrawSuccess": "Post withdrawn",
+      "withdrawFailed": "Withdraw failed"
+    }
+  },
+  "userLoginPage": {
+    "chip": "MEMBER ACCESS",
+    "title": "Log in to Your Supporter Account",
+    "description": "Use your email/password or social login to quickly return to posts, comments, and event tools.",
+    "benefit1": "Manage blessing messages and post history in one place",
+    "benefit2": "Switch quickly with Google / Discord social sign-in",
+    "benefit3": "Protect personal data and sessions with secure flows"
+  },
+  "userPasswordPage": {
+    "title": "Set Password",
+    "newPassword": "New Password (at least 8 characters)",
+    "confirmPassword": "Confirm Password",
+    "save": "Save",
+    "validation": {
+      "required": "Required",
+      "min": "At least 8 characters",
+      "match": "Passwords do not match"
+    },
+    "toast": {
+      "saved": "Password has been set",
+      "failed": "Failed"
+    }
+  },
+  "loginForm": {
+    "titleLogin": "Log in",
+    "titleRegister": "Sign up",
+    "subtitle": "Use your email/password or continue with a provider",
+    "fields": {
+      "name": "Display Name",
+      "email": "Email",
+      "password": "Password"
+    },
+    "submitLogin": "Log in",
+    "submitRegister": "Create account",
+    "toggleToRegister": "No account? Create one",
+    "toggleToLogin": "Already have an account? Log in",
+    "oauth": {
+      "google": "Continue with Google",
+      "discord": "Continue with Discord"
+    },
+    "close": "Close",
+    "validation": {
+      "required": "Required",
+      "email": "Invalid email format"
+    },
+    "toast": {
+      "loginSuccess": "Logged in successfully",
+      "registerSuccess": "Registered successfully",
+      "actionFailed": "Action failed"
+    }
+  },
+  "blessingCard": {
+    "empty": "(No content)",
+    "category": {
+      "image": "Image",
+      "audio": "Audio",
+      "video": "Video",
+      "embed": "YT Embed",
+      "text": "Text"
+    }
+  },
+  "countdown": {
+    "expired": "The event has started",
+    "daysUnit": "d"
+  }
+}

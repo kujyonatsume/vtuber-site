@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors'
+import { formatHex } from 'culori'
 import path from "path";
 
 const uploadDir = path.resolve("static");
@@ -7,6 +9,11 @@ const host =
   env.NODE_ENV == "development"
     ? `http://localhost:${env.PORT}`
     : `https://${env.DOMAIN}`;
+
+const tailwindColor = {} as Record<string, string>
+for (const [k, v] of Object.entries(colors)) {
+  if (v?.['500']) tailwindColor[k] = formatHex(v['500']) as string
+}
 
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-21",
@@ -90,11 +97,12 @@ export default defineNuxtConfig({
       theme: {
         // default 'system' requires `ssr: false` to avoid hydration warnings
         defaultTheme: "light",
-        utilities: false,
+        utilities: true,
         themes: {
           light: {
             dark: false,
             colors: {
+              ...tailwindColor,
               background: "#f8fafc",
               surface: "#ffffff",
               primary: "#3f82f8",
@@ -110,6 +118,7 @@ export default defineNuxtConfig({
           dark: {
             dark: true,
             colors: {
+              ...tailwindColor,
               background: "#0f172a",
               surface: "#1f2937",
               primary: "#93beff",
@@ -138,8 +147,19 @@ export default defineNuxtConfig({
     },
   },
   i18n: {
-    defaultLocale: "en",
+    baseUrl: host,
+    defaultLocale: "zh",
+    strategy: "no_prefix",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
     vueI18n: "./i18n.config.ts",
+    locales: [
+      { code: "zh", language: "zh-TW", name: "繁體中文", file: "zh-TW.json" },
+      { code: "en", language: "en-US", name: "English", file: "en-US.json" },
+    ],
   },
   app: {
     pageTransition: { name: "page", mode: "out-in" },

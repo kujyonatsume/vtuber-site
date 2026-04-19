@@ -1,10 +1,10 @@
 <template>
   <VCard rounded="xl">
     <VCardTitle class="pb-1 text-h6 font-weight-bold">
-      {{ mode === "login" ? "登入" : "註冊" }}
+      {{ mode === "login" ? t("loginForm.titleLogin") : t("loginForm.titleRegister") }}
     </VCardTitle>
     <VCardSubtitle class="pb-4 text-medium-emphasis">
-      使用帳號密碼或第三方登入
+      {{ t("loginForm.subtitle") }}
     </VCardSubtitle>
 
     <VCardText>
@@ -12,7 +12,7 @@
         <VTextField
           v-if="mode === 'register'"
           v-model="name"
-          label="顯示名稱"
+          :label="t('loginForm.fields.name')"
           :rules="[r.required]"
           variant="outlined"
           density="comfortable"
@@ -22,7 +22,7 @@
         />
         <VTextField
           v-model="email"
-          label="Email"
+          :label="t('loginForm.fields.email')"
           type="email"
           :rules="[r.required, r.email]"
           variant="outlined"
@@ -33,7 +33,7 @@
         />
         <VTextField
           v-model="password"
-          label="密碼"
+          :label="t('loginForm.fields.password')"
           type="password"
           :rules="[r.required]"
           variant="outlined"
@@ -49,29 +49,17 @@
           :loading="busy"
           rounded="lg"
         >
-          {{ mode === "login" ? "登入" : "建立帳號" }}
+          {{ mode === "login" ? t("loginForm.submitLogin") : t("loginForm.submitRegister") }}
         </VBtn>
       </VForm>
 
       <div class="mb-4 text-center">
         <VBtn color="secondary" variant="text" @click="modeToggle">
-          {{ mode === "login" ? "沒有帳號？建立一個" : "已有帳號？前往登入" }}
+          {{ mode === "login" ? t("loginForm.toggleToRegister") : t("loginForm.toggleToLogin") }}
         </VBtn>
       </div>
 
-      <div class="my-3 d-flex align-center">
-        <div
-          class="flex-grow-1"
-          style="border-top: 1px solid rgba(255, 255, 255, 0.08)"
-        />
-        <span class="mx-2 text-caption text-medium-emphasis">或</span>
-        <div
-          class="flex-grow-1"
-          style="border-top: 1px solid rgba(255, 255, 255, 0.08)"
-        />
-      </div>
-
-      <div class="d-flex flex-column ga-3">
+      <div class="d-flex flex-column space-y-3 gap-3">
         <VBtn
           variant="outlined"
           rounded="lg"
@@ -82,7 +70,7 @@
           <template #prepend>
             <VIcon icon="mdi-google" color="#4285F4"/>
           </template>
-          使用 Google 繼續
+          {{ t("loginForm.oauth.google") }}
         </VBtn>
         <VBtn
           variant="outlined"
@@ -92,9 +80,9 @@
           @click="oauthSignIn('discord')"
         >
           <template #prepend>
-            <VIcon icon="mdi-discord" color="#5865F2"/>
+            <VIcon icon="mdi-discord" color="#5865F2" />
           </template>
-          使用 Discord 繼續
+          {{ t("loginForm.oauth.discord") }}
         </VBtn>
       </div>
 
@@ -111,7 +99,7 @@
     </VCardText>
 
     <VCardActions v-if="showClose" class="justify-end">
-      <VBtn variant="text" @click="emit('cancel')">關閉</VBtn>
+      <VBtn variant="text" @click="emit('cancel')">{{ t("loginForm.close") }}</VBtn>
     </VCardActions>
   </VCard>
 </template>
@@ -132,6 +120,7 @@ const emit = defineEmits<{
   cancel: [];
 }>();
 
+const { t } = useI18n();
 const { refresh } = useAuth();
 const route = useRoute();
 const loginRedirect = useState<string | null>("login:redirect", () => null);
@@ -146,8 +135,8 @@ const error = ref("");
 const mode = ref<"login" | "register">("login");
 
 const r = {
-  required: (v: any) => !!v || v === 0 || "必填",
-  email: (v: string) => /.+@.+\..+/.test(v) || "Email 格式錯誤",
+  required: (v: unknown) => !!v || v === 0 || t("loginForm.validation.required"),
+  email: (v: string) => /.+@.+\..+/.test(v) || t("loginForm.validation.email"),
 };
 
 function resolveSafePath(raw?: unknown) {
@@ -196,7 +185,11 @@ async function submit() {
     }
 
     await refresh();
-    toast.success(mode.value === "login" ? "登入成功" : "註冊成功");
+    toast.success(
+      mode.value === "login"
+        ? t("loginForm.toast.loginSuccess")
+        : t("loginForm.toast.registerSuccess"),
+    );
 
     emit("success");
 
@@ -212,7 +205,10 @@ async function submit() {
     }
   } catch (e: any) {
     error.value =
-      e?.data?.statusMessage || e?.data?.message || e?.message || "操作失敗";
+      e?.data?.statusMessage ||
+      e?.data?.message ||
+      e?.message ||
+      t("loginForm.toast.actionFailed");
   } finally {
     busy.value = false;
   }

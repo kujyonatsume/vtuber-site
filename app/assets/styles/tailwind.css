@@ -65,6 +65,47 @@
 @custom-variant light (&:where(.v-theme--light, .v-theme--light *));
 @custom-variant dark (&:where(.v-theme--dark, .v-theme--dark *));
 
+.v-theme--dark {
+  --color-white: #0f172a;
+  --color-black: #f8fafc;
+
+  --color-primary: #93beff;
+  --color-primary-50: #0c1524;
+  --color-primary-100: #13253e;
+  --color-primary-200: #1c3860;
+  --color-primary-300: #27538b;
+  --color-primary-400: #356fba;
+  --color-primary-500: #4f8fe8;
+  --color-primary-600: #74abff;
+  --color-primary-700: #93beff;
+  --color-primary-800: #b7d3ff;
+  --color-primary-900: #dbe8ff;
+
+  --color-secondary: #ffb573;
+  --color-secondary-50: #241508;
+  --color-secondary-100: #3a220d;
+  --color-secondary-200: #5e3515;
+  --color-secondary-300: #8a4c1f;
+  --color-secondary-400: #b8662a;
+  --color-secondary-500: #e08a3a;
+  --color-secondary-600: #ffab5f;
+  --color-secondary-700: #ffb573;
+  --color-secondary-800: #ffca9e;
+  --color-secondary-900: #ffe2c9;
+
+  --color-neutral: #94a3b8;
+  --color-neutral-50: #0b1220;
+  --color-neutral-100: #111827;
+  --color-neutral-200: #1f2937;
+  --color-neutral-300: #334155;
+  --color-neutral-400: #475569;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #94a3b8;
+  --color-neutral-700: #cbd5e1;
+  --color-neutral-800: #e2e8f0;
+  --color-neutral-900: #f8fafc;
+}
+
 /* safelist to ensure variables are always available */
 @source inline('font-heading');
 @source inline('font-body');

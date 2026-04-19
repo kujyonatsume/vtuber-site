@@ -27,6 +27,22 @@ export const TYPE_CONFIG = {
   error: { icon: "mdi-close-circle", color: "#B71C1C" },
 } as const;
 
+function resolveConfirmLabel(customLabel?: string) {
+  if (customLabel) return customLabel;
+
+  try {
+    const i18n = (useNuxtApp() as any).$i18n;
+    const translated = i18n?.t?.("common.confirm");
+    if (typeof translated === "string" && translated && translated !== "common.confirm") {
+      return translated;
+    }
+  } catch {
+    // Fall back to default label when Nuxt app is not available yet.
+  }
+
+  return "Confirm";
+}
+
 export const toast = {
   get list() {
     const stage = useState<IToast[]>("toasts", () => []);
@@ -93,6 +109,7 @@ export const toast = {
       const normalized = typeof opt === "string" ? { text: opt } : opt;
       const baseAction = normalized.action;
       let settled = false;
+      let confirmed = false;
 
       const settle = (result: boolean) => {
         if (settled) return;
@@ -106,13 +123,14 @@ export const toast = {
         duration: Math.min(Math.max(normalized.duration ?? 0, 10000), 30000),
         action: {
           ...baseAction,
-          label: baseAction?.label ?? "確定",
+          label: resolveConfirmLabel(baseAction?.label),
           onClick: () => {
+            confirmed = true;
             baseAction?.onClick?.();
             settle(true);
           },
           onClose: () => {
-            baseAction?.onClose?.();
+            if (!confirmed) baseAction?.onClose?.();
             settle(false);
           },
         },

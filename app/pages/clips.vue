@@ -1,15 +1,20 @@
-<template>
+﻿<template>
   <section class="layout-container section-shell">
-    <h1 class="text-3xl font-bold mb-6">剪輯</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <h1 class="mb-6 text-3xl font-bold">{{ t("clips.title") }}</h1>
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       <ClipCard
         v-for="i in 9"
-        title="精彩片段"
+        :key="i"
+        :title="t('clips.cardTitle')"
         thumb="/hero.png"
       />
     </div>
   </section>
 </template>
+
+<script setup lang="ts">
+const { t } = useI18n();
+</script>
 
 <style scoped lang="scss">
 @reference "../assets/styles/tailwind.css";

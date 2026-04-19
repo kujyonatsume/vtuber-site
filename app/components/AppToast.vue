@@ -1,5 +1,11 @@
 <template>
-  <div class="toast" :style="{ backgroundColor: color || '#333', color: '#fff' }">
+  <div
+    class="toast"
+    :style="{
+      backgroundColor: color || 'rgb(var(--v-theme-surface))',
+      color: 'rgb(var(--v-theme-on-surface))',
+    }"
+  >
     <div class="toast__grid">
       <!-- 左：ICON -->
       <div class="toast__left">
@@ -52,7 +58,7 @@ function onAction() {
   padding: 12px 16px;
   min-width: 320px;
   max-width: 420px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  box-shadow: 0 8px 24px rgb(var(--v-theme-on-surface) / 0.22);
 }
 
 /* 三欄結構（重點） */

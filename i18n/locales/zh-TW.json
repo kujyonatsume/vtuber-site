@@ -1,0 +1,272 @@
+﻿{
+  "common": {
+    "projectName": "VTuber Project",
+    "language": "語言",
+    "confirm": "確定",
+    "login": "登入",
+    "logout": "登出",
+    "account": "帳號設定",
+    "submitWish": "投稿祝福",
+    "manageWish": "管理投稿",
+    "manageUsers": "用戶管理",
+    "themeLight": "淺色模式",
+    "themeDark": "深色模式"
+  },
+  "nav": {
+    "home": "首頁",
+    "event": "活動",
+    "clips": "精華",
+    "about": "關於"
+  },
+  "auth": {
+    "confirmLogout": "確定要登出嗎？"
+  },
+  "app": {
+    "footer": "© {year} VTuber Project"
+  },
+  "home": {
+    "badge": "OFFICIAL FAN SUPPORT",
+    "title": "一起為 VTuber 活動應援",
+    "description": "投稿祝福、整理精華、追蹤活動資訊，讓粉絲創作和現場應援更集中。",
+    "ctaSubmit": "投稿祝福",
+    "ctaBrowse": "祝福牆",
+    "ctaEvent": "活動行程",
+    "countdownTitle": "下一場活動倒數",
+    "heroAlt": "VTuber 活動主視覺",
+    "clipsHeading": "精選精華",
+    "clip1": "應援舞台精華",
+    "clip2": "幕後花絮整理",
+    "clip3": "粉絲創作回顧"
+  },
+  "event": {
+    "title": "一起準備下一場活動",
+    "description": "整合投稿、剪輯與流程安排，讓活動當天更順利。",
+    "ctaSubmit": "投稿祝福",
+    "ctaBrowse": "祝福牆",
+    "timelineTitle": "活動流程",
+    "timelineDescription": "依照目前規劃追蹤每個里程碑，確保任務在期限內完成。",
+    "heroAlt": "活動主視覺",
+    "step1": "企劃公開",
+    "step2": "投稿開放",
+    "step3": "剪輯製作",
+    "step4": "活動預熱",
+    "step5": "精華上架",
+    "step6": "活動當日 / 直播"
+  },
+  "about": {
+    "title": "關於",
+    "description": "這是 VTuber 活動支援網站，整合活動資訊、精華內容與粉絲投稿，並提供良好的桌機與行動裝置體驗。",
+    "contactTitle": "聯絡方式",
+    "email": "Email",
+    "twitter": "Twitter"
+  },
+  "clips": {
+    "title": "精華",
+    "cardTitle": "本週精華剪輯"
+  },
+  "wishes": {
+    "title": "祝福牆",
+    "create": "我要投稿"
+  },
+  "roles": {
+    "owner": "Owner",
+    "admin": "Admin",
+    "member": "Member",
+    "user": "User"
+  },
+  "pagination": {
+    "prev": "上一頁",
+    "next": "下一頁",
+    "page": "第 {page} 頁",
+    "pageWithTotal": "第 {page} 頁 / 共 {total} 頁"
+  },
+  "adminContribute": {
+    "title": "投稿審核",
+    "usersButton": "使用者管理",
+    "total": "共 {total} 筆",
+    "tabs": {
+      "pending": "待審",
+      "approve": "通過",
+      "reject": "退回"
+    },
+    "filters": {
+      "keywordPlaceholder": "關鍵字過濾（前端）",
+      "sortBy": "排序欄位",
+      "sortDir": "排序方向"
+    },
+    "sort": {
+      "createdAt": "建立時間",
+      "category": "類別",
+      "id": "編號"
+    },
+    "sortDir": {
+      "desc": "遞減",
+      "asc": "遞增"
+    },
+    "actions": {
+      "approve": "通過",
+      "reject": "退回",
+      "delete": "刪除"
+    },
+    "confirmDelete": "確定要刪除這筆投稿嗎？此操作無法復原。",
+    "toast": {
+      "approved": "已通過",
+      "rejected": "已退回",
+      "actionFailed": "操作失敗",
+      "removed": "已刪除",
+      "removeFailed": "刪除失敗"
+    }
+  },
+  "adminUsers": {
+    "title": "使用者管理",
+    "total": "共 {total} 位使用者",
+    "backToReview": "返回審核",
+    "keywordPlaceholder": "搜尋 Email / 顯示名稱",
+    "refresh": "重新整理",
+    "noData": "無資料",
+    "filters": {
+      "role": "角色篩選",
+      "sortBy": "排序欄位",
+      "sortDir": "排序方向",
+      "allRoles": "全部角色"
+    },
+    "sort": {
+      "createdAt": "建立時間",
+      "lastLoginAt": "最後登入",
+      "email": "Email",
+      "role": "角色",
+      "name": "名稱"
+    },
+    "sortDir": {
+      "desc": "遞減",
+      "asc": "遞增"
+    },
+    "table": {
+      "id": "ID",
+      "user": "使用者",
+      "currentRole": "目前角色",
+      "linked": "綁定來源",
+      "lastLogin": "最後登入",
+      "action": "操作",
+      "noName": "未設定名稱",
+      "notLinked": "未綁定",
+      "neverLogin": "未登入"
+    },
+    "toast": {
+      "roleUpdated": "角色已更新",
+      "updateFailed": "更新失敗"
+    }
+  },
+  "userAccount": {
+    "title": "帳號設定",
+    "profile": {
+      "title": "基本資料",
+      "displayName": "顯示名稱",
+      "avatar": "頭貼（可選）",
+      "save": "儲存基本資料",
+      "avatarHint": "支援圖片，大小上限 5MB"
+    },
+    "social": {
+      "title": "社群綁定",
+      "linked": "已綁定",
+      "unlinked": "未綁定",
+      "link": "綁定",
+      "unlink": "解除"
+    },
+    "posts": {
+      "title": "我的貼文紀錄",
+      "total": "共 {total} 筆",
+      "refresh": "重新整理",
+      "statusFilter": "狀態篩選",
+      "anonymous": "匿名",
+      "view": "查看投稿",
+      "withdraw": "撤回投稿",
+      "empty": "目前沒有貼文紀錄"
+    },
+    "status": {
+      "all": "全部",
+      "pending": "待審",
+      "approve": "通過",
+      "reject": "退回"
+    },
+    "postStatus": {
+      "pending": "待審核",
+      "approve": "已通過",
+      "reject": "已退回"
+    },
+    "toast": {
+      "unlinkSuccess": "已解除綁定",
+      "nameRequired": "請輸入顯示名稱",
+      "profileUpdated": "基本資料已更新",
+      "updateFailed": "更新失敗",
+      "confirmWithdraw": "確定要撤回這筆投稿嗎？撤回後將無法復原。",
+      "withdrawSuccess": "已撤回投稿",
+      "withdrawFailed": "撤回失敗"
+    }
+  },
+  "userLoginPage": {
+    "chip": "MEMBER ACCESS",
+    "title": "登入你的應援帳號",
+    "description": "使用帳號密碼或第三方登入，快速回到投稿、留言與活動管理。",
+    "benefit1": "集中管理你的祝福留言與投稿紀錄",
+    "benefit2": "同步社群登入，快速切換 Google / Discord",
+    "benefit3": "使用安全流程保護個人資料與登入狀態"
+  },
+  "userPasswordPage": {
+    "title": "設定密碼",
+    "newPassword": "新密碼（至少 8 碼）",
+    "confirmPassword": "再次輸入",
+    "save": "儲存",
+    "validation": {
+      "required": "必填",
+      "min": "至少 8 碼",
+      "match": "兩次輸入不一致"
+    },
+    "toast": {
+      "saved": "密碼已設定",
+      "failed": "失敗"
+    }
+  },
+  "loginForm": {
+    "titleLogin": "登入",
+    "titleRegister": "註冊",
+    "subtitle": "使用帳號密碼或第三方登入",
+    "fields": {
+      "name": "顯示名稱",
+      "email": "Email",
+      "password": "密碼"
+    },
+    "submitLogin": "登入",
+    "submitRegister": "建立帳號",
+    "toggleToRegister": "沒有帳號？建立一個",
+    "toggleToLogin": "已有帳號？前往登入",
+    "oauth": {
+      "google": "使用 Google 繼續",
+      "discord": "使用 Discord 繼續"
+    },
+    "close": "關閉",
+    "validation": {
+      "required": "必填",
+      "email": "Email 格式錯誤"
+    },
+    "toast": {
+      "loginSuccess": "登入成功",
+      "registerSuccess": "註冊成功",
+      "actionFailed": "操作失敗"
+    }
+  },
+  "blessingCard": {
+    "empty": "（無內文）",
+    "category": {
+      "image": "圖片",
+      "audio": "音檔",
+      "video": "影片",
+      "embed": "YT 嵌入",
+      "text": "文字"
+    }
+  },
+  "countdown": {
+    "expired": "活動已開始",
+    "daysUnit": "天"
+  }
+}

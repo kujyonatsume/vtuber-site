@@ -1,20 +1,24 @@
-<template>
-  <section class="space-y-10 layout-container section-shell">
-    <header class="grid items-center grid-cols-1 gap-8 lg:grid-cols-2">
-      <div class="space-y-6 reveal-up">
-        <h1 class="text-3xl font-extrabold sm:text-5xl">周年／生日應援企劃</h1>
+﻿<template>
+  <section class="layout-container section-shell space-y-10">
+    <header class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+      <div class="reveal-up space-y-6">
+        <h1 class="text-3xl font-extrabold sm:text-5xl">{{ t("event.title") }}</h1>
         <p class="text-neutral-800">
-          投稿祝福、上傳作品，一起在當天用彈幕與投票為她應援。
+          {{ t("event.description") }}
         </p>
         <div class="flex flex-wrap gap-3">
-          <NuxtLink to="/wishes/new" class="btn-accent">我要投稿</NuxtLink>
-          <NuxtLink to="/wishes" class="btn-secondary">祝福牆</NuxtLink>
+          <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
+            {{ t("event.ctaSubmit") }}
+          </NuxtLink>
+          <NuxtLink :to="localePath('/wishes')" class="btn-secondary">
+            {{ t("event.ctaBrowse") }}
+          </NuxtLink>
         </div>
       </div>
       <div class="relative reveal-up reveal-delay-1">
         <img
           src="/hero.png"
-          alt="event"
+          :alt="t('event.heroAlt')"
           class="w-full rounded-3xl drop-shadow-2xl animate-float"
         />
       </div>
@@ -22,18 +26,18 @@
 
     <Countdown :target="flowStep.target" :title="flowStep.title" />
 
-    <section class="p-6 card sm:p-8">
+    <section class="card p-6 sm:p-8">
       <div class="mb-5 space-y-2">
         <h2 class="text-2xl font-black tracking-tight text-primary-900">
-          活動流程圖
+          {{ t("event.timelineTitle") }}
         </h2>
         <p class="text-sm text-neutral-700">
-          依照下列流程依序進行，並以公告時間為準。
+          {{ t("event.timelineDescription") }}
         </p>
       </div>
 
       <ol :class="flowListClass">
-        <template v-for="(step, idx) in flowSteps" :key="step.title">
+        <template v-for="(step, idx) in flowSteps" :key="`${step.target}-${idx}`">
           <li
             class="flex-1 rounded-2xl border border-primary-200/80 bg-white/90 p-4 shadow-[0_8px_18px_-12px_rgba(15,23,42,0.35)]"
           >
@@ -59,7 +63,10 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+const localePath = useLocalePath();
 const { width } = useWindowSize();
+
 const isRwdMobile = computed(() => width.value < 768);
 const flowListClass = computed(() =>
   isRwdMobile.value
@@ -67,23 +74,23 @@ const flowListClass = computed(() =>
     : "flex flex-row items-stretch gap-1",
 );
 
-const flowSteps = [
-  { target: "2026-05-10T00:00:00+08:00", title: "網站正式上線" },
-
-  { target: "2026-09-01T00:00:00+08:00", title: "投稿募集" },
-  { target: "2026-10-01T00:00:00+08:00", title: "截稿期間" },
-  { target: "2026-10-04T00:00:00+08:00", title: "管理員審核" },
-  { target: "2026-10-03T00:00:00+08:00", title: "祝福牆展示" },
-  { target: "2026-10-04T00:00:00+08:00", title: "活動正式上線 / 公開" },
-];
+const flowSteps = computed(() => [
+  { target: "2026-05-10T00:00:00+08:00", title: t("event.step1") },
+  { target: "2026-09-01T00:00:00+08:00", title: t("event.step2") },
+  { target: "2026-10-01T00:00:00+08:00", title: t("event.step3") },
+  { target: "2026-10-03T00:00:00+08:00", title: t("event.step4") },
+  { target: "2026-10-04T00:00:00+08:00", title: t("event.step5") },
+  { target: "2026-12-27T00:00:00+08:00", title: t("event.step6") },
+]);
 
 const flowStep = computed(() => {
   const now = new Date();
-  for (const step of flowSteps) {
+  for (const step of flowSteps.value) {
     const stepDate = new Date(step.target);
     if (now < stepDate) return step;
   }
-  return flowSteps[flowSteps.length - 1];
+
+  return flowSteps.value[flowSteps.value.length - 1];
 });
 </script>
 
@@ -100,8 +107,12 @@ const flowStep = computed(() => {
 
 .btn-accent {
   @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
-  background-image: linear-gradient(135deg, #3f82f8, #2e66d6);
-  box-shadow: 0 12px 24px -14px rgb(37 79 175 / 0.75);
+  background-image: linear-gradient(
+    135deg,
+    rgb(var(--v-theme-primary)),
+    color-mix(in srgb, rgb(var(--v-theme-primary)) 76%, black)
+  );
+  box-shadow: 0 12px 24px -14px rgb(var(--v-theme-primary) / 0.66);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -110,13 +121,17 @@ const flowStep = computed(() => {
 
 .btn-accent:hover {
   filter: brightness(1.05);
-  box-shadow: 0 16px 28px -16px rgb(37 79 175 / 0.8);
+  box-shadow: 0 16px 28px -16px rgb(var(--v-theme-primary) / 0.74);
 }
 
 .btn-secondary {
   @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
-  background-image: linear-gradient(135deg, #ff9541, #e05f14);
-  box-shadow: 0 12px 24px -14px rgb(185 73 19 / 0.72);
+  background-image: linear-gradient(
+    135deg,
+    rgb(var(--v-theme-secondary)),
+    color-mix(in srgb, rgb(var(--v-theme-secondary)) 76%, black)
+  );
+  box-shadow: 0 12px 24px -14px rgb(var(--v-theme-secondary) / 0.64);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -125,12 +140,12 @@ const flowStep = computed(() => {
 
 .btn-secondary:hover {
   filter: brightness(1.04);
-  box-shadow: 0 16px 28px -16px rgb(185 73 19 / 0.78);
+  box-shadow: 0 16px 28px -16px rgb(var(--v-theme-secondary) / 0.72);
 }
 
 .card {
   @apply rounded-3xl border border-primary-200/70 bg-white/90 backdrop-blur-sm;
-  box-shadow: 0 10px 30px -16px rgb(15 23 42 / 0.35);
+  box-shadow: 0 10px 30px -16px rgb(var(--v-theme-on-surface) / 0.26);
 }
 
 .reveal-up {

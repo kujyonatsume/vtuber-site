@@ -1,13 +1,13 @@
-<template>
+﻿<template>
   <div class="reveal-up text-center">
-    <h2 class="text-xl font-bold">{{ title }}</h2>
+    <h2 class="text-xl font-bold">{{ resolvedTitle }}</h2>
 
     <p v-if="expired" class="mt-2 text-lg font-semibold text-primary-700">
-      活動已開始
+      {{ t("countdown.expired") }}
     </p>
 
-    <p v-else class="mt-2 text-3xl font-mono" aria-live="polite">
-      {{ dd }} 天 {{ hh.toString().padStart(2, "0") }}:{{
+    <p v-else class="mt-2 font-mono text-3xl" aria-live="polite">
+      {{ dd }} {{ t("countdown.daysUnit") }} {{ hh.toString().padStart(2, "0") }}:{{
         mm.toString().padStart(2, "0")
       }}:{{ ss.toString().padStart(2, "0") }}
     </p>
@@ -15,16 +15,19 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 const props = withDefaults(
   defineProps<{
     title?: string;
     target?: string | number | Date;
   }>(),
   {
-    title: "活動倒數",
     target: "2026-12-27T00:00:00+08:00",
-  }
+  },
 );
+
+const resolvedTitle = computed(() => props.title ?? t("home.countdownTitle"));
 
 const diff = ref(0);
 let timer: ReturnType<typeof setInterval> | undefined;

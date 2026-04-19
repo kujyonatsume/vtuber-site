@@ -1,14 +1,16 @@
-<template>
+﻿<template>
   <section class="layout-container section-shell">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-3xl font-bold">祝福牆</h1>
-      <NuxtLink to="/wishes/new" class="btn-accent">我要投稿</NuxtLink>
+    <div class="mb-6 flex items-center justify-between">
+      <h1 class="text-3xl font-bold">{{ t("wishes.title") }}</h1>
+      <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
+        {{ t("wishes.create") }}
+      </NuxtLink>
     </div>
 
     <div
       ref="masonryRef"
       class="relative w-full"
-      :style="{ height: containerHeight + 'px' }"
+      :style="{ height: `${containerHeight}px` }"
     >
       <div
         v-for="(it, index) in list ?? []"
@@ -35,8 +37,8 @@ type BoardItem = {
   createdAt: string | Date;
 };
 
-const route = useRoute();
-const router = useRouter();
+const { t } = useI18n();
+const localePath = useLocalePath();
 const { data: list } = await useFetch<BoardItem[]>("/api/public/list");
 
 const masonryRef = ref<HTMLElement | null>(null);
@@ -160,8 +162,12 @@ onBeforeUnmount(() => {
 
 .btn-accent {
   @apply inline-flex items-center gap-2 rounded-2xl px-5 py-3 text-white;
-  background-image: linear-gradient(135deg, #3f82f8, #2e66d6);
-  box-shadow: 0 12px 24px -14px rgb(37 79 175 / 0.75);
+  background-image: linear-gradient(
+    135deg,
+    rgb(var(--v-theme-primary)),
+    color-mix(in srgb, rgb(var(--v-theme-primary)) 76%, black)
+  );
+  box-shadow: 0 12px 24px -14px rgb(var(--v-theme-primary) / 0.66);
   transition:
     transform 0.2s ease,
     box-shadow 0.2s ease,
@@ -170,6 +176,6 @@ onBeforeUnmount(() => {
 
 .btn-accent:hover {
   filter: brightness(1.05);
-  box-shadow: 0 16px 28px -16px rgb(37 79 175 / 0.8);
+  box-shadow: 0 16px 28px -16px rgb(var(--v-theme-primary) / 0.74);
 }
 </style>

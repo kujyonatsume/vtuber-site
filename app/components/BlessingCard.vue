@@ -99,27 +99,28 @@ type BlessingItem = {
   createdAt: string | Date;
 };
 
-const props = defineProps<{
+defineProps<{
   item: BlessingItem;
 }>();
+const { t } = useI18n();
 
 function postContent(message: string) {
   const text = (message || "").trim();
-  return text || "（無內文）";
+  return text || t("blessingCard.empty");
 }
 
 function categoryLabel(category?: string | null) {
   switch ((category || "").toLowerCase()) {
     case "image":
-      return "圖片";
+      return t("blessingCard.category.image");
     case "audio":
-      return "音檔";
+      return t("blessingCard.category.audio");
     case "video":
-      return "影片";
+      return t("blessingCard.category.video");
     case "embed":
-      return "YT 嵌入";
+      return t("blessingCard.category.embed");
     default:
-      return "文字";
+      return t("blessingCard.category.text");
   }
 }
 

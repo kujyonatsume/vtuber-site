@@ -17,6 +17,7 @@
     "@vueuse/nuxt": "^14.2.1",
     "bcryptjs": "^3.0.3",
     "better-sqlite3": "^12.9.0",
+    "culori": "^4.0.2",
     "discord-oauth2": "^2.12.1",
     "discord.js": "^14.26.3",
     "dotenv": "^17.4.2",
@@ -33,6 +34,7 @@
   "devDependencies": {
     "@nuxt/fonts": "^0.14.0",
     "@tailwindcss/postcss": "^4.2.1",
+    "@types/culori": "^4.0.1",
     "@types/node": "^25.6.0",
     "sass": "^1.98.0",
     "tailwindcss": "^4.2.1"
