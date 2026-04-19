@@ -2,7 +2,7 @@ import colors from 'tailwindcss/colors'
 import { formatHex } from 'culori'
 import path from "path";
 
-const uploadDir = path.resolve("static");
+const uploadDir = path.join(import.meta.dirname, ".data", "file");
 const { env } = process;
 
 const host =
