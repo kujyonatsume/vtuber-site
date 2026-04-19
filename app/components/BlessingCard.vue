@@ -23,7 +23,7 @@
       </header>
 
       <p
-        class="text-sm leading-relaxed break-words whitespace-pre-line text-neutral-800"
+        class="text-sm leading-relaxed wrap-break-word whitespace-pre-line text-neutral-800"
       >
         {{ postContent(item.message) }}
       </p>

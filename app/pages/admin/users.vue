@@ -56,7 +56,7 @@
     </div>
 
     <div class="overflow-x-auto rounded-xl border border-neutral-300/70 bg-white/90">
-      <table class="w-full min-w-[860px] text-sm">
+      <table class="w-full min-w-215 text-sm">
         <thead class="bg-secondary-50/70 text-left">
           <tr>
             <th class="px-4 py-3">{{ t("adminUsers.table.id") }}</th>
