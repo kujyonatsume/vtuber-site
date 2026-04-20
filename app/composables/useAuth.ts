@@ -33,8 +33,9 @@ export function useAuth() {
   }
 
   function isProtectedPath(pathname: string) {
-    if (pathname.startsWith("/admin")) return true;
-    if (pathname.startsWith("/user/") && pathname !== "/user/login")
+    const normalized = pathname.replace(/^\/[a-z]{2}(?:-[A-Z]{2})?(?=\/)/, "");
+    if (normalized.startsWith("/admin")) return true;
+    if (normalized === "/user/account" || normalized === "/user/password")
       return true;
     return false;
   }

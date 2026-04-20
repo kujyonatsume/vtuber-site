@@ -6,8 +6,9 @@ export default defineNuxtRouteMiddleware(async (to) => {
         return navigateTo(`/user/login?next=${encodeURIComponent(window.location.pathname + window.location.search)}`)
     }
     // 白名單：密碼設定頁、OAuth 回調頁
-    const whitelist = ['/user/password', '/auth/google', '/auth/discord']
-    if (!user.value?.hasPassword && !whitelist.includes(to.path)) {
-        return navigateTo('/user/password')
+    const whitelist = ['/user/account', '/auth/google', '/auth/discord']
+    const isWhitelisted = whitelist.some((path) => to.path === path || to.path.endsWith(path))
+    if (!user.value?.hasPassword && !isWhitelisted) {
+        return navigateTo('/user/account#password')
     }
 })

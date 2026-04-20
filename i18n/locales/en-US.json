@@ -16,6 +16,8 @@
     "home": "Home",
     "event": "Event",
     "clips": "Clips",
+    "wishes": "Blessing Wall",
+    "search": "Search",
     "about": "About"
   },
   "auth": {
@@ -176,10 +178,36 @@
   "userAccount": {
     "title": "Account Settings",
     "description": "Manage your profile details, linked providers, and post history.",
+    "badge": "MY PROFILE",
+    "tabs": {
+      "home": "Profile Home",
+      "settings": "Data Settings"
+    },
+    "summary": {
+      "title": "Account Overview",
+      "totalPosts": "{total} posts",
+      "linked": "{total} linked providers",
+      "passwordSet": "Password configured",
+      "passwordUnset": "Password not set",
+      "posts": "Posts",
+      "social": "Social",
+      "setupPassword": "Set password first"
+    },
+    "settings": {
+      "title": "Data Settings",
+      "subtitle": "Manage avatar, display name, social links, and account security like a social profile."
+    },
+    "home": {
+      "title": "Profile Home"
+    },
     "profile": {
       "title": "Basic Profile",
       "displayName": "Display Name",
       "avatar": "Avatar (Optional)",
+      "clickToChange": "Click avatar to change photo",
+      "changeAvatar": "Choose New Photo",
+      "cancelAvatarChange": "Cancel this change",
+      "newAvatarSelected": "New avatar selected, save to apply",
       "save": "Save Profile",
       "avatarHint": "Images only, max size 5MB"
     },
@@ -189,6 +217,21 @@
       "unlinked": "Not linked",
       "link": "Link",
       "unlink": "Unlink"
+    },
+    "password": {
+      "title": "Password Settings",
+      "descriptionCreate": "You have not set a password yet. Create one to complete account security setup.",
+      "descriptionUpdate": "Update your sign-in password here.",
+      "newPassword": "New Password (at least 8 characters)",
+      "confirmPassword": "Confirm Password",
+      "save": "Save Password",
+      "update": "Update Password",
+      "hint": "Use a mixed alphanumeric password and avoid reusing old passwords",
+      "validation": {
+        "required": "Required",
+        "min": "At least 8 characters",
+        "match": "Passwords do not match"
+      }
     },
     "posts": {
       "title": "My Posts",
@@ -215,7 +258,10 @@
       "unlinkSuccess": "Unlinked",
       "nameRequired": "Display name is required",
       "profileUpdated": "Profile updated",
+      "avatarTooLarge": "Avatar image must be under 5MB",
+      "passwordSaved": "Password has been set",
       "updateFailed": "Update failed",
+      "passwordFailed": "Password update failed",
       "confirmWithdraw": "Withdraw this post? This action cannot be undone.",
       "withdrawSuccess": "Post withdrawn",
       "withdrawFailed": "Withdraw failed"
@@ -243,6 +289,42 @@
     "toast": {
       "saved": "Password has been set",
       "failed": "Failed"
+    }
+  },
+  "userProfilePage": {
+    "title": "User Profile",
+    "unknown": "Unknown User",
+    "subtitle": "Public posts",
+    "viewWishes": "View Blessing Wall",
+    "postsTitle": "Public Posts",
+    "postsTotal": "{total} posts",
+    "refresh": "Refresh",
+    "viewPost": "View Post",
+    "empty": "No public posts yet",
+    "notFoundTitle": "User not found",
+    "notFoundDescription": "This user may not exist or has no public content.",
+    "backHome": "Back to Home"
+  },
+  "searchPage": {
+    "title": "Search",
+    "description": "Search users and public posts.",
+    "keywordLabel": "Keyword",
+    "keywordPlaceholder": "Type a user name or post content",
+    "search": "Search",
+    "hint": "Enter a keyword, then switch between Users and Posts.",
+    "tabs": {
+      "users": "Users",
+      "posts": "Posts"
+    },
+    "userCount": "{total} users",
+    "postCount": "{total} posts",
+    "emptyUsers": "No matching users found",
+    "emptyPosts": "No matching posts found",
+    "anonymous": "Anonymous",
+    "unknownUser": "Unknown User",
+    "viewPost": "View Post",
+    "toast": {
+      "searchFailed": "Search failed, please try again"
     }
   },
   "loginForm": {

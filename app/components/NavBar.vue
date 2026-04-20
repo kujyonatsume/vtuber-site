@@ -174,6 +174,11 @@
               />
               <VListItem :title="t('common.logout')" @click="confirmLogout()" />
             </template>
+            <VListItem
+              :to="localePath('/search')"
+              :title="t('nav.search')"
+              @click="drawer = false"
+            />
             <VDivider class="my-2" />
             <VListSubheader>{{ t("common.language") }}</VListSubheader>
             <VListItem
@@ -234,6 +239,16 @@ const pageLinks = computed(() => [
     icon: "mdi-movie-open-outline",
   },
   {
+    to: localePath("/wishes"),
+    title: t("nav.wishes"),
+    icon: "mdi-heart-multiple-outline",
+  },
+  {
+    to: localePath("/search"),
+    title: t("nav.search"),
+    icon: "mdi-magnify",
+  },
+  {
     to: localePath("/about"),
     title: t("nav.about"),
     icon: "mdi-information-outline",
@@ -280,6 +295,6 @@ async function confirmLogout() {
 }
 
 .theme-fab {
-  @apply fixed bottom-4 right-4 z-[70];
+  @apply fixed bottom-4 right-4 z-70;
 }
 </style>

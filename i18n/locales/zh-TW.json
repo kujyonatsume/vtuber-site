@@ -16,6 +16,8 @@
     "home": "首頁",
     "event": "活動",
     "clips": "精華",
+    "wishes": "祝福牆",
+    "search": "搜尋",
     "about": "關於"
   },
   "auth": {
@@ -176,10 +178,36 @@
   "userAccount": {
     "title": "帳號設定",
     "description": "管理你的個人資料、社群綁定與投稿紀錄。",
+    "badge": "MY PROFILE",
+    "tabs": {
+      "home": "個人主頁",
+      "settings": "資料設定"
+    },
+    "summary": {
+      "title": "帳號概況",
+      "totalPosts": "貼文 {total} 則",
+      "linked": "綁定 {total} 個平台",
+      "passwordSet": "已設定密碼",
+      "passwordUnset": "尚未設定密碼",
+      "posts": "貼文",
+      "social": "社群",
+      "setupPassword": "先設定密碼"
+    },
+    "settings": {
+      "title": "資料設定",
+      "subtitle": "像社群軟體一樣管理頭貼、顯示名稱、社群綁定與帳號安全。"
+    },
+    "home": {
+      "title": "個人主頁"
+    },
     "profile": {
       "title": "基本資料",
       "displayName": "顯示名稱",
       "avatar": "頭貼（可選）",
+      "clickToChange": "點擊頭貼更換照片",
+      "changeAvatar": "選擇新照片",
+      "cancelAvatarChange": "取消本次更換",
+      "newAvatarSelected": "已選擇新頭貼，儲存後生效",
       "save": "儲存基本資料",
       "avatarHint": "支援圖片，大小上限 5MB"
     },
@@ -189,6 +217,21 @@
       "unlinked": "未綁定",
       "link": "綁定",
       "unlink": "解除"
+    },
+    "password": {
+      "title": "密碼設定",
+      "descriptionCreate": "尚未設定密碼，請先建立密碼以完成帳號安全設定。",
+      "descriptionUpdate": "可在這裡更新你的登入密碼。",
+      "newPassword": "新密碼（至少 8 碼）",
+      "confirmPassword": "再次輸入",
+      "save": "儲存密碼",
+      "update": "更新密碼",
+      "hint": "建議使用英數混合並避免重複使用舊密碼",
+      "validation": {
+        "required": "必填",
+        "min": "至少 8 碼",
+        "match": "兩次輸入不一致"
+      }
     },
     "posts": {
       "title": "我的貼文紀錄",
@@ -215,7 +258,10 @@
       "unlinkSuccess": "已解除綁定",
       "nameRequired": "請輸入顯示名稱",
       "profileUpdated": "基本資料已更新",
+      "avatarTooLarge": "頭貼檔案需小於 5MB",
+      "passwordSaved": "密碼已設定",
       "updateFailed": "更新失敗",
+      "passwordFailed": "密碼設定失敗",
       "confirmWithdraw": "確定要撤回這筆投稿嗎？撤回後將無法復原。",
       "withdrawSuccess": "已撤回投稿",
       "withdrawFailed": "撤回失敗"
@@ -243,6 +289,42 @@
     "toast": {
       "saved": "密碼已設定",
       "failed": "失敗"
+    }
+  },
+  "userProfilePage": {
+    "title": "使用者主頁",
+    "unknown": "未知使用者",
+    "subtitle": "公開貼文展示",
+    "viewWishes": "查看祝福牆",
+    "postsTitle": "公開貼文",
+    "postsTotal": "共 {total} 則",
+    "refresh": "重新整理",
+    "viewPost": "查看貼文",
+    "empty": "目前沒有公開貼文",
+    "notFoundTitle": "找不到這位使用者",
+    "notFoundDescription": "該使用者可能不存在或尚未公開內容。",
+    "backHome": "返回首頁"
+  },
+  "searchPage": {
+    "title": "搜尋",
+    "description": "搜尋使用者與公開貼文內容。",
+    "keywordLabel": "關鍵字",
+    "keywordPlaceholder": "輸入名稱或貼文內容",
+    "search": "搜尋",
+    "hint": "輸入關鍵字後可切換「使用者」或「貼文」結果。",
+    "tabs": {
+      "users": "使用者",
+      "posts": "貼文"
+    },
+    "userCount": "共 {total} 位使用者",
+    "postCount": "共 {total} 則貼文",
+    "emptyUsers": "找不到符合的使用者",
+    "emptyPosts": "找不到符合的貼文",
+    "anonymous": "匿名",
+    "unknownUser": "未知使用者",
+    "viewPost": "查看貼文",
+    "toast": {
+      "searchFailed": "搜尋失敗，請稍後再試"
     }
   },
   "loginForm": {

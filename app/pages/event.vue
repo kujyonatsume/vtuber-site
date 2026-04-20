@@ -1,108 +1,91 @@
 ﻿<template>
   <section class="layout-container section-shell space-y-10">
-    <header class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
-      <div class="reveal-up space-y-6">
-        <h1 class="text-3xl font-extrabold sm:text-5xl">
-          {{ t("event.title") }}
-        </h1>
-        <p class="text-neutral-800">
-          {{ t("event.description") }}
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
-            {{ t("event.ctaSubmit") }}
-          </NuxtLink>
-          <NuxtLink :to="localePath('/wishes')" class="btn-secondary">
-            {{ t("event.ctaBrowse") }}
-          </NuxtLink>
+    <header
+      class="hero-card relative overflow-hidden rounded-3xl border border-neutral-300/70 bg-white/90 p-6 sm:p-10"
+    >
+      <div
+        aria-hidden
+        class="absolute -left-16 -top-16 h-56 w-56 rounded-full bg-primary-300/35 blur-3xl pointer-events-none"
+      />
+      <div
+        aria-hidden
+        class="absolute -bottom-16 -right-16 h-64 w-64 rounded-full bg-secondary-300/35 blur-3xl pointer-events-none"
+      />
+      <div class="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
+        <div class="reveal-up space-y-6">
+          <p
+            class="inline-flex rounded-full border border-primary-200/80 bg-primary-50 px-4 py-1 text-xs font-semibold tracking-[0.18em] text-primary-700"
+          >
+            {{ t("home.badge") }}
+          </p>
+          <h1 class="text-3xl font-black tracking-tight text-primary-900 sm:text-5xl">
+            {{ t("home.title") }}
+          </h1>
+          <p class="text-base leading-relaxed text-neutral-800">
+            {{ t("home.description") }}
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
+              {{ t("home.ctaSubmit") }}
+            </NuxtLink>
+            <NuxtLink :to="localePath('/wishes')" class="btn-secondary">
+              {{ t("home.ctaBrowse") }}
+            </NuxtLink>
+            <NuxtLink
+              :to="localePath('/event')"
+              class="inline-flex items-center gap-2 rounded-2xl border border-secondary-300 bg-white px-5 py-3 text-secondary-700 transition hover:bg-secondary-50"
+            >
+              {{ t("home.ctaEvent") }}
+            </NuxtLink>
+          </div>
+          <div class="max-w-sm">
+            <Countdown :title="t('home.countdownTitle')" />
+          </div>
         </div>
-      </div>
-      <div class="relative reveal-up reveal-delay-1">
-        <img
-          src="/hero.png"
-          :alt="t('event.heroAlt')"
-          class="w-full rounded-3xl drop-shadow-2xl animate-float"
-        />
+
+        <div class="reveal-up reveal-delay-1">
+          <img
+            src="/hero.png"
+            :alt="t('home.heroAlt')"
+            class="w-full rounded-3xl border border-white/70 bg-white/80 object-cover shadow-[0_24px_48px_-20px_rgba(15,23,42,0.45)]"
+          />
+        </div>
       </div>
     </header>
 
-    <Countdown :target="flowStep.target" :title="flowStep.title" />
-
-    <section class="card p-6 sm:p-8">
-      <div class="mb-5 space-y-2">
-        <h2 class="text-2xl font-black tracking-tight text-primary-900">
-          {{ t("event.timelineTitle") }}
-        </h2>
-        <p class="text-sm text-neutral-700">
-          {{ t("event.timelineDescription") }}
-        </p>
+    <div id="clips">
+      <h2 class="mb-4 text-2xl font-bold">{{ t("home.clipsHeading") }}</h2>
+      <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <ClipCard
+          v-for="clip in clips"
+          :key="clip.title"
+          :title="clip.title"
+          :thumb="clip.thumb"
+        />
       </div>
-
-      <ol :class="flowListClass">
-        <template
-          v-for="(step, idx) in flowSteps"
-          :key="`${step.target}-${idx}`"
-        >
-          <li
-            class="flex-1 rounded-2xl border border-primary-200/80 bg-white/90 p-4 shadow-[0_8px_18px_-12px_rgba(15,23,42,0.35)]"
-          >
-            <p class="text-xs font-semibold tracking-wider text-primary-700">
-              STEP {{ idx + 1 }}
-            </p>
-            <p class="mt-1 text-sm font-semibold leading-snug text-neutral-900">
-              {{ step.title }}
-            </p>
-          </li>
-
-          <li
-            v-if="idx < flowSteps.length - 1"
-            aria-hidden="true"
-            class="flex items-center justify-center py-1 text-primary-400"
-          >
-            <VIcon :icon="isRwdMobile ? 'mdi-arrow-down' : 'mdi-arrow-right'" />
-          </li>
-        </template>
-      </ol>
-    </section>
+    </div>
   </section>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n();
 const localePath = useLocalePath();
-const { width } = useWindowSize();
-useI18nPageSeo({ pageKey: "event" });
+useI18nPageSeo({ pageKey: "home" });
 
-const isRwdMobile = computed(() => width.value < 768);
-const flowListClass = computed(() =>
-  isRwdMobile.value
-    ? "flex flex-col gap-2"
-    : "flex flex-row items-stretch gap-1",
-);
-
-const flowSteps = computed(() => [
-  { target: "2026-05-10T00:00:00+08:00", title: t("event.step1") },
-  { target: "2026-09-01T00:00:00+08:00", title: t("event.step2") },
-  { target: "2026-10-01T00:00:00+08:00", title: t("event.step3") },
-  { target: "2026-10-03T00:00:00+08:00", title: t("event.step4") },
-  { target: "2026-10-04T00:00:00+08:00", title: t("event.step5") },
-  { target: "2026-12-27T00:00:00+08:00", title: t("event.step6") },
+const clips = computed(() => [
+  {
+    title: t("home.clip1"),
+    thumb: "/hero.png",
+  },
+  {
+    title: t("home.clip2"),
+    thumb: "/hero.png",
+  },
+  {
+    title: t("home.clip3"),
+    thumb: "/hero.png",
+  },
 ]);
-
-const flowStep = computed(() => {
-  const now = new Date();
-  for (const step of flowSteps.value) {
-    const stepDate = new Date(step.target);
-    if (now < stepDate) return step;
-  }
-
-  return (
-    flowSteps.value[flowSteps.value.length - 1] || {
-      target: "2026-12-27T00:00:00+08:00",
-      title: t("event.step6"),
-    }
-  );
-});
 </script>
 
 <style scoped lang="scss">
@@ -114,6 +97,10 @@ const flowStep = computed(() => {
 
 .section-shell {
   @apply py-10 sm:py-12;
+}
+
+.hero-card {
+  box-shadow: 0 24px 48px -24px rgb(var(--v-theme-on-surface) / 0.34);
 }
 
 .btn-accent {
@@ -152,11 +139,6 @@ const flowStep = computed(() => {
 .btn-secondary:hover {
   filter: brightness(1.04);
   box-shadow: 0 16px 28px -16px rgb(var(--v-theme-secondary) / 0.72);
-}
-
-.card {
-  @apply rounded-3xl border border-primary-200/70 bg-white/90 backdrop-blur-sm;
-  box-shadow: 0 10px 30px -16px rgb(var(--v-theme-on-surface) / 0.26);
 }
 
 .reveal-up {

@@ -47,7 +47,7 @@ onMounted(async () => {
       body: { code },
     });
     await refresh();
-    if (data?.requirePassword) return navigateTo("/user/password");
+    if (data?.requirePassword) return navigateTo("/user/account#password");
     await navigateTo(next || "/");
   } catch (e: any) {
     info.value = e?.data?.statusMessage || e?.message || "discord login failed";
