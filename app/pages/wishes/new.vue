@@ -13,7 +13,26 @@
       </div>
     </div>
 
-    <template v-else-if="submitId == 0">
+    <div v-else-if="submitting"
+      class="space-y-4 rounded-2xl border border-neutral-200/80 bg-white/95 p-8 text-center shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
+    >
+      <h1 class="flex items-center justify-center gap-2 text-3xl font-black leading-none tracking-tight text-primary-900">
+        <VIcon icon="mdi-check-circle" color="green" size="36" class="shrink-0" />
+        送出成功！
+      </h1>
+      <p class="text-base text-neutral-700">
+        <span>恭喜你已成功提交祝福，管理員將會盡快審核，</br>
+        通過之後將會透過 Email 同步通知。</span>
+      </p>
+       <p class="text-sm text-neutral-500">
+        （如果有任何問題，歡迎聯繫我們！）
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
+        <VBtn to="/wishes" color="secondary" rounded="lg">先看投稿</VBtn>
+      </div>
+    </div>
+
+    <template v-else>
       <VForm
         ref="formRef"
         class="space-y-5 rounded-2xl border border-neutral-200/80 bg-white/95 p-6 shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
@@ -117,24 +136,7 @@
           </VBtn>
       </VForm>
     </template>
-    <div v-else
-      class="space-y-4 rounded-2xl border border-neutral-200/80 bg-white/95 p-8 text-center shadow-[0_8px_30px_rgba(15,23,42,0.04)]"
-    >
-      <h1 class="flex items-center justify-center gap-2 text-3xl font-black leading-none tracking-tight text-primary-900">
-        <VIcon icon="mdi-check-circle" color="green" size="36" class="shrink-0" />
-        送出成功！
-      </h1>
-      <p class="text-base text-neutral-700">
-        <span>恭喜你已成功提交祝福，管理員將會盡快審核，</br>
-        通過之後將會透過 Email 同步通知。</span>
-      </p>
-       <p class="text-sm text-neutral-500">
-        （如果有任何問題，歡迎聯繫我們！）
-      </p>
-      <div class="flex flex-wrap items-center justify-center gap-3 pt-2">
-        <VBtn to="/wishes" color="secondary" rounded="lg">先看投稿</VBtn>
-      </div>
-    </div>
+
   </section>
 </template>
 
@@ -147,6 +149,7 @@ const form = reactive({
   message: "",
   file: null as File | null,
   assetUrl: "",
+  license: false,
 });
 const formRef = ref<any>();
 const fileInputEl = ref<HTMLInputElement>();
@@ -172,7 +175,7 @@ async function submit() {
   const { valid } = await formRef.value.validate();
   if (!valid) return;
 
-  submitting.value = true;
+  form.license = submitting.value = true;
   const body = new FormData();
 
   Object.entries(form).forEach(([k, v]) => {
@@ -186,7 +189,6 @@ async function submit() {
     })).id;
   } catch (err: any) {
     toast.error(err.message);
-  } finally {
     submitting.value = false;
   }
 }

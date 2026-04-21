@@ -220,8 +220,9 @@ const { width } = useDisplay();
 const localePath = useLocalePath();
 const { t, locale, locales, setLocale } = useI18n();
 type LocaleCode = Parameters<typeof setLocale>[0];
+type ThemeName = "light" | "dark";
 const { user, loginOpen, drawer, logout, openDialog } = useLogin();
-
+const themePreference = useCookie<string>("theme", { sameSite: "lax" });
 const pageLinks = computed(() => [
   {
     to: localePath("/"),
@@ -258,6 +259,11 @@ const pageLinks = computed(() => [
 const isDark = computed(() => theme.global.name.value === "dark");
 const isCompact = computed(() => width.value < 600);
 
+const normalizeTheme = (name: string | null | undefined): ThemeName =>
+  name === "dark" ? "dark" : "light";
+
+theme.global.name.value = normalizeTheme(themePreference.value);
+
 const localeItems = computed(() =>
   locales.value.map((entry) => {
     const normalized = entry as { code: LocaleCode; name?: string };
@@ -268,8 +274,9 @@ const localeItems = computed(() =>
   }),
 );
 
-function changeTheme(name: "light" | "dark") {
+function changeTheme(name: ThemeName) {
   theme.global.name.value = name;
+  themePreference.value = name;
 }
 
 async function changeLocale(code: LocaleCode) {
