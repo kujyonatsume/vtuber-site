@@ -199,6 +199,10 @@ server/api
 
 本專案程式碼採用 **MIT License**，詳見 [LICENSE](./LICENSE)。
 
+### 💡 修改與貢獻說明 (Modification Policy)
+
+本專案歡迎各種形式的改作與優化。根據 Apache 2.0 條款，修改後的版本必須標註變更說明。原作者希望能與社群保持良好溝通，若您有意進行大幅度修改或建立分支 (Fork)，請在修改前先透過 [您的連繫方式/Email] 與我聯繫告知，萬分感謝。
+
 ### 第三方套件授權引用
 
 - Nuxt：MIT License
