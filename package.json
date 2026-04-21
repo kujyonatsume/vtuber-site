@@ -1,6 +1,7 @@
 {
   "name": "vuetify-project",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "start": "node start.js",
