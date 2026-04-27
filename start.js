@@ -22,5 +22,6 @@ if (fs.existsSync("D:/#/tunnel.cmd")) {
   });
 }
 
+
 import("./.output/server/index.mjs");
 console.log("https://" + DOMAIN);

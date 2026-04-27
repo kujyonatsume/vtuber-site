@@ -225,9 +225,9 @@ const { user, loginOpen, drawer, logout, openDialog } = useLogin();
 const themePreference = useCookie<string>("theme", { sameSite: "lax" });
 const pageLinks = computed(() => [
   {
-    to: localePath("/"),
-    title: t("nav.home"),
-    icon: "mdi-home-outline"
+    to: localePath("/clips"),
+    title: t("nav.clips"),
+    icon: "mdi-movie-open-outline",
   },
   {
     to: localePath("/event"),
@@ -235,19 +235,9 @@ const pageLinks = computed(() => [
     icon: "mdi-calendar-star",
   },
   {
-    to: localePath("/clips"),
-    title: t("nav.clips"),
-    icon: "mdi-movie-open-outline",
-  },
-  {
     to: localePath("/wishes"),
     title: t("nav.wishes"),
     icon: "mdi-heart-multiple-outline",
-  },
-  {
-    to: localePath("/search"),
-    title: t("nav.search"),
-    icon: "mdi-magnify",
   },
   {
     to: localePath("/about"),

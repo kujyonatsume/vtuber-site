@@ -4,11 +4,11 @@ import path from "path";
 
 const uploadDir = path.join(import.meta.dirname, ".data", "file");
 const { env } = process;
-
-const host =
-  env.NODE_ENV == "development"
-    ? `http://localhost:${env.PORT}`
-    : `https://${env.DOMAIN}`;
+var host = `https://${env.DOMAIN}`
+if(env.NODE_ENV == "development") {
+  env.PORT++
+  host = `http://localhost:${env.PORT}`
+}
 
 const tailwindColor = {} as Record<string, string>
 for (const [k, v] of Object.entries(colors)) {
