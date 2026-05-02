@@ -488,7 +488,7 @@ function loadMore() {
   void fetchBatch(false);
 }
 
-function setItemRef(el: Element | null, index: number) {
+function setItemRef(el: any, index: number) {
   if (el instanceof HTMLElement) {
     itemRefs.value[index] = el;
   }
@@ -522,7 +522,7 @@ function layoutMasonry() {
     let targetColumn = 0;
 
     for (let i = 1; i < columnCount; i += 1) {
-      if (columnHeights[i] < columnHeights[targetColumn]) {
+      if (columnHeights[i]! < columnHeights[targetColumn]!) {
         targetColumn = i;
       }
     }
@@ -535,7 +535,7 @@ function layoutMasonry() {
       transform: `translate(${left}px, ${top}px)`,
     };
 
-    columnHeights[targetColumn] += height + GAP;
+    columnHeights[targetColumn]! += height + GAP;
   });
 
   itemStyles.value = nextStyles;
