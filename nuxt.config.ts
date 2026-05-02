@@ -18,7 +18,6 @@ for (const [k, v] of Object.entries(colors)) {
 export default defineNuxtConfig({
   compatibilityDate: "2025-12-21",
   modules: [
-    "@nuxt/devtools",
     "vuetify-nuxt-module",
     "@nuxtjs/i18n",
     "@vueuse/nuxt",

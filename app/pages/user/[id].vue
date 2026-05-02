@@ -1,8 +1,12 @@
 <template>
   <section class="mx-auto max-w-4xl space-y-6 py-8 sm:py-10">
     <div v-if="error" class="card space-y-4 p-8 text-center">
-      <h1 class="text-xl font-bold">{{ t("userProfilePage.notFoundTitle") }}</h1>
-      <p class="text-sm text-neutral-800">{{ t("userProfilePage.notFoundDescription") }}</p>
+      <h1 class="text-xl font-bold">
+        {{ t("userProfilePage.notFoundTitle") }}
+      </h1>
+      <p class="text-sm text-neutral-800">
+        {{ t("userProfilePage.notFoundDescription") }}
+      </p>
       <div>
         <VBtn rounded="lg" color="primary" @click="navigateTo(localePath('/'))">
           {{ t("userProfilePage.backHome") }}
@@ -11,7 +15,9 @@
     </div>
 
     <template v-else>
-      <header class="card flex flex-wrap items-center justify-between gap-4 p-6">
+      <header
+        class="card flex flex-wrap items-center justify-between gap-4 p-6"
+      >
         <div class="flex items-center gap-4">
           <img
             :src="profile?.avatar || '/favicon.ico'"
@@ -21,11 +27,17 @@
             <h1 class="text-2xl font-black tracking-tight text-primary-900">
               {{ profile?.name || t("userProfilePage.unknown") }}
             </h1>
-            <p class="text-sm text-neutral-800">{{ t("userProfilePage.subtitle") }}</p>
+            <p class="text-sm text-neutral-800">
+              {{ t("userProfilePage.subtitle") }}
+            </p>
           </div>
         </div>
 
-        <VBtn variant="tonal" rounded="lg" @click="navigateTo(localePath('/wishes'))">
+        <VBtn
+          variant="tonal"
+          rounded="lg"
+          @click="navigateTo(localePath('/wishes'))"
+        >
           {{ t("userProfilePage.viewWishes") }}
         </VBtn>
       </header>
@@ -47,20 +59,21 @@
         </div>
 
         <div class="space-y-3">
-          <article
-            v-for="post in posts"
-            :key="post.id"
-            class="card p-4"
-          >
-            <header class="mb-2 flex flex-wrap items-center justify-between gap-2">
+          <article v-for="post in posts" :key="post.id" class="card p-4">
+            <header
+              class="mb-2 flex flex-wrap items-center justify-between gap-2"
+            >
               <div class="text-sm text-neutral-800">
                 {{ formatTime(post.createdAt) }}
               </div>
               <VChip size="x-small" color="primary">{{ post.category }}</VChip>
             </header>
 
-            <p class="break-words whitespace-pre-wrap text-sm leading-relaxed text-neutral-900">
-              {{ post.message || t("blessingCard.empty") }}
+            <p
+              v-if="post.message != ''"
+              class="wrap-break-word whitespace-pre-wrap text-sm leading-relaxed text-neutral-900"
+            >
+              {{ post.message }}
             </p>
 
             <img
@@ -86,11 +99,15 @@
         </div>
 
         <div class="flex items-center justify-center gap-2 pt-2">
-          <VBtn :disabled="page <= 1" @click="page--">{{ t("pagination.prev") }}</VBtn>
+          <VBtn :disabled="page <= 1" @click="page--">{{
+            t("pagination.prev")
+          }}</VBtn>
           <span class="text-sm text-neutral-800">
             {{ t("pagination.pageWithTotal", { page, total: maxPage }) }}
           </span>
-          <VBtn :disabled="page >= maxPage" @click="page++">{{ t("pagination.next") }}</VBtn>
+          <VBtn :disabled="page >= maxPage" @click="page++">{{
+            t("pagination.next")
+          }}</VBtn>
         </div>
       </div>
     </template>

@@ -314,9 +314,6 @@
                 </div>
                 <div class="flex items-center gap-2">
                   <VChip size="x-small" color="primary">{{ post.category }}</VChip>
-                  <VChip v-if="post.isAnonymous" size="x-small" color="grey" variant="tonal">
-                    {{ t("userAccount.posts.anonymous") }}
-                  </VChip>
                   <VChip size="x-small" :color="statusColor(post.status)" variant="tonal">
                     {{ statusText(post.status) }}
                   </VChip>
@@ -324,7 +321,7 @@
               </header>
 
               <div class="space-y-1">
-                <p class="break-words whitespace-pre-wrap text-sm leading-relaxed text-neutral-900">
+                <p class="wrap-break-word whitespace-pre-wrap text-sm leading-relaxed text-neutral-900">
                   {{ displayMessage(post.id, post.message) }}
                 </p>
               </div>
@@ -596,8 +593,8 @@ function statusColor(status: PostStatusEnum) {
 }
 
 function fullText(message: string) {
-  const text = (message || "").trim();
-  return text || t("blessingCard.empty");
+  return (message || "").trim();
+
 }
 
 function normalizeText(message: string) {
@@ -608,7 +605,6 @@ function displayMessage(id: number, message: string) {
   if (isPostExpanded(id)) return fullText(message);
 
   const normalized = normalizeText(message);
-  if (!normalized) return t("blessingCard.empty");
 
   return normalized.length > 180 ? `${normalized.slice(0, 180)}...` : normalized;
 }

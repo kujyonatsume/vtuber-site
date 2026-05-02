@@ -57,21 +57,7 @@
         />
         <VInput hide-details class="rounded-xl bg-neutral-50 px-2">
           <template #prepend>
-            <VBtn
-              icon="mdi-paperclip"
-              variant="text"
-              color="primary"
-              :title="form.file ? `已選擇：${form.file.name}` : '選擇附件'"
-              @click="pickFile"
-            />
-            <input
-              ref="fileInputEl"
-              type="file"
-              class="hidden"
-              accept="image/*,video/*,audio/*"
-              @change="onFileChange"
-            />
-            <div class="w-px h-6 mx-1 bg-neutral-200" />
+            <VIcon icon="mdi-paperclip" color="primary"/>
           </template>
 
           <template #default>
@@ -87,6 +73,19 @@
             />
           </template>
           <template #append>
+            <VBtn
+              variant="text"
+              color="primary"
+              @click="pickFile">
+            上傳檔案
+            </VBtn>
+            <input
+              ref="fileInputEl"
+              type="file"
+              class="hidden"
+              accept="image/*,video/*"
+              @change="onFileChange"
+            />
             <div class="w-px h-6 mx-1 bg-neutral-200" />
             <VBtn
               icon="mdi-close"
@@ -97,14 +96,6 @@
             />
           </template>
         </VInput>
-
-        <VCheckbox
-          v-model="form.isAnonymous"
-          :label="'匿名顯示'"
-          color="primary"
-          hide-details
-        />
-
         <div class="max-w-3xl mx-auto space-y-6">
           <h1 class="text-2xl font-black tracking-tight text-primary-900">
             投稿規範與授權聲明
@@ -144,7 +135,6 @@
 const { user, openDialog } = useLogin();
 useI18nPageSeo({ pageKey: "wishesNewPage", noindex: true });
 const form = reactive({
-  isAnonymous: false,
   category: "none",
   message: "",
   file: null as File | null,

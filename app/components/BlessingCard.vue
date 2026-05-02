@@ -32,41 +32,39 @@
         <img
           v-if="item.category === 'image'"
           :src="item.assetUrl"
-          class="object-cover w-full h-full"
+          class="object-cover w-full"
         />
-        <video
+        <div
           v-else-if="item.category === 'video'"
-          :src="item.assetUrl"
-          controls
-          preload="metadata"
-          class="object-cover w-full h-full bg-black"
-        />
-        <iframe
+          class="media-16x9 w-full"
+        >
+          <video
+            :src="item.assetUrl"
+            controls
+            preload="metadata"
+            class="object-cover"
+          />
+        </div>
+        <div
           v-else-if="item.category === 'embed'"
-          :src="item.assetUrl"
-          title="YouTube player"
-          loading="lazy"
-          frameborder="0"
-          referrerpolicy="strict-origin-when-cross-origin"
-          allow="
-            accelerometer;
-            autoplay;
-            clipboard-write;
-            encrypted-media;
-            gyroscope;
-            picture-in-picture;
-            web-share;
-          "
-          allowfullscreen
-          class="w-full h-full border-0"
-        />
-        <audio
-          v-else-if="item.category === 'audio'"
-          :src="item.assetUrl"
-          controls
-          preload="metadata"
-          class="w-full"
-        />
+          class="media-16x9 w-full"
+        >
+          <iframe
+            :src="embedSrc(item.assetUrl)"
+            title="YouTube player"
+            loading="lazy"
+            frameborder="0"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="
+              autoplay;
+              clipboard-write;
+              encrypted-media;
+              picture-in-picture;
+              web-share;
+            "
+            class="w-full h-full border-0"
+          />
+        </div>
       </div>
 
       <footer
@@ -90,7 +88,6 @@
 <script setup lang="ts">
 type BlessingItem = {
   id: number | string;
-  isAnonymous: boolean;
   displayName?: string;
   nickname?: string;
   category: string;
@@ -105,16 +102,30 @@ defineProps<{
 const { t } = useI18n();
 
 function postContent(message: string) {
-  const text = (message || "").trim();
-  return text || t("blessingCard.empty");
+  return (message || "").trim();
+
+}
+
+function embedSrc(url?: string | null) {
+  if (!url) return "";
+
+  try {
+    const u = new URL(url, "https://www.youtube.com");
+    u.searchParams.set("controls", "0");
+    u.searchParams.set("fs", "0");
+    u.searchParams.set("rel", "0");
+    u.searchParams.set("iv_load_policy", "3");
+    u.searchParams.set("playsinline", "1");
+    return u.toString();
+  } catch {
+    return url;
+  }
 }
 
 function categoryLabel(category?: string | null) {
   switch ((category || "").toLowerCase()) {
     case "image":
       return t("blessingCard.category.image");
-    case "audio":
-      return t("blessingCard.category.audio");
     case "video":
       return t("blessingCard.category.video");
     case "embed":
@@ -128,8 +139,6 @@ function categoryIcon(category?: string | null) {
   switch ((category || "").toLowerCase()) {
     case "image":
       return "mdi-image-outline";
-    case "audio":
-      return "mdi-music-note-outline";
     case "video":
       return "mdi-video-outline";
     case "embed":
@@ -143,8 +152,6 @@ function categoryColor(category?: string | null) {
   switch ((category || "").toLowerCase()) {
     case "image":
       return "blue";
-    case "audio":
-      return "teal";
     case "video":
       return "orange";
     case "embed":
@@ -154,3 +161,9 @@ function categoryColor(category?: string | null) {
   }
 }
 </script>
+
+<style scoped>
+.media-16x9 {
+  aspect-ratio: 16 / 9;
+}
+</style>

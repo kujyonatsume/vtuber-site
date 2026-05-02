@@ -27,7 +27,6 @@ export default defineEventHandler(async (event) => {
     where: {
       authorId: id,
       status: PostStatusEnum.Approve,
-      isAnonymous: false,
     },
     order: { createdAt: "DESC", index: "DESC" } as any,
     skip: (page - 1) * pageSize,

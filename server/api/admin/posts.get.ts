@@ -33,8 +33,7 @@ export default defineEventHandler(async (e) => {
     pageSize,
     items: items.map((p) => ({
       id: p.index,
-      isAnonymous: p.isAnonymous,
-      displayName: p.author.name || "未知使用者",
+      displayName: p.author?.name || "未知使用者",
       category: p.category,
       message: p.message,
       assetUrl: p.assetUrl,

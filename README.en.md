@@ -85,7 +85,7 @@ bun start
 ```text
 app/pages
 ├─ index.vue
-├─ event.vue
+├─ news.vue
 ├─ clips.vue
 ├─ search.vue
 ├─ about.vue
@@ -133,8 +133,8 @@ server/api
 
 | Module | Route | Access | Description |
 | --- | --- | --- | --- |
-| Home | `/` | Public | Hero, countdown, and quick navigation to event/submission pages |
-| Event | `/event` | Public | Event intro, timeline, and submission entry |
+| Home | `/` | Public | Hero, countdown, and quick navigation to news/submission pages |
+| Event | `/news` | Public | Event intro, timeline, and submission entry |
 | Clips | `/clips` | Public | Clip card listing |
 | Wishes Wall | `/wishes` | Public | Blessing content browsing (masonry cards) |
 | New Submission | `/wishes/new` | Login Required | Submit text, anonymous option, media/link attachment, license agreement |
@@ -182,13 +182,13 @@ server/api
 ### 🎨 Profile Page Decoration (Detailed)
 
 - [ ] Cover section and themed background
-- [ ] Avatar frame and status badges (e.g., admin, creator, event participant)
+- [ ] Avatar frame and status badges (e.g., admin, creator, news participant)
 - [ ] Profile info card (nickname, bio, join date, location/timezone)
 - [ ] Social links section (YouTube, X, Discord, Twitch, etc.)
 - [ ] Pinned section (featured posts / representative works)
 - [ ] Tabbed content area (posts, media, favorites)
 - [ ] User metrics area (post count, favorites, interactions)
-- [ ] Achievement badge system (milestones, event missions)
+- [ ] Achievement badge system (milestones, news missions)
 - [ ] Theme customization (colors, background, tag style)
 - [ ] Better empty states and skeleton loading
 - [ ] Entry/switch animations (fade, slide, hover)

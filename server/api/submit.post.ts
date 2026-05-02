@@ -18,8 +18,6 @@ function postMediaTypeWithMIME(type?: string): PostCategoryEnum {
     ? PostCategoryEnum.Image
     : type?.startsWith("video/")
       ? PostCategoryEnum.Video
-      : type?.startsWith("audio/")
-        ? PostCategoryEnum.Audio
         : PostCategoryEnum.None;
 }
 
@@ -73,18 +71,6 @@ const map: Record<string, string> = {
   "video/mpeg": "mpeg",
   "video/3gpp": "3gp",
   "video/3gpp2": "3g2",
-  // ===== 音訊 =====
-  "audio/mpeg": "mp3",
-  "audio/mp3": "mp3",
-  "audio/wav": "wav",
-  "audio/x-wav": "wav",
-  "audio/ogg": "ogg",
-  "audio/webm": "webm",
-  "audio/mp4": "m4a",
-  "audio/aac": "aac",
-  "audio/flac": "flac",
-  "audio/x-flac": "flac",
-  "audio/opus": "opus",
 };
 
 export default defineEventHandler(async (event) => {
@@ -115,7 +101,6 @@ export default defineEventHandler(async (event) => {
   const asBool = (value?: string) =>
     TRUE_VALUES.has((value || "").trim().toLowerCase());
 
-  const isAnonymous = asBool(get("isAnonymous"));
   const license = asBool(get("license"));
   const message = (get("message") || "").trim();
   const externalUrl = (get("assetUrl") || "").trim();
@@ -171,7 +156,6 @@ export default defineEventHandler(async (event) => {
   const current = requireRole(event);
 
   const rec = db.Post.create({
-    isAnonymous,
     category,
     message,
     assetUrl: assetUrl,

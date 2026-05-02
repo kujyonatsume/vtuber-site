@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "projectName": "VTuber Project",
     "language": "Language",
@@ -14,7 +14,7 @@
   },
   "nav": {
     "home": "Home",
-    "event": "Event",
+    "news": "News",
     "clips": "Clips",
     "wishes": "Blessing Wall",
     "search": "Search",
@@ -40,7 +40,7 @@
     "description": "Collect fan wishes, curate clips, and track event updates in one place.",
     "ctaSubmit": "Submit Wish",
     "ctaBrowse": "Blessing Wall",
-    "ctaEvent": "Event Schedule",
+    "ctaNews": "Event Schedule",
     "countdownTitle": "Countdown to the Next Event",
     "heroAlt": "VTuber event key visual",
     "clipsHeading": "Featured Clips",
@@ -48,7 +48,7 @@
     "clip2": "Behind-the-scenes Recap",
     "clip3": "Fan Creation Showcase"
   },
-  "event": {
+  "news": {
     "title": "Prepare for the Next Event",
     "description": "Coordinate submissions, clip production, and schedule milestones for a smooth launch.",
     "ctaSubmit": "Submit Wish",
@@ -325,6 +325,16 @@
     "viewPost": "View Post",
     "toast": {
       "searchFailed": "Search failed, please try again"
+    },
+    "advanced": {
+      "toggle": "Advanced Search",
+      "authorLabel": "User",
+      "authorPlaceholder": "\\@user (multiple allowed)",
+      "tagLabel": "Tag",
+      "tagPlaceholder": "#tag (multiple allowed)",
+      "hint": "Use \\@user, #tag, and keywords together in the main search field for composite filtering.",
+      "clear": "Clear Filters",
+      "activeFilters": "Active filters"
     }
   },
   "loginForm": {

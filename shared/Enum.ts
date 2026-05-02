@@ -35,6 +35,5 @@ export enum PostCategoryEnum {
   Image = "image",
   Video = "video",
   Embed = "embed",
-  Audio = "audio",
   Link = "link",
 }

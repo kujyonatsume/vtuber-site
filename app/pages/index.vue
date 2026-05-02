@@ -18,27 +18,25 @@
           >
             {{ t("home.badge") }}
           </p>
-          <h1 class="text-3xl font-black tracking-tight text-primary-900 sm:text-5xl">
+          <h1
+            class="text-3xl font-black tracking-tight text-primary-900 sm:text-5xl"
+          >
             {{ t("home.title") }}
           </h1>
           <p class="text-base leading-relaxed text-neutral-800">
             {{ t("home.description") }}
           </p>
-          <div class="flex flex-wrap gap-3">
-            <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
-              {{ t("home.ctaSubmit") }}
-            </NuxtLink>
-            <NuxtLink :to="localePath('/wishes')" class="btn-secondary">
-              {{ t("home.ctaBrowse") }}
-            </NuxtLink>
-            <NuxtLink
-              :to="localePath('/event')"
-              class="inline-flex items-center gap-2 rounded-2xl border border-secondary-300 bg-white px-5 py-3 text-secondary-700 transition hover:bg-secondary-50"
-            >
-              {{ t("home.ctaEvent") }}
-            </NuxtLink>
+          <div>
+            <div class="flex flex-wrap gap-3">
+              <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
+                {{ t("home.ctaSubmit") }}
+              </NuxtLink>
+              <NuxtLink :to="localePath('/news')" class="btn-secondary">
+                {{ t("home.ctaEvent") }}
+              </NuxtLink>
+            </div>
           </div>
-          <div class="max-w-sm">
+          <div>
             <Countdown :title="t('home.countdownTitle')" />
           </div>
         </div>

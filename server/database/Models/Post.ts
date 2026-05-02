@@ -5,7 +5,6 @@ import { User } from "./User";
 
 @Entity()
 export class Post extends IEntity {
-  @Column("boolean") isAnonymous!: boolean;
   @Column("text", { default: PostCategoryEnum.None })
   category!: PostCategoryEnum;
   @Column("text") message!: string;

@@ -1,40 +1,12 @@
 ﻿<template>
   <section class="layout-container section-shell space-y-10">
-    <header class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2">
-      <div class="reveal-up space-y-6">
-        <h1 class="text-3xl font-extrabold sm:text-5xl">
-          {{ t("event.title") }}
-        </h1>
-        <p class="text-neutral-800">
-          {{ t("event.description") }}
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <NuxtLink :to="localePath('/wishes/new')" class="btn-accent">
-            {{ t("event.ctaSubmit") }}
-          </NuxtLink>
-          <NuxtLink :to="localePath('/wishes')" class="btn-secondary">
-            {{ t("event.ctaBrowse") }}
-          </NuxtLink>
-        </div>
-      </div>
-      <div class="relative reveal-up reveal-delay-1">
-        <img
-          src="/hero.png"
-          :alt="t('event.heroAlt')"
-          class="w-full rounded-3xl drop-shadow-2xl animate-float"
-        />
-      </div>
-    </header>
-
-    <Countdown :target="flowStep.target" :title="flowStep.title" />
-
     <section class="card p-6 sm:p-8">
       <div class="mb-5 space-y-2">
         <h2 class="text-2xl font-black tracking-tight text-primary-900">
-          {{ t("event.timelineTitle") }}
+          {{ t("news.timelineTitle") }}
         </h2>
         <p class="text-sm text-neutral-700">
-          {{ t("event.timelineDescription") }}
+          {{ t("news.timelineDescription") }}
         </p>
       </div>
 
@@ -64,14 +36,15 @@
         </template>
       </ol>
     </section>
-  </section>
+    <Countdown :target="flowStep.target" :title="flowStep.title" />
+
+</section>
 </template>
 
 <script setup lang="ts">
 const { t } = useI18n();
-const localePath = useLocalePath();
 const { width } = useWindowSize();
-useI18nPageSeo({ pageKey: "event" });
+useI18nPageSeo({ pageKey: "news" });
 
 const isRwdMobile = computed(() => width.value < 768);
 const flowListClass = computed(() =>
@@ -81,12 +54,12 @@ const flowListClass = computed(() =>
 );
 
 const flowSteps = computed(() => [
-  { target: "2026-05-10T00:00:00+08:00", title: t("event.step1") },
-  { target: "2026-09-01T00:00:00+08:00", title: t("event.step2") },
-  { target: "2026-10-01T00:00:00+08:00", title: t("event.step3") },
-  { target: "2026-10-03T00:00:00+08:00", title: t("event.step4") },
-  { target: "2026-10-04T00:00:00+08:00", title: t("event.step5") },
-  { target: "2026-12-27T00:00:00+08:00", title: t("event.step6") },
+  { target: "2026-05-10T00:00:00+08:00", title: t("news.step1") },
+  { target: "2026-09-01T00:00:00+08:00", title: t("news.step2") },
+  { target: "2026-10-01T00:00:00+08:00", title: t("news.step3") },
+  { target: "2026-10-03T00:00:00+08:00", title: t("news.step4") },
+  { target: "2026-10-04T00:00:00+08:00", title: t("news.step5") },
+  { target: "2026-12-27T00:00:00+08:00", title: t("news.step6") },
 ]);
 
 const flowStep = computed(() => {
@@ -99,7 +72,7 @@ const flowStep = computed(() => {
   return (
     flowSteps.value[flowSteps.value.length - 1] || {
       target: "2026-12-27T00:00:00+08:00",
-      title: t("event.step6"),
+      title: t("news.step6"),
     }
   );
 });

@@ -130,7 +130,6 @@ useAuthRequiredSeo("adminContribute");
 
 type Item = {
   id: number;
-  isAnonymous: boolean;
   displayName: string;
   category: string;
   message: string;

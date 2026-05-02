@@ -28,8 +28,7 @@ export default defineEventHandler(async (event) => {
     pageSize,
     items: rows.map((r) => ({
       id: r.index,
-      isAnonymous: r.isAnonymous,
-      displayName: r.isAnonymous ? "匿名" : r.author?.name || "未知使用者",
+      displayName: r.author?.name || "未知使用者",
       category: r.category,
       message: r.message,
       assetUrl: r.assetUrl,

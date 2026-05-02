@@ -1,4 +1,4 @@
-﻿{
+{
   "common": {
     "projectName": "VTuber Project",
     "language": "語言",
@@ -14,11 +14,11 @@
   },
   "nav": {
     "home": "首頁",
-    "event": "活動",
+    "news": "最新活動",
     "clips": "精華",
     "wishes": "祝福牆",
     "search": "搜尋",
-    "about": "關於"
+    "about": "關於我們"
   },
   "auth": {
     "confirmLogout": "確定要登出嗎？"
@@ -48,7 +48,7 @@
     "clip2": "幕後花絮整理",
     "clip3": "粉絲創作回顧"
   },
-  "event": {
+  "news": {
     "title": "一起準備下一場活動",
     "description": "整合投稿、剪輯與流程安排，讓活動當天更順利。",
     "ctaSubmit": "投稿祝福",
@@ -64,7 +64,7 @@
     "step6": "活動當日 / 直播"
   },
   "about": {
-    "title": "關於",
+    "title": "關於我們",
     "description": "這是 VTuber 活動支援網站，整合活動資訊、精華內容與粉絲投稿，並提供良好的桌機與行動裝置體驗。",
     "contactTitle": "聯絡方式",
     "email": "Email",
@@ -325,6 +325,16 @@
     "viewPost": "查看貼文",
     "toast": {
       "searchFailed": "搜尋失敗，請稍後再試"
+    },
+    "advanced": {
+      "toggle": "進階搜尋",
+      "authorLabel": "使用者",
+      "authorPlaceholder": "\\@使用者（可多個）",
+      "tagLabel": "標籤",
+      "tagPlaceholder": "#標籤（可多個）",
+      "hint": "可在主搜尋欄輸入 \\@使用者 #標籤 與關鍵字，系統會自動複合查詢。",
+      "clear": "清除條件",
+      "activeFilters": "已套用篩選條件"
     }
   },
   "loginForm": {
